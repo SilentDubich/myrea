@@ -2,48 +2,26 @@ import React from "react";
 import Senya from "../../../img/Avatars/senya.jpg";
 
 let defaultStateUsers = {
-    users: [
-        // {
-        //     name: "user_Danila",
-        //     id: 6583,
-        //     uniqueUrlName: null,
-        //     photos: {
-        //         small: Senya,
-        //         large: null
-        //     },
-        //     status: null,
-        //     followed: false
-        // },
-        // {
-        //     name: "user_Senya",
-        //     id: 6584,
-        //     uniqueUrlName: null,
-        //     photos: {
-        //         small: Senya,
-        //         large: null
-        //     },
-        //     status: null,
-        //     followed: false
-        // }
-    ]
+    users: [],
+    pageCounts: 5,
+    totalUsers: 2500,
+    currentPage: 5,
+    pageSize: 5
 };
 
-const ADD_FRIEND = 'addFriend';
-const DELETE_FRIEND = 'deleteFriend';
 const SET_USERS = 'setUsers';
-export const addFriendCreation = (id) => ({type: ADD_FRIEND, id});
-export const deleteFriendCreation = (id) => ({type: DELETE_FRIEND, id});
+const SET_PAGE = 'setPage';
 export const setUsersCreation = (users) => ({type: SET_USERS, users});
+export const setPageCreation = (page) => ({type: SET_PAGE, page});
 
 
 export function UsersInstructions(state = defaultStateUsers, action) {
-    // let stateCopy = {
-    //     ...state
-    // };
+    debugger
     switch (action.type) {
-
         case SET_USERS:
-            return {...state, users: [...action.users]}
+            return {...state, users: [...action.users] };
+        case SET_PAGE:
+            return {...state, currentPage: action.page};
         default:
             return state
     }

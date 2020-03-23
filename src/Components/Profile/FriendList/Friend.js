@@ -11,7 +11,7 @@ function FriendList(props) {
     let allFriends = () => {
         let all = [];
         let array = props.state.friendsReducer;
-        let shuffledArray = array.sort(() => Math.random() - 0.5);
+        // let shuffledArray = array.sort(() => Math.random() - 0.5);
         for (let i = 0; i < Math.min(array.length, 6); i++){
             all.push(array[i])
         }

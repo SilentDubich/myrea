@@ -5,13 +5,6 @@ import Users from "./findFriends";
 import {addFriendCreation, deleteFriendCreation} from "../../../DataBases/Reducers/FriendsReducer";
 
 
-// function UsersContainer(props) {
-//     return(
-//         <div>
-//             allusers
-//         </div>
-//     )
-// }
 
 let mapStateToProps = (state) => {
     // debugger

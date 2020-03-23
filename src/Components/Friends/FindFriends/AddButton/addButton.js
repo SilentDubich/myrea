@@ -2,7 +2,7 @@ import React from "react";
 import Content from "../../../../CssModules/content.module.css";
 
 function AddButton(props) {
-    debugger
+    // debugger
     let add = () => {
         props.addFriend(props.id, props.name, props.avatar);
     };
