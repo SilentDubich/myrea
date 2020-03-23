@@ -1,0 +1,30 @@
+.container__menu{
+    background: #3a356a;
+    height: 4rem;
+}
+
+.container__menu_flex{
+    display: flex;
+    padding: .5rem;
+    list-style-type: none;
+    /*border-radius: 1rem;*/
+    margin: 0;
+}
+
+.container__menu_flex > li > a {
+    display: block;
+    text-decoration: none;
+    max-width: 10rem;
+    padding: .5rem .7rem;
+    background: #2d2951;
+    color: #ffffff;
+    border-radius: 1rem;
+}
+
+.container__menu_flex > li + li{
+    margin-left: 2rem;
+}
+
+.container__menu_flex > .right{
+    margin-left: auto;
+}

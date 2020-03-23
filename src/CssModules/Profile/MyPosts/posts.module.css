@@ -1,0 +1,57 @@
+.image{
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.mainDecor{
+    font-size: 1.5rem;
+    text-align: left;
+
+}
+
+.borderBottom{
+    border-bottom: .001rem solid #d6d6d6;
+    padding-bottom: 2rem;
+}
+
+.likeMainDecor{
+    font-size: 1rem;
+}
+
+.display{
+    display: flex;
+}
+
+.post__margins{
+    margin-left: 2.5rem;
+}
+
+.name__marginLeft{
+    margin-left: 1rem;
+}
+
+.name__Fonts{
+    font-size: 1.1rem;
+    font-family: Arial, sans-serif;
+}
+
+.deleteButton__marginLeft{
+    margin-left: auto;
+}
+
+.deleteButton__decor{
+    border: none;
+    background: #fff;
+    opacity: 0.3;
+    outline: none;
+}
+
+.deleteButton__decor:hover, .deleteButton__decor:active{
+    opacity: 1;
+    transition: 0.5s;
+    cursor: pointer;
+    outline: none;
+}
+
