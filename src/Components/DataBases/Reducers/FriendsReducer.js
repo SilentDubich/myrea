@@ -46,7 +46,7 @@ let defaultStateFriends =  [
 ];
 
 export function FriendsInstructions(state = defaultStateFriends, action) {
-    debugger
+    // debugger
     let stateCopy = [...state];
     switch (action.type) {
         case ADD_FRIEND:

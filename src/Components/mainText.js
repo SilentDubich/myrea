@@ -6,8 +6,9 @@ import Dialogs from "./Dialog/MainDialogPage/Dialogs";
 import DialogPage from "./Dialog/MainDialogPage/DialogPage/DialogPage";
 import {Route} from "react-router-dom"
 import MyFriends from "./Friends/myFriends/myFriends";
-import Users from "./Friends/FindFriends/findFriends";
-import AllUsers from "./Friends/FindFriends/allUsers";
+import Users from "./Friends/FindFriends/UserDecor/findFriends";
+import AllUsers from "./Friends/FindFriends/AllUsers/allUsers";
+import AllUsersClass from "./Friends/FindFriends/AllUsers/allUsersClass";
 
 
 function Text(props) {
@@ -27,7 +28,8 @@ function Text(props) {
 
     let myFriends = () => <MyFriends/>;
 
-    let allUsers = () => <AllUsers state={props.state}/>;
+    // let allUsers = () => <AllUsers dispatch={props.dispatch} state={props.state}/>;
+    let allUsers = () => <AllUsersClass dispatch={props.dispatch} state={props.state}/>;
 
     return (
         // <BrowserRouter>

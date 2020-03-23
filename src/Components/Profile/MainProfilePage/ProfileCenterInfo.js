@@ -9,6 +9,7 @@ import MyPosts from "../MyPosts/posts";
 import Text from "../../mainText";
 import PostRedactorContainer from "../PostRedactor/PostRedactorContainer";
 import StoreContext from "../../StoreContext";
+import FriendListClass from "../FriendList/FriendClass";
 
 function ProfileCenterInfo(props) {
     return (
@@ -21,6 +22,10 @@ function ProfileCenterInfo(props) {
                     dispatch={props.dispatch}
                     state={props.state}
                 />
+                {/*<FriendListClass*/}
+                {/*    dispatch={props.dispatch}*/}
+                {/*    state={props.state}*/}
+                {/*/>*/}
                 <Subscribes
                     dispatch={props.dispatch}
                     state={props.state}

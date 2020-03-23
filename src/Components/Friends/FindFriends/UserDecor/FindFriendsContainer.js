@@ -1,8 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import {postCreation, updatePostTextCreation} from "../../DataBases/Reducers/PostsReducer";
+import {postCreation, updatePostTextCreation} from "../../../DataBases/Reducers/PostsReducer";
 import Users from "./findFriends";
-import {addFriendCreation, deleteFriendCreation} from "../../DataBases/Reducers/FriendsReducer";
+import {addFriendCreation, deleteFriendCreation} from "../../../DataBases/Reducers/FriendsReducer";
 
 
 // function UsersContainer(props) {
@@ -14,7 +14,7 @@ import {addFriendCreation, deleteFriendCreation} from "../../DataBases/Reducers/
 // }
 
 let mapStateToProps = (state) => {
-    debugger
+    // debugger
     return{
         state: state.usersReducer
     }

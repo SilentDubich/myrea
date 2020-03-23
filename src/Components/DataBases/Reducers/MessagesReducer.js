@@ -105,7 +105,7 @@ let defaultStateMessage = {
 };
 
 export function MessagesInstructions(state = defaultStateMessage, action) {
-    debugger
+    // debugger
     let stateCopy = {
         ...state,
         Dialogs: [...state.Dialogs]

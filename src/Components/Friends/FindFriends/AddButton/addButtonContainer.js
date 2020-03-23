@@ -1,10 +1,10 @@
-import {addFriendCreation, deleteFriendCreation} from "../../DataBases/Reducers/FriendsReducer";
+import {addFriendCreation, deleteFriendCreation} from "../../../DataBases/Reducers/FriendsReducer";
 import {connect} from "react-redux";
-import Users from "./findFriends";
+import Users from "../UserDecor/findFriends";
 import AddButton from "./addButton";
 
-let mapStateToProps = (state, props) => {
-    debugger
+let mapStateToProps = state => {
+    // debugger
     return{
         state: state.usersReducer
     }
