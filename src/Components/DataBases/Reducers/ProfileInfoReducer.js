@@ -10,6 +10,7 @@ let defaultStateProfile =  {
 };
 
 export function ProfileInstructions(state = defaultStateProfile, action) {
+
     return state
 
 }

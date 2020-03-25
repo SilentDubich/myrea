@@ -160,29 +160,25 @@ import {MessagesInstructions} from "../Reducers/MessagesReducer";
 //                     PostRedactor: ''
 //                 },
 //             ],
-//             id: {
-//                 PostsId: 3,
-//                 MessagesId: 0
-//             }
 //         }
 //     },
 //
-//     Render() {
-//     },
-//
-//     getState() {
-//         return this._state
-//     },
-//
-//     dispatch(action) {
-//         PostsInstructions(this.getState(),action);
-//         MessagesInstructions(this.getState(), action);
-//         this.Render(this._state)
-//     },
-//
-//     subscribe(observer) {
-//         this.Render = observer;
-//     },
+//     // Render() {
+//     // },
+//     //
+//     // getState() {
+//     //     return this._state
+//     // },
+//     //
+//     // dispatch(action) {
+//     //     PostsInstructions(this.getState(),action);
+//     //     MessagesInstructions(this.getState(), action);
+//     //     this.Render(this._state)
+//     // },
+//     //
+//     // subscribe(observer) {
+//     //     this.Render = observer;
+//     // },
 //
 // };
 

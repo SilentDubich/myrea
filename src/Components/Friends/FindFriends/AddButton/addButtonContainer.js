@@ -2,6 +2,7 @@ import {addFriendCreation, deleteFriendCreation} from "../../../DataBases/Reduce
 import {connect} from "react-redux";
 import Users from "../UserDecor/findFriends";
 import AddButton from "./addButton";
+import {addUserCreation, deleteUserCreation, switchIsFetchingCreation} from "../../../DataBases/Reducers/UserReducer";
 
 let mapStateToProps = state => {
     // debugger
@@ -11,13 +12,21 @@ let mapStateToProps = state => {
 };
 
 let mapDispatchToProps = dispatch => {
+    // debugger
     return{
-        addFriend: (id, name, avatar) => {
-            dispatch(addFriendCreation(id, name, avatar))
+        addFriend: (id, name, avatar, add) => {
+            dispatch(addFriendCreation(id, name, avatar, add));
         },
-        deleteFriend: () => {
-            dispatch(deleteFriendCreation())
-        }
+        deleteFriend: id => {
+            dispatch(deleteFriendCreation(id));
+        },
+        addUser: id => {
+            dispatch(addUserCreation(id))
+        },
+        deleteUser: id => {
+            dispatch(deleteUserCreation(id))
+        },
+
     }
 };
 

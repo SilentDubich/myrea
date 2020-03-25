@@ -27,7 +27,7 @@ function Text(props) {
         state={props.state}
     />;
 
-    let myFriends = () => <MyFriends/>;
+    let myFriends = () => <MyFriends state={props.state}/>;
 
     // let allUsers = () => <AllUsers dispatch={props.dispatch} state={props.state}/>;
     // let allUsers = () => <AllUsersClass dispatch={props.dispatch} state={props.state}/>;
@@ -41,11 +41,11 @@ function Text(props) {
                 </div>
 
                 <div>
-                    <Route exact path='/profile' render={Profile}/>
-                    <Route exact path='/dialogs' render={dialogs}/>
-                    <Route path={'/dialog'} render={personDialog}/>
-                    <Route path={'/friends'} render={myFriends}/>
-                    <Route path={'/users'} render={allUsers}/>
+                    <Route path='/profile' render={Profile}/>
+                    <Route path='/dialogs' render={dialogs}/>
+                    <Route path='/dialog' render={personDialog}/>
+                    <Route path='/friends' render={myFriends}/>
+                    <Route path='/users' render={allUsers}/>
                 </div>
             </div>
         // </BrowserRouter>

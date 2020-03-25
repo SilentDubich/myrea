@@ -1,7 +1,7 @@
 import React from "react";
 import MenuLeft from '../../CssModules/LeftMenu/menu.module.css'
 import {NavLink} from "react-router-dom";
-function LeftMenu() {
+function LeftMenu(props) {
     return(
         <nav>
             <ul className={`${MenuLeft.container__menu_grid}`}>

@@ -9,6 +9,7 @@ function MyFriends(props) {
     return (
         <div className={Content.content__menu_decorationBlocks}>
             <FriendsSearch/>
+            <p>Friends:<span>{props.state.friendsReducer.length}</span></p>
             <AllFriendsContainer/>
             {/*<ThatFriend/>*/}
         </div>

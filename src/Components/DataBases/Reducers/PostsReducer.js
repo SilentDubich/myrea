@@ -62,14 +62,13 @@ export function PostsInstructions(state = defaultStatePosts, action) {
             return stateCopy;
         }
 
-        case DELETE_POST: {
+        case DELETE_POST:
             for (let i = 0; i < stateCopy.Posts.length; i++) {
                 if (stateCopy.Posts[i].id === action.id) {
                     stateCopy.Posts.splice(i, 1)
                 }
             }
             return stateCopy;
-        }
 
         default:
             return state

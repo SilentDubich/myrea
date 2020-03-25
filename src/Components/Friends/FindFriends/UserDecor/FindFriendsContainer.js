@@ -9,18 +9,19 @@ import {addFriendCreation, deleteFriendCreation} from "../../../DataBases/Reduce
 let mapStateToProps = (state) => {
     // debugger
     return{
-        state: state.usersReducer
+        users: state.usersReducer,
+        friend: state.friendsReducer,
     }
 };
 
 let mapDispatchToProps = dispatch => {
     return{
-        addFriend: text => {
-            dispatch(addFriendCreation())
-        },
-        deleteFriend: () => {
-            dispatch(deleteFriendCreation())
-        }
+        // addFriend: text => {
+        //     dispatch(addFriendCreation())
+        // },
+        // deleteFriend: () => {
+        //     dispatch(deleteFriendCreation())
+        // }
     }
 };
 

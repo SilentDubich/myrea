@@ -25,3 +25,12 @@
     margin: 0 .1rem .5rem .5rem;
 }
 
+.button_selected__decor{
+    color: black;
+    background: #fff;
+    transform: scale(1.2);
+}
+
+.button_selected__decor:hover{
+    background: #fff;
+}

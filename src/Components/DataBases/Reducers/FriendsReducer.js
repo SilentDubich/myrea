@@ -8,7 +8,7 @@ import emptyPhoto from "../../../img/Avatars/nullPhoto.jpg";
 
 const ADD_FRIEND = 'addFriend';
 const DELETE_FRIEND = 'deleteFriend';
-export const addFriendCreation = (id, name, avatar) => ({type: ADD_FRIEND, id, name, avatar});
+export const addFriendCreation = (id, name, avatar, add) => ({type: ADD_FRIEND, id, name, avatar, add});
 export const deleteFriendCreation = (id) => ({type: DELETE_FRIEND, id});
 
 
@@ -18,30 +18,35 @@ let defaultStateFriends =  [
         Name: 'Senya',
         LastName: 'Lutiy',
         Avatar: Senya,
+        followed: true
     },
     {
         id: 1,
         Name: 'Pendalf',
         LastName: 'Grey',
         Avatar: Pendalf,
+        followed: true
     },
     {
         id: 2,
         Name: 'Goliy',
         LastName: 'Shmiga',
         Avatar: Goliy,
+        followed: true
     },
     {
         id: 3,
         Name: 'Agronom',
         LastName: 'Bomj',
         Avatar: Agronom,
+        followed: true
     },
     {
         id: 4,
         Name: 'Fedor',
         LastName: 'Sumkin',
         Avatar: Fedor,
+        followed: true
     }
 ];
 
@@ -54,12 +59,18 @@ export function FriendsInstructions(state = defaultStateFriends, action) {
                 id: action.id,
                 Name: action.name,
                 LastName: action.lastName || null,
-                Avatar: action.avatar || emptyPhoto
+                Avatar: action.avatar || emptyPhoto,
+                followed: action.add
             };
             stateCopy.push(newFriend);
             return stateCopy
         case DELETE_FRIEND:
-            return state
+            for (let i = 0; i < stateCopy.length; i++) {
+                if (stateCopy[i].id === action.id) {
+                    stateCopy.splice(i, 1)
+                }
+            }
+            return stateCopy;
         default:
             return state
     }

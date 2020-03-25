@@ -5,7 +5,7 @@ import MyFriend from "./MyFriend/FriendLittleAva";
 
 
 function FriendList(props) {
-    debugger
+    // debugger
     // let allFriends = props.state.Profile.Friends.map( friend => <MyFriend name={friend.Name} img={friend.Avatar}/>);
     // let allFriends = props.state.friendsReducer.map( friend => <MyFriend name={friend.Name} img={friend.Avatar}/>);
     let allFriends = () => {

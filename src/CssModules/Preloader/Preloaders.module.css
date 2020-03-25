@@ -1,0 +1,11 @@
+.Preloader__position {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+}
+
+.Preloader__backgroundOpacity {
+    opacity: .2;
+    transition: .25s;
+}

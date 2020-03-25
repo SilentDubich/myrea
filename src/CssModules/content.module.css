@@ -61,6 +61,20 @@
     box-shadow: 0 0 .2rem #606060;
 }
 
+.content__asideRightDeleteButton_decor{
+    border: none;
+    background: #ffffff;
+    color: #000;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.content__asideRightDeleteButton_decor:active, .content__asideRightDeleteButton_decor:focus{
+    outline: none;
+}
+
 .content__asideRightButton_margin{
     margin: 1rem
 }
