@@ -22,21 +22,5 @@ let mapStateToProps = state => {
     }
 };
 
-// let mapDispatchToProps = dispatch => {
-//     return {
-//         setPage: page =>  {
-//             dispatch(setPageCreation(page))
-//         },
-//         setUsers: users => {
-//             dispatch(setUsers(users))
-//         },
-//         switchFetching: bool => {
-//             dispatch(switchIsFetchingCreation(bool))
-//         },
-//         switchButton: bool => {
-//             dispatch(switchIsButtonCreation(bool))
-//         }
-//     }
-// };
 
 export const PagesContainer = connect(mapStateToProps, {setPage, setUsers, switchIsButton, switchIsFetching})(Pages);

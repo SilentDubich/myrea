@@ -8,7 +8,7 @@ import {deletePostCreation} from "../../DataBases/Reducers/PostsReducer";
 function NewPost(props) {
 
     let setDeletePost = () => {
-        props.dispatch(deletePostCreation(props.id))
+        props.deletePost(props.id, props.current)
         // deletePost(props.id)
     };
     // debugger

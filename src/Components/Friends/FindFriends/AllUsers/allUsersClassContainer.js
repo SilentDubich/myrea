@@ -17,17 +17,6 @@ let mapStateToProps = (state) => {
     }
 };
 
-// let mapDispatchToProps = dispatch => {
-//     return{
-//         setUsers: users => {
-//             dispatch(setUsersCreation(users))
-//         },
-//         setTotalUsers: count => {
-//             dispatch(setTotalUsersCreation(count))
-//         }
-//     }
-// };
-
 
 
 const AllUsersClassContainer = connect(mapStateToProps, {setUsers, setTotalUsers, switchIsButton, switchIsFetching})(AllUsersClass);

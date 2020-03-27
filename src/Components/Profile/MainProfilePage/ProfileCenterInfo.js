@@ -4,10 +4,11 @@ import AvatarPhoto from "../Avatar/Avatar";
 import FriendList from "../FriendList/Friend";
 import Subscribes from "../Subscribes/SubscribeList";
 import MainInfo from "../MainInfo/nameAndAbout";
-import MyPosts from "../MyPosts/posts";
+import MyPosts from "../../../Trash/posts";
 import PostRedactorContainer from "../PostRedactor/PostRedactorContainer";
 
 function ProfileCenterInfo(props) {
+    // debugger
     return (
         <div className={Displays.inside_ContentProfile__displayFlex}>
             <div className={Displays.inside_ProfileCenter__FlexProportion}>

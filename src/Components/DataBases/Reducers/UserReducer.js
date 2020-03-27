@@ -1,6 +1,4 @@
 import React from "react";
-import Senya from "../../../img/Avatars/senya.jpg";
-import emptyPhoto from "../../../img/Avatars/nullPhoto.jpg";
 
 let defaultStateUsers = {
     users: [],

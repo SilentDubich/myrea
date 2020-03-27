@@ -6,9 +6,9 @@ import Pendalf from "../../../img/Avatars/pendalf.jpg";
 const ADD_POST = 'addPost';
 const UPDATE_POST_TEXT = 'updateTextPostRedactor';
 const DELETE_POST = 'deletePost';
-export const postCreation = () => ({type: ADD_POST});
-export const updatePostTextCreation = text => ({type: UPDATE_POST_TEXT, text: text});
-export const deletePostCreation = id => ({type: DELETE_POST, id: id});
+export const postCreation = currentProfile => ({type: ADD_POST, currentProfile});
+export const updatePostTextCreation = text => ({type: UPDATE_POST_TEXT, text});
+export const deletePostCreation = (id, currentProfile) => ({type: DELETE_POST, id, currentProfile});
 
 let defaultStatePosts = {
     ProfileInfo: {
@@ -23,6 +23,9 @@ let defaultStatePosts = {
         {id: 1, name: 'Senya', text: 'Hi', ava: Senya, likes: 15},
         {id: 2, name: 'Pendalf', text: 'Hi', ava: Pendalf, likes: 99},
         {id: 3, name: 'Pendalf', text: 'Hiiiii', ava: Pendalf, likes: 999}
+    ],
+    currentProfilePosts: [
+
     ],
     Temp: [
         {
@@ -40,9 +43,14 @@ export function PostsInstructions(state = defaultStatePosts, action) {
     switch (action.type) {
         case ADD_POST:{
             let id = 0;
-            if (state.Posts.length !== 0){
-                id = state
-                    .Posts[state.Posts.length - 1]
+            let checkId = action.currentProfile ? stateCopy.Posts.length : stateCopy.currentProfilePosts.length;
+            if (checkId !== 0 && action.currentProfile){
+                id = stateCopy
+                    .Posts[stateCopy.Posts.length - 1]
+                    .id + 1
+            } else if (checkId !== 0 && !action.currentProfile){
+                id = stateCopy
+                    .currentProfilePosts[stateCopy.currentProfilePosts.length - 1]
                     .id + 1
             }
             let createPost = {
@@ -52,7 +60,7 @@ export function PostsInstructions(state = defaultStatePosts, action) {
                 ava: state.ProfileInfo.Avatar,
                 likes: 0
             };
-            stateCopy.Posts.push(createPost);
+            action.currentProfile ? stateCopy.Posts.push(createPost) : stateCopy.currentProfilePosts.push(createPost);
             stateCopy.Temp[0].PostRedactor = [...state.Temp[0].PostRedactor];
             stateCopy.Temp[0].PostRedactor = '';
             return stateCopy;
@@ -63,9 +71,10 @@ export function PostsInstructions(state = defaultStatePosts, action) {
         }
 
         case DELETE_POST:
-            for (let i = 0; i < stateCopy.Posts.length; i++) {
-                if (stateCopy.Posts[i].id === action.id) {
-                    stateCopy.Posts.splice(i, 1)
+            let checkPosts = action.currentProfile ? stateCopy.Posts : stateCopy.currentProfilePosts;
+            for (let i = 0; i < checkPosts.length; i++) {
+                if (checkPosts[i].id === action.id) {
+                    checkPosts.splice(i, 1)
                 }
             }
             return stateCopy;

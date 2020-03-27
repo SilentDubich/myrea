@@ -7,7 +7,7 @@ function PostRedactor(props) {
     let setPostClick = event => {
         let text = ref.current.value;
         if (text){
-            props.setPost()
+            props.setPost(props.currentProfile)
         }
     };
 
@@ -15,7 +15,7 @@ function PostRedactor(props) {
         let text = ref.current.value;
         if (text){
             if (event.which === 13){
-                props.setPost();
+                props.setPost(props.currentProfile);
                 event.preventDefault()
             }
         }

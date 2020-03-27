@@ -1,15 +1,12 @@
 import React from "react";
 import PagesButtons from '../../../../../CssModules/UsersSearch/pagesSearch.module.css'
 import * as axios from "axios";
-import {setUsersCreation} from "../../../../DataBases/Reducers/UserReducer";
-import {NavLink} from "react-router-dom";
-
 
 
 function Pages(props) {
     // debugger
 
-    let pagesCount = Math.ceil((props.totalUsers / props.pageSize) / 50);
+    let pagesCount = Math.ceil((props.totalUsers / props.pageSize) / 25);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++){
         pages.push(i);

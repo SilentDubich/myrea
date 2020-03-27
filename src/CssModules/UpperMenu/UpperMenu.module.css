@@ -28,3 +28,34 @@
 .container__menu_flex > .right{
     margin-left: auto;
 }
+
+
+.log_img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.log__margin {
+    margin: 0 85rem 0;
+}
+
+.log__padding {
+    padding: .5rem;
+}
+
+.log__button {
+    border: none;
+    background: #5a368b;
+    color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    cursor: pointer;
+}
+
+.log__button:active, .log__button:focus {
+    outline: none;
+}
+
+

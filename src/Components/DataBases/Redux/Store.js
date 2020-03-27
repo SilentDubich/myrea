@@ -6,6 +6,7 @@ import {SubscribesInstructions} from "../Reducers/SubscribesReducer";
 import {FriendsInstructions} from "../Reducers/FriendsReducer";
 import {TempInstructions} from "../Reducers/TempReducer";
 import {UsersInstructions} from "../Reducers/UserReducer";
+import {LoginInstructions} from "../Reducers/LoginReducer";
 
 let allReduces = combineReducers(
     {
@@ -15,7 +16,8 @@ let allReduces = combineReducers(
         subscribesReducer: SubscribesInstructions,
         friendsReducer: FriendsInstructions,
         tempReducer: TempInstructions,
-        usersReducer: UsersInstructions
+        usersReducer: UsersInstructions,
+        loginReducer: LoginInstructions
     }
 );
 

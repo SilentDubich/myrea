@@ -9,7 +9,8 @@ import {connect} from "react-redux";
 
 let mapStateToProps = (state) => {
     return{
-        Temp: state.postsReducer.Temp[0].PostRedactor
+        Temp: state.postsReducer.Temp[0].PostRedactor,
+        currentProfile: state.profileInfoReducer.myProfile
     }
 };
 
@@ -18,8 +19,8 @@ let mapDispatchToProps = dispatch => {
         currentText: text => {
             dispatch(updatePostTextCreation(text))
         },
-        setPost: () => {
-            dispatch(postCreation())
+        setPost: currentProfile => {
+            dispatch(postCreation(currentProfile))
         }
     }
 };

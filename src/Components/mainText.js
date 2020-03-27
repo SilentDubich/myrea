@@ -10,10 +10,16 @@ import Users from "./Friends/FindFriends/UserDecor/findFriends";
 import AllUsers from "../Trash/allUsers";
 import AllUsersClass from "./Friends/FindFriends/AllUsers/allUsersClass";
 import AllUsersClassContainer from "./Friends/FindFriends/AllUsers/allUsersClassContainer";
+import {ProfileCenterInfoClassContainer} from "./Profile/MainProfilePage/ProfileCenterInfoClassContainer";
+import {LoginPageContainer} from "./UpperMenu/Login/LoginPage/LoginPageContainer";
 
 
 function Text(props) {
-    let Profile = () => <ProfileCenterInfo
+    // let Profile = () => <ProfileCenterInfo
+    //     dispatch={props.dispatch}
+    //     state={props.state}
+    // />;
+    let Profile = () => <ProfileCenterInfoClassContainer
         dispatch={props.dispatch}
         state={props.state}
     />;
@@ -32,12 +38,14 @@ function Text(props) {
     // let allUsers = () => <AllUsers dispatch={props.dispatch} state={props.state}/>;
     // let allUsers = () => <AllUsersClass dispatch={props.dispatch} state={props.state}/>;
     let allUsers = () => <AllUsersClassContainer dispatch={props.dispatch} state={props.state}/>;
+    let loginPage = () => <LoginPageContainer/>;
 
     return (
         // <BrowserRouter>
             <div className={`${Objects.main__displayGRid}`}>
                 <div>
-                    <LeftMenu/>
+                    <LeftMenu dispatch={props.dispatch}
+                              state={props.state}/>
                 </div>
 
                 <div>
@@ -46,6 +54,7 @@ function Text(props) {
                     <Route path='/dialog' render={personDialog}/>
                     <Route path='/friends' render={myFriends}/>
                     <Route path='/users' render={allUsers}/>
+                    <Route path='/login' render={loginPage}/>
                 </div>
             </div>
         // </BrowserRouter>
