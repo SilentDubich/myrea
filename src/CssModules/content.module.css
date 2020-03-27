@@ -1,0 +1,103 @@
+
+
+.content__mainContentHeader{
+    background: #fff;
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 0 .5rem #606060;
+}
+.content__mainContentAvatar{
+    margin: 0 auto;
+}
+
+
+.content__mainContentAvatar > img {
+    width: 225px;
+    height: 225px;
+    object-fit: cover;
+    min-height: 75px;
+    min-width: 75px;
+    box-shadow: 0 0 .25rem #606060;
+    border-radius: 2.5%;
+}
+
+.content__mainContentName{
+    font-size: calc(8px + .3vw);
+}
+
+
+.content__menu_decorationBlocks{
+    background: #fff;
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: 0 0 .5rem #606060;
+    margin-top: 1rem;
+}
+
+.content__asideRightInput_decor{
+    border: none;
+    width: 20rem;
+    font-size: 1.1rem;
+    margin-right: 10rem;
+    resize: none;
+    overflow: auto;
+}
+
+.content__asideRightInput_decor:focus{
+    outline: none;
+    height: 5rem;
+}
+
+.content__asideRightInput_decor:focus::placeholder{
+    transition: 0.25s;
+    opacity: 0.3;
+}
+
+.content__asideRightButton_decor{
+    border: none;
+    background: #3a356a;
+    color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+}
+
+.content__asideRightDeleteButton_decor{
+    border: none;
+    background: #ffffff;
+    color: #000;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.content__asideRightDeleteButton_decor:active, .content__asideRightDeleteButton_decor:focus{
+    outline: none;
+}
+
+.content__asideRightButton_margin{
+    margin: 1rem
+}
+
+.content__asideRightButton_decor:active, .content__asideRightButton_decor:focus{
+    outline: none;
+}
+
+.content__asideRightButtonPadding{
+    padding: .5rem 3.5rem;
+}
+
+.content__asideRightButton_decor:hover{
+    transition: 0.25s;
+    cursor: pointer;
+    background: #8445c2;
+}
+
+.content__menuForm_overflow{
+    overflow: hidden;
+}
+
+@keyframes show {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}

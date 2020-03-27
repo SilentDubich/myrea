@@ -1,0 +1,24 @@
+.container__menu_grid{
+    display: grid;
+    grid-template-columns: repeat(1, .5fr);
+    grid-template-rows: repeat(5, .5fr);
+    grid-row-gap: 2rem;
+    justify-content: center;
+    padding: 0 0;
+    list-style-type: none;
+    margin-right: 2rem;
+}
+
+.container__menu_decoration{
+    text-decoration: none;
+    font-size: calc(10px + .5vw);
+    color: #3a356a;
+    padding: .7rem;
+    border-radius: 1rem;
+    transition: 0.25s;
+}
+
+.container__menu_decoration:hover{
+    background-color: #8445c2;
+    transition: 0.25s;
+}

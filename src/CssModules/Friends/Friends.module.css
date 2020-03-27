@@ -1,0 +1,17 @@
+.input__decor {
+    width: 100%;
+    border: none;
+}
+
+.input__decor:focus {
+    outline: none;
+}
+
+.input__decor:focus::placeholder {
+    outline: none;
+    opacity: .5;
+}
+
+.container__displayFlex{
+    display: flex;
+}
