@@ -1,37 +1,48 @@
 import React from "react";
 import Content from "../../../../CssModules/content.module.css";
+import {API} from "../../../DataBases/API/API";
 
 function AddButton(props) {
     // debugger
-    let add = () => {
-        props.addFriend(props.id, props.name, props.avatar, true);
-        props.addUser(props.id)
+    let addUser = () => {
+        props.addUserThunk(props.id, props.name, props.avatar)
     };
-    let deleteFriend = () => {
-        props.deleteFriend(props.id);
-        props.deleteUser(props.id)
-    }
+
+    let deleteUser = () => {
+        props.deleteUserThunk(props.id)
+    };
+
+    let deleteButtonClasses = `
+    ${Content.content__asideRightDeleteButton_decor} 
+    ${Content.content__asideRightButtonPadding} 
+    ${Content.content__asideRightButton_margin}
+    `;
+
+    let addButtonClasses = `
+    ${Content.content__asideRightButton_decor} 
+    ${Content.content__asideRightButtonPadding}
+    ${Content.content__asideRightButton_margin}
+    `;
     return (
         <div>
-
-            {props.followed ? <button
-                onClick={deleteFriend}
-                className={`
-                ${Content.content__asideRightDeleteButton_decor} 
-                ${Content.content__asideRightButtonPadding}
-                ${Content.content__asideRightButton_margin}
-                `}>
-                Delete
-            </button> : <button
-                onClick={add}
-                className={`
-                ${Content.content__asideRightButton_decor} 
-                ${Content.content__asideRightButtonPadding}
-                ${Content.content__asideRightButton_margin}
-                `}>
-                Add
-            </button>}
-
+            {
+                props.followed ?
+                    <button
+                        onClick={deleteUser}
+                        disabled={props.addButton}
+                        className={deleteButtonClasses}
+                    >
+                        Delete
+                    </button>
+                    :
+                    <button
+                        onClick={addUser}
+                        disabled={props.addButton}
+                        className={addButtonClasses}
+                    >
+                        Add
+                    </button>
+            }
         </div>
     )
 }

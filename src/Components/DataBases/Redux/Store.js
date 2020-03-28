@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {PostsInstructions} from "../Reducers/PostsReducer";
 import {MessagesInstructions} from "../Reducers/MessagesReducer";
 import {ProfileInstructions} from "../Reducers/ProfileInfoReducer";
@@ -7,6 +7,7 @@ import {FriendsInstructions} from "../Reducers/FriendsReducer";
 import {TempInstructions} from "../Reducers/TempReducer";
 import {UsersInstructions} from "../Reducers/UserReducer";
 import {LoginInstructions} from "../Reducers/LoginReducer";
+import thunkMiddleware from 'redux-thunk'
 
 let allReduces = combineReducers(
     {
@@ -22,6 +23,6 @@ let allReduces = combineReducers(
 );
 
 
-export let store = createStore(allReduces);
+export let store = createStore(allReduces, applyMiddleware(thunkMiddleware));
 
 window.Redux = store;

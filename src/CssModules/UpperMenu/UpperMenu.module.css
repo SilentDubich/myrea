@@ -38,7 +38,7 @@
 }
 
 .log__margin {
-    margin: 0 85rem 0;
+    margin: 0 auto;
 }
 
 .log__padding {
@@ -54,8 +54,16 @@
     cursor: pointer;
 }
 
+.log__buttonWidth {
+    width: 5rem
+}
+
 .log__button:active, .log__button:focus {
     outline: none;
+}
+
+.log_display__flex {
+    display: flex;
 }
 
 

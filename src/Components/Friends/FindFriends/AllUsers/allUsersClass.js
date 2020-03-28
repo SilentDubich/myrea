@@ -11,21 +11,13 @@ import Pages from "./PagesButtons/pages";
 import {PagesContainer} from "./PagesButtons/pagesContainer";
 import Preloader from "../../../Pre-loaders/Preloader";
 import Preloaders from '../../../../CssModules/Preloader/Preloaders.module.css'
+import {API} from "../../../DataBases/API/API";
 
 
 class AllUsersClass extends React.Component {
     componentDidMount() {
         if (this.props.state.users.length === 0) {
-            this.props.switchIsFetching(true);
-            this.props.switchIsButton(true);
-            axios
-                .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.state.pageSize}&page=${this.props.state.currentPage}`)
-                .then(response => {
-                    this.props.setUsers(response.data.items);
-                    this.props.setTotalUsers(response.data.totalCount);
-                    this.props.switchIsFetching(false);
-                    this.props.switchIsButton(false);
-                })
+            this.props.getUsersThunk(this.props.state.pageSize, this.props.state.currentPage)
         }
     }
 

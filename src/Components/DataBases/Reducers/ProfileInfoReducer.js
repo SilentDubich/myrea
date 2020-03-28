@@ -1,5 +1,6 @@
 import React from "react";
 import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
+import {API} from "../API/API";
 
 const GET_PROFILE = 'getProfile';
 export const getProfile = user => ({type: GET_PROFILE, user});
@@ -10,6 +11,15 @@ export const logData = (id, login, email) =>({type: LOG_DATA, data: {id, login, 
 const LOGIN = 'login';
 export const login = (email, password) => ({type: LOGIN, data: {email, password}})
 
+export const getProfileThunk = (id) => {
+    return dispatch => {
+        API.getProfile(id)
+            .then(data => {
+                dispatch(getProfile(data));
+                dispatch(setProfile(false))
+            })
+    }
+};
 
 let defaultStateProfile =  {
     logged: {

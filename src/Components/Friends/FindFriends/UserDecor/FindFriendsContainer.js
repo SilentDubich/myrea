@@ -1,9 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import {postCreation, updatePostTextCreation} from "../../../DataBases/Reducers/PostsReducer";
 import Users from "./findFriends";
-import {addFriendCreation, deleteFriendCreation} from "../../../DataBases/Reducers/FriendsReducer";
-import {getProfile, setProfile} from "../../../DataBases/Reducers/ProfileInfoReducer";
+import {getProfile, getProfileThunk, setProfile} from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 
 
@@ -17,6 +15,6 @@ let mapStateToProps = (state) => {
 
 
 
-const UsersContainer = connect(mapStateToProps, {getProfile, setProfile})(Users);
+const UsersContainer = connect(mapStateToProps, {getProfile, setProfile, getProfileThunk})(Users);
 
 export default UsersContainer

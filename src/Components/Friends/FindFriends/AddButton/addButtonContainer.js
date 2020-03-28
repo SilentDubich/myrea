@@ -1,37 +1,30 @@
-import {addFriendCreation, deleteFriendCreation} from "../../../DataBases/Reducers/FriendsReducer";
+import {addFriend, deleteFriend} from "../../../DataBases/Reducers/FriendsReducer";
 import {connect} from "react-redux";
-import Users from "../UserDecor/findFriends";
 import AddButton from "./addButton";
-import {addUserCreation, deleteUserCreation, switchIsFetchingCreation} from "../../../DataBases/Reducers/UserReducer";
+import {
+    addUser,
+    addUserThunk,
+    deleteUser,
+    deleteUserThunk,
+    switchIsAddButton
+} from "../../../DataBases/Reducers/UserReducer";
 
 let mapStateToProps = state => {
     // debugger
-    return{
-        state: state.usersReducer
-    }
-};
-
-let mapDispatchToProps = dispatch => {
-    // debugger
-    return{
-        addFriend: (id, name, avatar, add) => {
-            dispatch(addFriendCreation(id, name, avatar, add));
-        },
-        deleteFriend: id => {
-            dispatch(deleteFriendCreation(id));
-        },
-        addUser: id => {
-            dispatch(addUserCreation(id))
-        },
-        deleteUser: id => {
-            dispatch(deleteUserCreation(id))
-        },
-
+    return {
+        state: state.usersReducer,
+        addButton: state.usersReducer.addButton
     }
 };
 
 
-
-const AddButtonContainer = connect(mapStateToProps, mapDispatchToProps)(AddButton);
+const AddButtonContainer = connect(mapStateToProps,
+    {
+        addFriend, deleteFriend, addUser,
+        deleteUser, switchIsAddButton, addUserThunk,
+        deleteUserThunk
+    }
+)
+(AddButton);
 
 export default AddButtonContainer

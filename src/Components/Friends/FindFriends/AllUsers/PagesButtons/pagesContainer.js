@@ -18,7 +18,7 @@ let mapStateToProps = state => {
         totalUsers: state.usersReducer.totalUsers,
         pageSize: state.usersReducer.pageSize,
         isFetching: state.usersReducer.isFetching,
-        button: state.usersReducer.button
+        pageButton: state.usersReducer.pageButton
     }
 };
 

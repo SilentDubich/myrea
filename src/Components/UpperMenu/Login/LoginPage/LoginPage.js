@@ -1,6 +1,7 @@
 import React from "react";
 import Person from "../../../../CssModules/UpperMenu/UpperMenu.module.css";
 import * as axios from "axios";
+import {API} from "../../../DataBases/API/API";
 
 
 function LoginPage(props) {
@@ -23,54 +24,39 @@ function LoginPage(props) {
         let email = refEmail.current.value;
         let password = refPassword.current.value;
         let remember = refRemember.current.checked
-        axios
-            .post(`https://social-network.samuraijs.com/api/1.0/auth/login?email=${email}&password=${password}&rememberMe=${remember}`, {
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a'
-                }
-
+        API.postLog(email, password, remember)
+            .then(response => {
+                return response.status
             })
             .then(response => {
                 debugger
-                return response.status
-
-            })
-            .then(response => {
-                alert(response)
-                if (response === 200){
-
-                    return axios
-                        .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-                            withCredentials: true,
-                            headers: {
-                                'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a'
+                if (response === 200) {
+                    API.getAuth()
+                        .then(data => {
+                                props.logData(data.data.id, data.data.login, data.data.email);
+                                props.loginRequest(email, password, remember)
+                                debugger
                             }
-
-                        })
-                        .then(responseData => {
-                            props.logData(responseData.data.data.id, responseData.data.data.login, responseData.data.data.email);
-                            props.loginRequest(email, password, remember)
-                            debugger
-                        })
+                        )
                 }
             })
 
-    }
+    };
 
-
-    return(
+    return (
         <div>
             <div>
                 <div>
                     <input onChange={currentTextEmail} value={props.email} ref={refEmail} placeholder='Your email'/>
                 </div>
                 <div>
-                    <input onChange={currentTextPassword} value={props.password} ref={refPassword} placeholder='Your password'/>
+                    <input type='password' onChange={currentTextPassword} value={props.password} ref={refPassword}
+                           placeholder='Your password'/>
                 </div>
                 <div>
                     <span>Remember me:</span>
-                    <input onChange={currentTextRemember} value={props.remember} ref={refRemember} type='checkbox' placeholder='Remember me'/>
+                    <input onChange={currentTextRemember} value={props.remember} ref={refRemember} type='checkbox'
+                           placeholder='Remember me'/>
                 </div>
                 <div>
                     <button onClick={request} className={`

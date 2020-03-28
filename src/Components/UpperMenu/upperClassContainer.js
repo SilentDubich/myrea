@@ -2,30 +2,25 @@ import React from "react";
 import * as axios from "axios";
 import UpMenu from "../../CssModules/UpperMenu/UpperMenu.module.css";
 import {UpperLogInfoContainer} from "./Login/UpperLogInfoContainer";
+import {API} from "../DataBases/API/API";
 
 
 class UpperClassContainer extends React.Component {
+
     componentDidMount() {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-                withCredentials: true
-            })
-            .then(response => {
-                this.props.logData(response.data.data.id, response.data.data.login, response.data.data.email);
+        API.getAuth()
+            .then(data => {
+                this.props.logData(data.data.id, data.data.login, data.data.email);
                 debugger
             })
 
     }
 
     render() {
-        return (
-            <div>
-                <div className={`${UpMenu.container__menu}`}>
-                    <div>
-                        <UpperLogInfoContainer/>
-                    </div>
-                </div>
 
+        return (
+            <div className={`${UpMenu.container__menu}`}>
+                <UpperLogInfoContainer/>
             </div>
         )
     }

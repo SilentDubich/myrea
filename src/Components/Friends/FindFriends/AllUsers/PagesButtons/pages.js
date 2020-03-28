@@ -1,6 +1,7 @@
 import React from "react";
 import PagesButtons from '../../../../../CssModules/UsersSearch/pagesSearch.module.css'
 import * as axios from "axios";
+import {API} from "../../../../DataBases/API/API";
 
 
 function Pages(props) {
@@ -12,7 +13,7 @@ function Pages(props) {
         pages.push(i);
     }
     let totalButtons = pages.map(number => <button
-        disabled={props.button}
+        disabled={props.pageButton}
         onClick={event => currentPage(number)}
         className={`
             ${PagesButtons.button__decor} 
@@ -26,13 +27,12 @@ function Pages(props) {
         props.switchIsFetching(true);
         props.switchIsButton(true);
         props.setPage(page);
-            axios
-                .get(`https://social-network.samuraijs.com/api/1.0/users?count=${props.pageSize}&page=${page}`)
-                .then(response => {
-                    props.setUsers(response.data.items);
-                    props.switchIsFetching(false);
-                    props.switchIsButton(false);
-                })
+        API.getUsers(props.pageSize, page)
+            .then(data => {
+                props.setUsers(data.items);
+                        props.switchIsFetching(false);
+                        props.switchIsButton(false);
+            })
     };
 
     return(

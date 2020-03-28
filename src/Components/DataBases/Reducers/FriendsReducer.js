@@ -8,8 +8,8 @@ import emptyPhoto from "../../../img/Avatars/nullPhoto.jpg";
 
 const ADD_FRIEND = 'addFriend';
 const DELETE_FRIEND = 'deleteFriend';
-export const addFriendCreation = (id, name, avatar, add) => ({type: ADD_FRIEND, id, name, avatar, add});
-export const deleteFriendCreation = (id) => ({type: DELETE_FRIEND, id});
+export const addFriend = (id, name, avatar, add) => ({type: ADD_FRIEND, id, name, avatar, add});
+export const deleteFriend = (id) => ({type: DELETE_FRIEND, id});
 
 
 let defaultStateFriends =  [
@@ -71,6 +71,7 @@ export function FriendsInstructions(state = defaultStateFriends, action) {
                 }
             }
             return stateCopy;
+
         default:
             return state
     }

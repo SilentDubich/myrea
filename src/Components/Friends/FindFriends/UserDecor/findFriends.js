@@ -5,18 +5,12 @@ import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css
 import emptyPhoto from "../../../../img/Avatars/nullPhoto.jpg";
 import AddButtonContainer from "../AddButton/addButtonContainer";
 import Preloaders from "../../../../CssModules/Preloader/Preloaders.module.css";
-import * as axios from "axios";
-import {setProfile} from "../../../DataBases/Reducers/ProfileInfoReducer";
+
 
 function Users(props) {
     // debugger
     let throwProfileInfo = () => {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/${props.id}`)
-            .then(response => {
-                props.getProfile(response.data);
-                props.setProfile(false)
-            })
+        props.getProfileThunk(props.id)
     }
     return (
         <div className={`${props.users.isFetching ? Preloaders.Preloader__backgroundOpacity : null}`}>
