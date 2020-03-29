@@ -45,6 +45,10 @@
     padding: .5rem;
 }
 
+.log_img__cursorPointer {
+    cursor: pointer;
+}
+
 .log__button {
     border: none;
     background: #5a368b;

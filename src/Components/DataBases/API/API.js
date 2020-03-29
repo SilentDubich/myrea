@@ -23,6 +23,14 @@ export const API = {
                 return response.data
             })
     },
+    getMyProfile(id) {
+        return instance.get(`profile/${id}`)
+            .then(response => {
+                debugger
+                return response.data
+            })
+    },
+
     getAuth() {
         return instance.get(`auth/me`)
             .then(response => {
@@ -31,6 +39,12 @@ export const API = {
     },
     postLog(email, password, remember){
         return instance.post(`auth/login?email=${email}&password=${password}&rememberMe=${remember}`)
+            .then(response => {
+                return response
+            })
+    },
+    postLogOut() {
+        return instance.post(`auth/logout`)
             .then(response => {
                 return response
             })

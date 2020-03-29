@@ -11,7 +11,11 @@ class UpperClassContainer extends React.Component {
         API.getAuth()
             .then(data => {
                 this.props.logData(data.data.id, data.data.login, data.data.email);
-                debugger
+                return data.data.id
+                // debugger
+            })
+            .then( (data) => {
+                this.props.getMyProfileThunk(data)
             })
 
     }

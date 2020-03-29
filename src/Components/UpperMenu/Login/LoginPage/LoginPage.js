@@ -24,25 +24,13 @@ function LoginPage(props) {
         let email = refEmail.current.value;
         let password = refPassword.current.value;
         let remember = refRemember.current.checked
-        API.postLog(email, password, remember)
-            .then(response => {
-                return response.status
-            })
-            .then(response => {
-                debugger
-                if (response === 200) {
-                    API.getAuth()
-                        .then(data => {
-                                props.logData(data.data.id, data.data.login, data.data.email);
-                                props.loginRequest(email, password, remember)
-                                debugger
-                            }
-                        )
-                }
-            })
-
+        props.postLogThunk(email, password, remember)
     };
-
+    let buttonLoginClasses =
+    `
+    ${Person.log__padding}
+    ${Person.log__button} 
+    `;
     return (
         <div>
             <div>
@@ -55,14 +43,18 @@ function LoginPage(props) {
                 </div>
                 <div>
                     <span>Remember me:</span>
-                    <input onChange={currentTextRemember} value={props.remember} ref={refRemember} type='checkbox'
-                           placeholder='Remember me'/>
+                    <input onChange={currentTextRemember}
+                           checked={props.remember}
+                           ref={refRemember}
+                           type='checkbox'
+                           placeholder='Remember me'
+                    />
                 </div>
                 <div>
-                    <button onClick={request} className={`
-            ${Person.log__padding}
-            ${Person.log__button} 
-            `}>
+                    <button disabled={props.buttonRequest}
+                            onClick={request}
+                            className={buttonLoginClasses}
+                    >
                         Login
                     </button>
                 </div>

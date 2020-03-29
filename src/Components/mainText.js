@@ -12,6 +12,7 @@ import AllUsersClass from "./Friends/FindFriends/AllUsers/allUsersClass";
 import AllUsersClassContainer from "./Friends/FindFriends/AllUsers/allUsersClassContainer";
 import {ProfileCenterInfoClassContainer} from "./Profile/MainProfilePage/ProfileCenterInfoClassContainer";
 import {LoginPageContainer} from "./UpperMenu/Login/LoginPage/LoginPageContainer";
+import {SettingsContainer} from "./Settings/settingsContainer";
 
 
 function Text(props) {
@@ -39,6 +40,7 @@ function Text(props) {
     // let allUsers = () => <AllUsersClass dispatch={props.dispatch} state={props.state}/>;
     let allUsers = () => <AllUsersClassContainer dispatch={props.dispatch} state={props.state}/>;
     let loginPage = () => <LoginPageContainer/>;
+    let settingsPage = () => <SettingsContainer/>
 
     return (
         // <BrowserRouter>
@@ -55,6 +57,7 @@ function Text(props) {
                     <Route path='/friends' render={myFriends}/>
                     <Route path='/users' render={allUsers}/>
                     <Route path='/login' render={loginPage}/>
+                    <Route path='/settings' render={settingsPage}/>
                 </div>
             </div>
         // </BrowserRouter>

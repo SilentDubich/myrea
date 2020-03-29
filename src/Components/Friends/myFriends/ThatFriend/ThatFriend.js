@@ -5,9 +5,12 @@ import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css
 
 function ThatFriend(props) {
     // debugger
+    let throwProfileInfo = () => {
+        props.getProfileThunk(props.id)
+    }
     return (
         <div>
-            <NavLink to={'/profile/' + props.id}
+            <NavLink onClick={throwProfileInfo} to={'/profile/' + props.id}
                      className={`${Dialog.display__flex} ${Dialog.hover__decor} ${Dialog.NavLinks__fontsDecor}`}>
                 <div>
                     <img className={`${Friend.Friend__Ava} ${Dialog.display__AvaPosition}`} src={props.img} alt='Ava'/>
