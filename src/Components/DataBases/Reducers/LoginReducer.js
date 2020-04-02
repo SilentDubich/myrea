@@ -1,6 +1,7 @@
 import React from "react";
 import {API} from "../API/API";
 import {getMyProfileThunk} from "./ProfileInfoReducer";
+import {Redirect} from "react-router-dom";
 
 const LOGIN_REQUEST = 'loginRequest';
 export const loginRequest = (email, password, remember) => ({type: LOGIN_REQUEST, data: {email, password, remember}});
@@ -34,7 +35,8 @@ export const postLogThunk = (email, password, remember) => {
                         )
                         .then((data) => {
                             // debugger
-                            dispatch(getMyProfileThunk(data))
+                            dispatch(getMyProfileThunk(data));
+
                         })
                 }
             })
@@ -49,7 +51,7 @@ export const postLogOutThunk = () => {
                 return response
             })
             .then((response) => {
-                debugger
+                // debugger
                 API.getAuth()
             })
     }
@@ -70,10 +72,11 @@ let defaultStateLogin = {
 };
 
 export function LoginInstructions(state = defaultStateLogin, action) {
-    // debugger
+
     let stateCopy = {
         ...state
     }
+    // debugger
     switch (action.type) {
         case LOGIN_REQUEST:
             return {...state, ...action.data, email: '', password: '', remember: false}

@@ -9,16 +9,17 @@ import {
     logData
 } from "../../../DataBases/Reducers/LoginReducer";
 import LoginPage from "./LoginPage";
-
+import {reduxForm} from "redux-form";
 
 let mapStateToProps = state => {
     return {
         email: state.loginReducer.email,
         password: state.loginReducer.password,
         remember: state.loginReducer.remember,
-        buttonRequest: state.loginReducer.buttonRequest
+        buttonRequest: state.loginReducer.buttonRequest,
     }
 };
+
 
 
 export const LoginPageContainer = connect(mapStateToProps,
@@ -27,3 +28,5 @@ export const LoginPageContainer = connect(mapStateToProps,
         changeRemember, logData, postLogThunk
     }
 )(LoginPage)
+
+export const LoginReduxForm = reduxForm({form: 'login'})(LoginPageContainer)

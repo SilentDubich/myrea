@@ -57,6 +57,10 @@
     box-shadow: 0 0 .2rem #606060;
     cursor: pointer;
 }
+.log__buttonDisabled {
+    opacity: .5;
+    cursor: default;
+}
 
 .log__buttonWidth {
     width: 5rem

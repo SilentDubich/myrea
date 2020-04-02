@@ -1,7 +1,7 @@
 import React from "react";
 import LeftMenu from "./LeftMenu/NavigateMenu";
 import Objects from '../CssModules/DisplayView.module.css';
-import ProfileCenterInfo from "./Profile/MainProfilePage/ProfileCenterInfo";
+import ProfileCenterInfo from "../Trash/ProfileCenterInfo";
 import Dialogs from "./Dialog/MainDialogPage/Dialogs";
 import DialogPage from "./Dialog/MainDialogPage/DialogPage/DialogPage";
 import {Route} from "react-router-dom"
@@ -11,7 +11,7 @@ import AllUsers from "../Trash/allUsers";
 import AllUsersClass from "./Friends/FindFriends/AllUsers/allUsersClass";
 import AllUsersClassContainer from "./Friends/FindFriends/AllUsers/allUsersClassContainer";
 import {ProfileCenterInfoClassContainer} from "./Profile/MainProfilePage/ProfileCenterInfoClassContainer";
-import {LoginPageContainer} from "./UpperMenu/Login/LoginPage/LoginPageContainer";
+import {LoginPageContainer, LoginReduxForm} from "./UpperMenu/Login/LoginPage/LoginPageContainer";
 import {SettingsContainer} from "./Settings/settingsContainer";
 
 
@@ -39,7 +39,8 @@ function Text(props) {
     // let allUsers = () => <AllUsers dispatch={props.dispatch} state={props.state}/>;
     // let allUsers = () => <AllUsersClass dispatch={props.dispatch} state={props.state}/>;
     let allUsers = () => <AllUsersClassContainer dispatch={props.dispatch} state={props.state}/>;
-    let loginPage = () => <LoginPageContainer/>;
+    // let loginPage = () => <LoginPageContainer/>;
+    let loginPage = () => <LoginReduxForm/>;
     let settingsPage = () => <SettingsContainer/>
 
     return (

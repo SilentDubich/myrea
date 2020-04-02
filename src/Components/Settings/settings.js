@@ -1,4 +1,5 @@
 import React from "react";
+import {ChangeNameClassContainer} from "./СhangeName/changeNameClassContainer";
 
 
 
@@ -6,18 +7,19 @@ import React from "react";
 function Settings(props) {
     let tempName = React.createRef();
     let Change = text => {
-        debugger
+        // debugger
         let request = text.target.value;
 
     }
 
-    debugger
+    // debugger
     return(
         <div>
-            <div>
-                <p>Change name:</p>
-                <input onChange={ref => Change(ref)} value={props.temps.name} ref={tempName} placeholder='Change your name'/>
-            </div>
+            {/*<div>*/}
+            {/*    <p>Change name:</p>*/}
+            {/*    <input onChange={ref => Change(ref)} value={props.temps.name} ref={tempName} placeholder='Change your name'/>*/}
+            {/*</div>*/}
+            <ChangeNameClassContainer/>
         </div>
     )
 }

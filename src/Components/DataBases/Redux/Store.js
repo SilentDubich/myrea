@@ -8,6 +8,7 @@ import {TempInstructions} from "../Reducers/TempReducer";
 import {UsersInstructions} from "../Reducers/UserReducer";
 import {LoginInstructions} from "../Reducers/LoginReducer";
 import thunkMiddleware from 'redux-thunk'
+import {reducer as formReducer} from "redux-form";
 
 let allReduces = combineReducers(
     {
@@ -18,7 +19,8 @@ let allReduces = combineReducers(
         friendsReducer: FriendsInstructions,
         tempReducer: TempInstructions,
         usersReducer: UsersInstructions,
-        loginReducer: LoginInstructions
+        loginReducer: LoginInstructions,
+        form: formReducer
     }
 );
 

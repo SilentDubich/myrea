@@ -1,6 +1,7 @@
 import React from "react";
 import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
 import {API} from "../API/API";
+import {Redirect} from "react-router-dom";
 
 const GET_PROFILE = 'getProfile';
 export const getProfile = user => ({type: GET_PROFILE, user});
@@ -8,13 +9,15 @@ const SET_PROFILE = 'setProfile';
 export const setProfile = bool => ({type: SET_PROFILE, bool});
 const GET_MY_PROFILE = 'getMyProfile';
 export const getMyProfile = data => ({type: GET_MY_PROFILE, data});
+const GET_STATUS = 'getStatus';
+export const getStatus = status => ({type: GET_STATUS, status});
 const SET_TEMPS_MY_PROFILE = 'setTempsMyProfile';
 export const setTemps = (name, status, avatar, contacts) => ({
     type: SET_TEMPS_MY_PROFILE,
     temps: {name, status, avatar, contacts}
 });
 const UPDATE_TEMPS_MY_PROFILE = 'updateTempsMyProfile';
-export const updateTemps = (data, temp ) => ({type: UPDATE_TEMPS_MY_PROFILE, data, temp});
+export const updateTemps = (data, temp) => ({type: UPDATE_TEMPS_MY_PROFILE, data, temp});
 
 export const getProfileThunk = (id) => {
     return dispatch => {
@@ -30,11 +33,34 @@ export const getMyProfileThunk = (id) => {
         // debugger
         API.getMyProfile(id)
             .then(data => {
-                debugger
+                // debugger
                 dispatch(getMyProfile(data));
-                dispatch(setTemps(data.fullName, data.aboutMe, data.photos.small, data.contacts));
+                dispatch(setTemps(data.fullName, data.photos.small, data.contacts));
                 dispatch(setProfile(true))
 
+            })
+    }
+};
+export const getStatusThunk = (id) => {
+    return dispatch => {
+        // debugger
+        API.getStatus(id)
+            .then(data => {
+                // debugger
+                dispatch(getStatus(data));
+            })
+    }
+};
+export const putStatusThunk = (status, id) => {
+    return dispatch => {
+        debugger
+        API.putStatus(status)
+            .then( () => {
+                API.getStatus(id)
+                    .then(data => {
+                        // debugger
+                        dispatch(getStatus(data));
+                    })
             })
     }
 };
@@ -97,16 +123,17 @@ let defaultStateProfile = {
 };
 
 export function ProfileInstructions(state = defaultStateProfile, action) {
-    // debugger
+
     let stateCopy = {
         ...state
     }
+    // debugger
     switch (action.type) {
         case GET_PROFILE:
             let currentProfile = {
                 id: action.user.userId,
                 Name: action.user.fullName,
-                Status: action.user.aboutMe,
+                // Status: action.user.aboutMe,
                 Avatar: action.user.photos.small,
                 Contacts: {
                     Facebook: action.user.contacts.facebook,
@@ -125,7 +152,6 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             let myProfile = {
                 id: action.data.userId,
                 Name: action.data.fullName,
-                Status: action.data.aboutMe,
                 Avatar: action.data.photos.small,
                 Contacts: {
                     Facebook: action.data.contacts.facebook,
@@ -134,6 +160,10 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             };
             // debugger
             return {...state, logged: myProfile}
+        case GET_STATUS:
+            stateCopy.logged.Status = action.status.data
+            // debugger
+            return stateCopy
         default:
             return state
 

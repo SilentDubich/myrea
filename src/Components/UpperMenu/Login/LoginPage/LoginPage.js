@@ -2,29 +2,14 @@ import React from "react";
 import Person from "../../../../CssModules/UpperMenu/UpperMenu.module.css";
 import * as axios from "axios";
 import {API} from "../../../DataBases/API/API";
+import {Redirect} from "react-router-dom";
+import {Field} from "redux-form";
 
 
 function LoginPage(props) {
-    let refEmail = React.createRef();
-    let refPassword = React.createRef();
-    let refRemember = React.createRef();
-    let currentTextEmail = () => {
-        let text = refEmail.current.value
-        props.changeEmail(text)
-    }
-    let currentTextPassword = () => {
-        let text = refPassword.current.value
-        props.changePassword(text)
-    }
-    let currentTextRemember = () => {
-        let text = refRemember.current.checked
-        props.changeRemember(text)
-    }
-    let request = () => {
-        let email = refEmail.current.value;
-        let password = refPassword.current.value;
-        let remember = refRemember.current.checked
-        props.postLogThunk(email, password, remember)
+    let onSubmit = (formData) => {
+        props.postLogThunk(formData.email, formData.password, formData.remember)
+        // return <Redirect to='/profile'/>
     };
     let buttonLoginClasses =
     `
@@ -33,32 +18,26 @@ function LoginPage(props) {
     `;
     return (
         <div>
-            <div>
+            <form onSubmit={props.handleSubmit(onSubmit)}>
                 <div>
-                    <input onChange={currentTextEmail} value={props.email} ref={refEmail} placeholder='Your email'/>
+                    <Field name={'email'} placeholder={'Your email'} component={'input'}/>
                 </div>
                 <div>
-                    <input type='password' onChange={currentTextPassword} value={props.password} ref={refPassword}
-                           placeholder='Your password'/>
+
+                    <Field name={'password'} type={'password'} placeholder={'Password'} component={'input'}/>
                 </div>
                 <div>
                     <span>Remember me:</span>
-                    <input onChange={currentTextRemember}
-                           checked={props.remember}
-                           ref={refRemember}
-                           type='checkbox'
-                           placeholder='Remember me'
-                    />
+                    <Field name={'remember'} type={'checkbox'} component={'input'}/>
                 </div>
                 <div>
                     <button disabled={props.buttonRequest}
-                            onClick={request}
-                            className={buttonLoginClasses}
+                            className={`${buttonLoginClasses} ${props.buttonRequest ? Person.log__buttonDisabled : ''}`}
                     >
                         Login
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }
