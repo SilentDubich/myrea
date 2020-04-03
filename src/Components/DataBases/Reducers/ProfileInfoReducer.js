@@ -2,6 +2,7 @@ import React from "react";
 import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
 import {API} from "../API/API";
 import {Redirect} from "react-router-dom";
+import {loadProfileData, logData} from "./LoginReducer";
 
 const GET_PROFILE = 'getProfile';
 export const getProfile = user => ({type: GET_PROFILE, user});
@@ -31,16 +32,54 @@ export const getProfileThunk = (id) => {
 export const getMyProfileThunk = (id) => {
     return dispatch => {
         // debugger
-        API.getMyProfile(id)
+        return API.getMyProfile(id)
             .then(data => {
                 // debugger
                 dispatch(getMyProfile(data));
-                dispatch(setTemps(data.fullName, data.photos.small, data.contacts));
+                // dispatch(getStatus(data.id))
+                // dispatch(setTemps(data.fullName, data.photos.small, data.contacts));
                 dispatch(setProfile(true))
 
             })
+            .then(() => {
+                return API.getStatus(id)
+                    .then(data => {
+                        dispatch(getStatus(data));
+                    })
+            })
+
     }
 };
+export const getMyProfileThunk1 = () => {
+    return dispatch => {
+        debugger
+        return API.getAuth()
+            .then(data => {
+                dispatch(logData(data.data.id, data.data.login, data.data.email));
+                // this.props.getMyProfileThunk(data.data.id);
+                // this.props.dispatch(logData(data.data.id, data.data.login, data.data.email));
+                debugger
+                return data.data.id
+
+            })
+            .then((data) => {
+                dispatch(getMyProfileThunk(data));
+                debugger
+                return data
+                // debugger
+            })
+
+    }
+};
+
+export const initializeApp = (id) => (dispatch) => {
+    let promise = dispatch(getMyProfileThunk(id));
+    Promise.all([promise])
+        .then(() => {
+            dispatch(loadProfileData());
+        });
+}
+
 export const getStatusThunk = (id) => {
     return dispatch => {
         // debugger
@@ -53,8 +92,8 @@ export const getStatusThunk = (id) => {
 };
 export const putStatusThunk = (status, id) => {
     return dispatch => {
-        debugger
-        API.putStatus(status)
+        // debugger
+        return API.putStatus(status)
             .then( () => {
                 API.getStatus(id)
                     .then(data => {

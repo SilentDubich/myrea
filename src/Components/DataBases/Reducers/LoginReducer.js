@@ -15,6 +15,8 @@ const LOG_DATA = 'logData';
 export const logData = (id, login, email) => ({type: LOG_DATA, data: {id, login, email}});
 const BUTTON_ACTION = 'buttonAction';
 export const buttonAction = bool => ({type: BUTTON_ACTION, bool});
+const LOAD_PROFILE_DATA = 'loadProfileData';
+export const loadProfileData = () => ({type: LOAD_PROFILE_DATA});
 
 export const postLogThunk = (email, password, remember) => {
     return dispatch => {
@@ -59,16 +61,14 @@ export const postLogOutThunk = () => {
 
 
 let defaultStateLogin = {
-    email: 'kirill.dubov.2012@mail.ru',
-    password: 'Qwerty12345!',
-    remember: false,
     logData: {
         id: null,
         login: null,
         email: null
     },
     isLogged: false,
-    buttonRequest: false
+    buttonRequest: false,
+    loadProfileData: false
 };
 
 export function LoginInstructions(state = defaultStateLogin, action) {
@@ -94,6 +94,8 @@ export function LoginInstructions(state = defaultStateLogin, action) {
             stateCopy.logData.email = action.data.email;
             stateCopy.isLogged = !!action.data.id;
             return stateCopy
+        case LOAD_PROFILE_DATA:
+            return {...state, loadProfileData: true}
         default:
             return state
 

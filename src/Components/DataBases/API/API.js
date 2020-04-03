@@ -34,7 +34,7 @@ export const API = {
     getStatus(id) {
         return instance.get(`profile/status/${id}`)
             .then(response => {
-                debugger
+                // debugger
                 return response
             })
     },
@@ -46,6 +46,7 @@ export const API = {
     getAuth() {
         return instance.get(`auth/me`)
             .then(response => {
+                // debugger
                 return response.data
             })
     },

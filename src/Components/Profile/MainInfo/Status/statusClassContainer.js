@@ -11,7 +11,8 @@ import {reduxForm} from "redux-form";
 let mapStateToProps = state => {
     return {
         status: state.profileInfoReducer.logged.Status,
-        id: state.profileInfoReducer.logged.id
+        id: state.profileInfoReducer.logged.id,
+        form: state.form
     }
 }
 
@@ -23,4 +24,4 @@ export const StatusClassContainer = compose(
     authRedirect
 )(StatusClass)
 
-export const ReduxStatusForm = reduxForm({form: 'status'})(StatusClassContainer);
+export const ReduxStatusForm = reduxForm({form: 'status', enableReinitialize : true, initialValues: 'Hello'})(StatusClassContainer);
