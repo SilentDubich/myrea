@@ -50,29 +50,9 @@ export const getMyProfileThunk = (id) => {
 
     }
 };
-export const getMyProfileThunk1 = () => {
-    return dispatch => {
-        debugger
-        return API.getAuth()
-            .then(data => {
-                dispatch(logData(data.data.id, data.data.login, data.data.email));
-                // this.props.getMyProfileThunk(data.data.id);
-                // this.props.dispatch(logData(data.data.id, data.data.login, data.data.email));
-                debugger
-                return data.data.id
 
-            })
-            .then((data) => {
-                dispatch(getMyProfileThunk(data));
-                debugger
-                return data
-                // debugger
-            })
 
-    }
-};
-
-export const initializeApp = (id) => (dispatch) => {
+export const initializeApp = id => dispatch => {
     let promise = dispatch(getMyProfileThunk(id));
     Promise.all([promise])
         .then(() => {
@@ -83,10 +63,10 @@ export const initializeApp = (id) => (dispatch) => {
 export const getStatusThunk = (id) => {
     return dispatch => {
         // debugger
-        API.getStatus(id)
+        return API.getStatus(id)
             .then(data => {
                 // debugger
-                dispatch(getStatus(data));
+                return dispatch(getStatus(data));
             })
     }
 };
@@ -95,11 +75,30 @@ export const putStatusThunk = (status, id) => {
         // debugger
         return API.putStatus(status)
             .then( () => {
-                API.getStatus(id)
+                return dispatch(getStatus(status));
+            })
+    }
+};
+export const putProfileInfoThunk = (data, id) => {
+    return dispatch => {
+        // debugger
+        return API.putProfileInfo(data)
+            .then( () => {
+                return API.getMyProfile(id)
                     .then(data => {
-                        // debugger
-                        dispatch(getStatus(data));
+                        dispatch(getMyProfile(data));
+                        dispatch(setProfile(true))
+
                     })
+            })
+    }
+};
+export const postProfilePhotoThunk = formData => {
+    return dispatch => {
+        // debugger
+        return API.postAvatarPhoto(formData)
+            .then( () => {
+                // dispatch(updateAvatarPhoto(formData))
             })
     }
 };
@@ -110,6 +109,7 @@ let defaultStateProfile = {
         Name: null,
         LastName: null,
         Status: null,
+        AboutMe: null,
         Avatar: null,
         Contacts: {
             Facebook: null,
@@ -122,32 +122,6 @@ let defaultStateProfile = {
             MainLink: null
         }
     },
-    temps: {
-        name: null,
-        status: null,
-        avatar: null,
-        contacts: {
-            facebook: null,
-            website: null,
-            vk: null,
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: null,
-            mainLink: null
-        }
-    },
-    // logged: {
-    //     id: 6554,
-    //     Name: 'Sarumyan Сделай смену имени и статуса, и всего-всего',
-    //     LastName: 'Armyanskiy',
-    //     Status: 'Just I saw the dollar exchange rate',
-    //     Avatar: Sarumyan,
-    //     Contacts: {
-    //         Facebook: null,
-    //         Vk: null
-    //     }
-    // },
     currentProfile: {
         id: null,
         Name: null,
@@ -172,7 +146,7 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             let currentProfile = {
                 id: action.user.userId,
                 Name: action.user.fullName,
-                // Status: action.user.aboutMe,
+                AboutMe: action.user.aboutMe,
                 Avatar: action.user.photos.small,
                 Contacts: {
                     Facebook: action.user.contacts.facebook,
@@ -191,7 +165,9 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             let myProfile = {
                 id: action.data.userId,
                 Name: action.data.fullName,
-                Avatar: action.data.photos.small,
+                Status: stateCopy.logged.Status,
+                AboutMe: action.data.aboutMe,
+                Avatar: action.data.photos.large,
                 Contacts: {
                     Facebook: action.data.contacts.facebook,
                     Vk: action.data.contacts.vk
@@ -200,7 +176,7 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             // debugger
             return {...state, logged: myProfile}
         case GET_STATUS:
-            stateCopy.logged.Status = action.status.data
+            stateCopy.logged.Status = action.status
             // debugger
             return stateCopy
         default:

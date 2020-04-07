@@ -8,17 +8,18 @@
 }
 .content__mainContentAvatar{
     margin: 0 auto;
+    width: 225px;
+    height: 225px;
 }
 
 
 .content__mainContentAvatar > img {
-    width: 225px;
-    height: 225px;
     object-fit: cover;
     min-height: 75px;
     min-width: 75px;
     box-shadow: 0 0 .25rem #606060;
     border-radius: 2.5%;
+    margin: 0 auto;
 }
 
 .content__mainContentName{

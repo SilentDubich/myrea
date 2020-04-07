@@ -23,6 +23,7 @@ class ProfileCenterInfoClass extends React.Component {
                 <div className={Displays.inside_ProfileCenter__FlexProportion}>
                     <AvatarPhoto
                         avatar={this.props.currentProfile.Avatar}
+                        updatePhoto={this.props.postProfilePhotoThunk}
                     />
                     <FriendList
                         dispatch={this.props.dispatch}
@@ -36,7 +37,8 @@ class ProfileCenterInfoClass extends React.Component {
                 <div className={Displays.inside_ProfileRight__FlexProportion}>
                     <MainInfo
                         name={this.props.currentProfile.Name}
-                        status={this.props.currentProfile.Status}
+                        // status={this.props.currentProfile.Status}
+                        status={this.props.status}
                     />
                     <PostRedactorContainer/>
                     {/*<MyPosts*/}

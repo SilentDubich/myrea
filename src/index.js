@@ -21,97 +21,24 @@ import {loadProfileData, logData} from "./Components/DataBases/Reducers/LoginRed
 import Preloader from "./Components/Pre-loaders/Preloader";
 import {MacketAppContainer} from "./Components/MainStructure/structureContainer";
 
-let Render = (state) => {
-    // debugger
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                {/*<MacketApp*/}
-                {/*    state={state}*/}
-                {/*    dispatch={store.dispatch.bind(store)}*/}
-                {/*    store={store}*/}
-                {/*/>*/}
-                <MacketAppContainer/>
-            </Provider>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-};
-
-
-
-// let Render = (state, store) => {
-//     // debugger
-//     ReactDOM.render(
-//         // <Start {...state} {...store}/>,
-//
-//         document.getElementById('root')
-//     );
+// let Render = (state) => {
+// debugger
+ReactDOM.render(
+    <BrowserRouter>
+        <Provider store={store}>
+            <MacketAppContainer/>
+        </Provider>
+    </BrowserRouter>,
+    document.getElementById('root')
+);
 // };
-
-
-// class Start extends React.Component {
-//     componentDidMount() {
-//        let promise = API.getAuth()
-//             .then(data => {
-//                 this.props.dispatch(logData(data.data.id, data.data.login, data.data.email));
-//                 // debugger
-//                 return data.data.id
 //
-//             })
-//             .then((data) => {
-//                 this.props.dispatch(getMyProfileThunk(data));
-//                 return data
-//                 // debugger
-//             })
-//             // .then((data) => {
-//             //     this.props.dispatch(getStatusThunk(data));
-//             // })
+// Render(store.getState(), store);
 //
-//         Promise.all([promise])
-//             .then(() => {
-//                 this.props.dispatch(loadProfileData())
-//             })
-//
-//     }
-//
-//     render() {
-//         // debugger
-//         return (
-//             <div>
-//                 {
-//                     this.props.loginReducer.loadProfileData ?
-//                         <BrowserRouter>
-//                             <Provider store={store}>
-//                                 <MacketApp
-//                                     state={this.props}
-//                                     dispatch={store.dispatch.bind(store)}
-//                                     store={store}
-//                                 />
-//                             </Provider>
-//                         </BrowserRouter> :
-//                         <Preloader/>
-//                 }
-//
-//             </div>
-//
-//         )
-//
-//     }
-// }
-
-
-// const StartContainer = compose(
-//     connect({store},{logData, getMyProfileThunk, getStatusThunk})
-// )(Start)
-
-
-Render(store.getState(), store);
-
-store.subscribe(() => {
-    let state = store.getState();
-    Render(state, store)
-});
+// store.subscribe(() => {
+//     let state = store.getState();
+//     Render(state, store)
+// });
 
 
 // If you want your app to work offline and load faster, you can change

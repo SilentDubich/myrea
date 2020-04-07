@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Content from "../../../../CssModules/content.module.css";
 import UsersContainer from "../UserDecor/FindFriendsContainer";
 import Users from "../UserDecor/findFriends";
@@ -13,22 +13,18 @@ import Preloader from "../../../Pre-loaders/Preloader";
 import Preloaders from '../../../../CssModules/Preloader/Preloaders.module.css'
 import {API} from "../../../DataBases/API/API";
 
+function AllUsersClass (props) {
+    useEffect(() => {
+        props.getUsersThunk(props.state.pageSize, props.state.currentPage)
+    }, [props.state.users === 0])
 
-class AllUsersClass extends React.Component {
-    componentDidMount() {
-        if (this.props.state.users.length === 0) {
-            this.props.getUsersThunk(this.props.state.pageSize, this.props.state.currentPage)
-        }
-    }
-
-    render() {
         // debugger
         return (
             <div className={`${Content.content__menu_decorationBlocks} `}>
                 <UserSearch/>
                 <PagesContainer/>
-                {this.props.state.isFetching ? <Preloader className={Preloaders.Preloader__Opacity}/> : null}
-                {this.props.state.users.map(us => <UsersContainer
+                {props.state.isFetching ? <Preloader className={Preloaders.Preloader__Opacity}/> : null}
+                {props.state.users.map(us => <UsersContainer
                     id={us.id}
                     avatar={us.photos.small}
                     name={us.name}
@@ -36,7 +32,30 @@ class AllUsersClass extends React.Component {
                 />)}
             </div>
         )
-    }
 }
+// class AllUsersClass extends React.Component {
+//     componentDidMount() {
+//         if (this.props.state.users.length === 0) {
+//             this.props.getUsersThunk(this.props.state.pageSize, this.props.state.currentPage)
+//         }
+//     }
+//
+//     render() {
+//         // debugger
+//         return (
+//             <div className={`${Content.content__menu_decorationBlocks} `}>
+//                 <UserSearch/>
+//                 <PagesContainer/>
+//                 {this.props.state.isFetching ? <Preloader className={Preloaders.Preloader__Opacity}/> : null}
+//                 {this.props.state.users.map(us => <UsersContainer
+//                     id={us.id}
+//                     avatar={us.photos.small}
+//                     name={us.name}
+//                     follow={us.followed}
+//                 />)}
+//             </div>
+//         )
+//     }
+// }
 
 export default AllUsersClass

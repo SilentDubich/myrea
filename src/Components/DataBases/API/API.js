@@ -5,7 +5,16 @@ import {store} from '../Redux/Store';
 const instance = axios.create({
     withCredentials: true,
     headers: {
-        'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a'
+        'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a',
+    },
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/'
+});
+
+const instancePhoto = axios.create({
+    withCredentials: true,
+    headers: {
+        'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a',
+        'Content-Type': 'multipart/form-data'
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 });
@@ -35,12 +44,15 @@ export const API = {
         return instance.get(`profile/status/${id}`)
             .then(response => {
                 // debugger
-                return response
+                return response.data
             })
     },
 
     putStatus(status) {
         return instance.put(`profile/status`, {status})
+    },
+    putProfileInfo(data) {
+        return instance.put(`profile`, data)
     },
 
     getAuth() {
@@ -72,6 +84,13 @@ export const API = {
         return instance.delete(`follow/${id}`)
             .then(response => {
                 return response
+            })
+    },
+    postAvatarPhoto(formData) {
+        return instancePhoto.post(`profile/photo`, formData)
+            .then(response => {
+                debugger
+                return response.data.data
             })
     }
 };

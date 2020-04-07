@@ -1,14 +1,24 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Content from "../../../CssModules/content.module.css";
 import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
 
 function AvatarPhoto(props) {
+    let [avatar, setAvatar] = useState(props.avatar)
+
     // debugger
+    let uploadFile = () => {
+        let formData = new FormData();
+        let image = document.querySelector('#photo');
+        formData.append('image', image.files[0]);
+        props.updatePhoto(formData)
+    }
+
     return(
-        <div className={`${Content.content__mainContentHeader}`}>
+        <div className={`${Content.content__menu_decorationBlocks}`}>
             <div className={`${Content.content__mainContentAvatar}`}>
-                <img src={props.avatar || emptyPhoto}/>
+                <img className={`${Content.content__mainContentAvatar}`} src={avatar || emptyPhoto}/>
             </div>
+            <div><input id={'photo'} type='file'/><button onClick={uploadFile}>Load</button></div>
         </div>
     )
 }

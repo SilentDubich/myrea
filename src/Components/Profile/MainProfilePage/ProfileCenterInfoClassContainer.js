@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getProfile} from "../../DataBases/Reducers/ProfileInfoReducer";
+import {getProfile, postProfilePhotoThunk} from "../../DataBases/Reducers/ProfileInfoReducer";
 import ProfileCenterInfoClass from "./ProfileCenterInfoClass";
 import {authRedirect} from "../../redirect";
 import {compose} from "redux";
@@ -11,6 +11,7 @@ let mapStateToProps = state => {
         currentProfile: state.profileInfoReducer.myProfile ?
             state.profileInfoReducer.logged : state.profileInfoReducer.currentProfile,
         myProfilePosts: state.postsReducer.Posts,
+        status: state.profileInfoReducer.logged.Status
 
     }
 };
@@ -18,7 +19,7 @@ let mapStateToProps = state => {
 // let redirect = authRedirect(ProfileCenterInfoClass)
 
 export const ProfileCenterInfoClassContainer = compose(
-    connect(mapStateToProps, {getProfile}),
+    connect(mapStateToProps, {getProfile, postProfilePhotoThunk}),
     authRedirect
 )(ProfileCenterInfoClass)
 // connect(mapStateToProps, {getProfile})(redirect);

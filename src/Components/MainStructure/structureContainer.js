@@ -3,7 +3,6 @@ import {API} from "../DataBases/API/API";
 import {loadProfileData, logData} from "../DataBases/Reducers/LoginReducer";
 import {
     getMyProfileThunk,
-    getMyProfileThunk1,
     getStatusThunk,
     initializeApp
 } from "../DataBases/Reducers/ProfileInfoReducer";
