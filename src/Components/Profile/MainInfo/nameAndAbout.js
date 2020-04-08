@@ -13,10 +13,10 @@ function MainInfo(props) {
         <div>
             <div className={`${Content.content__mainContentName} ${Content.content__menu_decorationBlocks}`}>
                 <h1>{`${props.name}`}</h1>
-                <ReduxStatusForm initialValues={initial()}/>
+                <ReduxStatusForm  initialValues={initial()}/>
             </div>
             <div className={`${Content.content__menu_decorationBlocks}`}>
-                <p>about</p>
+                <p>{props.aboutMe}</p>
             </div>
         </div>
     )

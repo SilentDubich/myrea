@@ -3,14 +3,14 @@ import {Field} from "redux-form";
 
 function StatusClass(props) {
     let [mode, switchMode] = useState(false)
-    let [status, switchStatus] = useState(props.status)
+    let [status, switchStatus] = useState(props.currentProfile.Status)
 
     useEffect(() => {
-        switchStatus(props.status)
-    }, [props.status])
+        switchStatus(props.currentProfile.Status)
+    }, [props.currentProfile.Status])
 
     let onSubmit = status => {
-        let promise = props.putStatusThunk(status.status, props.id)
+        let promise = props.putStatusThunk(status.status, props.currentProfile.id)
         Promise.all([promise])
             .then(() => {
                 switchMode(false);
@@ -35,7 +35,7 @@ function StatusClass(props) {
                     </div>
                 </form>
                 :
-                <h3 onClick={() => switchMode(true)}>{status ? status : 'Change status'}</h3>
+                <h3 onClick={() => {if (props.myProfile) switchMode(true)}}>{status ? status : 'Change status'}</h3>
             }
         </div>
     )

@@ -27,7 +27,7 @@ class MacketAppClass extends React.Component {
     }
 
     render() {
-        if (!this.props.initializate) return <Preloader/>
+        if (this.props.isLogged && !this.props.initializate) return <Preloader/>
         return (
             <div>
                 <MacketApp {...this.props}/>
@@ -44,7 +44,8 @@ let mapStateToProps = state => {
         state: state,
         store: store,
         dispatch: store.dispatch.bind(store),
-        initializate: state.loginReducer.loadProfileData
+        initializate: state.loginReducer.loadProfileData,
+        isLogged: state.loginReducer.isLogged
     }
 }
 

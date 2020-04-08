@@ -5,6 +5,7 @@ import NewPost from "./post";
 class PostsClass extends React.Component {
     render() {
         // debugger
+
         let sortedPosts = this.props.posts
         .map( elem => <NewPost
             id={elem.id}

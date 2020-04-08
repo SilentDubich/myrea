@@ -5,7 +5,7 @@ import {deletePostCreation} from "../../DataBases/Reducers/PostsReducer";
 // import {deletePost} from "../../DataBases/State/State";
 
 
-function NewPost(props) {
+const NewPost = React.memo((props) => {
 
     let setDeletePost = () => {
         props.deletePost(props.id, props.current)
@@ -13,7 +13,7 @@ function NewPost(props) {
     };
     // debugger
     return(
-        <div className={`${Content.content__menu_decorationBlocks}`}>
+        <div key={props.id} className={`${Content.content__menu_decorationBlocks}`}>
             <div className={`${Posts.display}`}>
                 <img className={Posts.image} src={props.pict}/>
                 <p className={`${Posts.name__marginLeft} ${Posts.name__Fonts}`}>{props.name}</p>
@@ -27,6 +27,6 @@ function NewPost(props) {
             </div>
         </div>
     )
-}
+})
 
 export default NewPost

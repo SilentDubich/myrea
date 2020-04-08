@@ -1,17 +1,11 @@
-import Navigate from "../UpperMenu/upper";
 import Text from "../mainText";
 import React from "react";
 import {UpperClassContainerTwo} from "../UpperMenu/upperClassContainerX2";
-import {API} from "../DataBases/API/API";
-import {loadProfileData, logData} from "../DataBases/Reducers/LoginReducer";
-import {getMyProfileThunk} from "../DataBases/Reducers/ProfileInfoReducer";
-import Preloader from "../Pre-loaders/Preloader";
 
 class MacketApp extends React.Component {
 
     render() {
         return (
-
             <div>
                 <div>
                     <UpperClassContainerTwo/>

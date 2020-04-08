@@ -11,8 +11,10 @@ import {store} from "../../../DataBases/Redux/Store";
 
 let mapStateToProps = state => {
     return {
-        status: state.profileInfoReducer.logged.Status,
-        id: state.profileInfoReducer.logged.id,
+        // id: state.profileInfoReducer.logged.id,
+        currentProfile: state.profileInfoReducer.myProfile ?
+            state.profileInfoReducer.logged : state.profileInfoReducer.currentProfile,
+        myProfile: state.profileInfoReducer.myProfile
     }
 }
 

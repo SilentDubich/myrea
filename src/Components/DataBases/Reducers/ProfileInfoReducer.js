@@ -27,6 +27,12 @@ export const getProfileThunk = (id) => {
                 dispatch(getProfile(data));
                 dispatch(setProfile(false))
             })
+            .then(() => {
+                return API.getStatus(id)
+                    .then(data => {
+                        dispatch(getStatus(data));
+                    })
+            })
     }
 };
 export const getMyProfileThunk = (id) => {
@@ -36,8 +42,6 @@ export const getMyProfileThunk = (id) => {
             .then(data => {
                 // debugger
                 dispatch(getMyProfile(data));
-                // dispatch(getStatus(data.id))
-                // dispatch(setTemps(data.fullName, data.photos.small, data.contacts));
                 dispatch(setProfile(true))
 
             })
@@ -93,12 +97,16 @@ export const putProfileInfoThunk = (data, id) => {
             })
     }
 };
-export const postProfilePhotoThunk = formData => {
+export const postProfilePhotoThunk = (formData, id) => {
     return dispatch => {
         // debugger
         return API.postAvatarPhoto(formData)
             .then( () => {
-                // dispatch(updateAvatarPhoto(formData))
+                return API.getMyProfile(id)
+                    .then(data => {
+                        dispatch(getMyProfile(data));
+                        dispatch(setProfile(true))
+                    })
             })
     }
 };
@@ -129,7 +137,13 @@ let defaultStateProfile = {
         Avatar: null,
         Contacts: {
             Facebook: null,
-            Vk: null
+            Website: null,
+            Vk: null,
+            Twitter: null,
+            Instagram: null,
+            Youtube: null,
+            Github: null,
+            MainLink: null
         }
     },
     myProfile: true
@@ -176,7 +190,12 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             // debugger
             return {...state, logged: myProfile}
         case GET_STATUS:
-            stateCopy.logged.Status = action.status
+                stateCopy.myProfile
+                    ?
+                    stateCopy.logged.Status = action.status
+                    :
+                    stateCopy.currentProfile.Status = action.status
+            // stateCopy.logged.Status = action.status
             // debugger
             return stateCopy
         default:

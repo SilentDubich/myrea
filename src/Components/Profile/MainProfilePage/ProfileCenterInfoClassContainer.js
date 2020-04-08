@@ -11,7 +11,7 @@ let mapStateToProps = state => {
         currentProfile: state.profileInfoReducer.myProfile ?
             state.profileInfoReducer.logged : state.profileInfoReducer.currentProfile,
         myProfilePosts: state.postsReducer.Posts,
-        status: state.profileInfoReducer.logged.Status
+        // status: state.profileInfoReducer.logged.Status
 
     }
 };
