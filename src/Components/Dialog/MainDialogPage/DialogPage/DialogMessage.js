@@ -4,7 +4,7 @@ import Posts from "../../../../CssModules/Profile/MyPosts/posts.module.css";
 import {deleteMessageCreation} from "../../../DataBases/Reducers/MessagesReducer";
 
 function Message(props) {
-    debugger
+    // debugger
     let setDeleteMessage = () => {
         props.dispatch(deleteMessageCreation(props.id, props.mesId))
     };

@@ -12,18 +12,30 @@ const ADD_MESSAGE = 'addMessage';
 const UPDATE_TEXT_MESSAGE = 'updateTextMessage';
 const DELETE_TEXT_MESSAGE = 'deleteMessage';
 const DIALOG_CREATION = 'dialogCreation';
+const GET_ALL_DIALOGS = 'getAllDialogs';
 export const messageCreation = (date, id) => ({type: ADD_MESSAGE, date, id});
 export const updateMessageCreation = (text, id) => ({type: UPDATE_TEXT_MESSAGE, text, id});
 export const deleteMessageCreation = (id, mesId) => ({type: DELETE_TEXT_MESSAGE, id, mesId});
 export const dialogCreation = data => ({type: DIALOG_CREATION, data});
+export const getAllDialogs = data => ({type: GET_ALL_DIALOGS, data});
 
 export const putNewDialogThunk = data => {
     return dispatch => {
-        debugger
+        // debugger
         return API.putNewDialog(data.id)
-            .then( () => {
-                debugger
+            .then(() => {
+                // debugger
                 return dispatch(dialogCreation(data));
+            })
+    }
+};
+export const postMessageThunk = ( id, message ) => {
+    return dispatch => {
+        // debugger
+        return API.postMessage(id, message)
+            .then(() => {
+                // debugger
+                // return dispatch(dialogCreation(message));
             })
     }
 };
@@ -149,6 +161,9 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
         case UPDATE_TEXT_MESSAGE:
             stateCopy.Dialogs[action.id].Temp = action.text;
             return stateCopy;
+        case GET_ALL_DIALOGS:
+            // stateCopy.Dialogs[action.id].Temp = action.text;
+            return stateCopy;
         case DIALOG_CREATION:
             let newDialog = {
                 id: action.data.id,
@@ -167,7 +182,7 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                 ]
             }
             stateCopy.Dialogs.push(newDialog)
-            debugger
+            // debugger
             return stateCopy;
         case DELETE_TEXT_MESSAGE:
             for (let i = 0; i < stateCopy.Dialogs[action.id].Messages.length; i++) {

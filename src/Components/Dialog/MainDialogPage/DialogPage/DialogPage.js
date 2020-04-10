@@ -37,7 +37,7 @@ function DialogPage(props) {
             // debugger
         }
     }
-    debugger
+    // debugger
     let allDialog = currentMessages.map( mes => <Message
         dispatch={props.dispatch}
         dialogs={props.state.messageReducer.Dialogs[index]}
@@ -49,7 +49,7 @@ function DialogPage(props) {
         date={mes.Data}
     />)
     console.log(currentMessages);
-    debugger
+    // debugger
     return(
         <div>
             <div className={`${Content.content__menu_decorationBlocks} ${Person.paddingOff}`}>
@@ -60,7 +60,7 @@ function DialogPage(props) {
                 <div className={`${Person.container}`}>
                     {allDialog}
                 </div>
-                <InputContainer/>
+                <InputContainer loc={loc}/>
             </div>
         </div>
     )

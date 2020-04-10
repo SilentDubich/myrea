@@ -53,6 +53,12 @@ export const getMyProfileThunk = (id) => {
                         dispatch(getStatus(data));
                     })
             })
+            .then(() => {
+                return API.getAllDialogs()
+                    .then( data => {
+                        debugger
+                })
+            })
 
     }
 };

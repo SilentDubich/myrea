@@ -10,6 +10,13 @@ function Input(props) {
         }
     };
 
+    let post = (event) => {
+        let text = ref.current.value;
+        if (event.which === 13) {
+            props.postMessageThunk(2, text)
+        }
+    }
+
     let currentText = () => {
         let text = ref.current.value;
         props.currentText(text)
@@ -20,7 +27,7 @@ function Input(props) {
         <div className={`${Person.input__margins} ${Person.input__borderTop} ${Person.input__decor}`}>
             <input
                 onChange={currentText}
-                onKeyPress={submit}
+                onKeyPress={post}
                 value={props.Temp}
                 // value={props.state.messageReducer.Dialogs[dialogId].Temp}
                 ref={ref}

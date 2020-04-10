@@ -103,8 +103,17 @@ export const API = {
     },
     getAllDialogs() {
         // debugger
-        return instance.put(`dialogs`)
+        return instance.get(`dialogs`)
             .then( response => {
+                // debugger
+                return response
+            })
+    },
+    postMessage(id, body) {
+        // debugger
+        return instance.post(`dialogs/${id}/messages`, {body})
+            .then( response => {
+                // debugger
                 return response
             })
     }

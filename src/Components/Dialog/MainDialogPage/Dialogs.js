@@ -2,6 +2,7 @@ import React from "react";
 import Content from "../../../CssModules/content.module.css";
 import Dialog from '../../../CssModules/Dialog/DialogFriend.module.css';
 import DialogLists from "./DialogList";
+import {DialogsListContainer} from "./DialogListContainer";
 
 
 function Dialogs(props) {
@@ -12,10 +13,11 @@ function Dialogs(props) {
                        placeholder='Search'/>
             </div>
             <div>
-                <DialogLists
-                    dispatch={props.dispatch}
-                    state={props.state}
-                />
+                {/*<DialogLists*/}
+                {/*    dispatch={props.dispatch}*/}
+                {/*    state={props.state}*/}
+                {/*/>*/}
+                <DialogsListContainer/>
             </div>
         </div>
     )
