@@ -3,6 +3,7 @@ import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
 import {API} from "../API/API";
 import {Redirect} from "react-router-dom";
 import {loadProfileData, logData} from "./LoginReducer";
+import {switchIsFetching} from "./UserReducer";
 
 const GET_PROFILE = 'getProfile';
 export const getProfile = user => ({type: GET_PROFILE, user});
@@ -22,10 +23,10 @@ export const updateTemps = (data, temp) => ({type: UPDATE_TEMPS_MY_PROFILE, data
 
 export const getProfileThunk = (id) => {
     return dispatch => {
-        API.getProfile(id)
+        return API.getProfile(id)
             .then(data => {
-                dispatch(getProfile(data));
                 dispatch(setProfile(false))
+                dispatch(getProfile(data));
             })
             .then(() => {
                 return API.getStatus(id)
@@ -38,6 +39,7 @@ export const getProfileThunk = (id) => {
 export const getMyProfileThunk = (id) => {
     return dispatch => {
         // debugger
+
         return API.getMyProfile(id)
             .then(data => {
                 // debugger
@@ -55,6 +57,15 @@ export const getMyProfileThunk = (id) => {
     }
 };
 
+export const setAnotherProfile = id => dispatch => {
+    dispatch(switchIsFetching(true))
+    let promise = dispatch(getProfileThunk(id));
+    Promise.all([promise])
+        .then(() => {
+            // debugger
+            dispatch(switchIsFetching(false))
+        });
+}
 
 export const initializeApp = id => dispatch => {
     let promise = dispatch(getMyProfileThunk(id));
@@ -161,7 +172,7 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
                 id: action.user.userId,
                 Name: action.user.fullName,
                 AboutMe: action.user.aboutMe,
-                Avatar: action.user.photos.small,
+                Avatar: action.user.photos.large,
                 Contacts: {
                     Facebook: action.user.contacts.facebook,
                     Vk: action.user.contacts.vk

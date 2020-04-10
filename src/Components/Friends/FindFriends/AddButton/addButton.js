@@ -29,7 +29,7 @@ function AddButton(props) {
                 props.followed ?
                     <button
                         onClick={deleteUser}
-                        disabled={props.addButton}
+                        disabled={props.addButton || props.isFetching}
                         className={deleteButtonClasses}
                     >
                         Delete
@@ -37,7 +37,7 @@ function AddButton(props) {
                     :
                     <button
                         onClick={addUser}
-                        disabled={props.addButton}
+                        disabled={props.addButton || props.isFetching}
                         className={addButtonClasses}
                     >
                         Add

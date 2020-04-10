@@ -9,8 +9,10 @@ import Preloaders from "../../../../CssModules/Preloader/Preloaders.module.css";
 
 function Users(props) {
     // debugger
-    let throwProfileInfo = () => {
-        props.getProfileThunk(props.id)
+    let throwProfileInfo = e => {
+        if (props.isFetching) return e.preventDefault()
+        // props.getProfileThunk(props.id)
+        props.setAnotherProfile(props.id)
     }
     return (
         <div className={`${props.users.isFetching ? Preloaders.Preloader__backgroundOpacity : null}`}>

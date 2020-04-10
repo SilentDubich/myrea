@@ -1,5 +1,6 @@
 import React from "react";
 import MiniDialogs from "./MiniDialogs/DialogsMini";
+import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
 
 function DialogLists(props) {
     // debugger
@@ -10,9 +11,11 @@ function DialogLists(props) {
             name={dialog.Name}
             img={dialog.Avatar}
             id={dialog.id}
-            lastImg={dialog.Messages[dialog.Messages.length - 1].Avatar}
-            message={dialog.Messages[dialog.Messages.length - 1].Message}
+            message={dialog.Messages[dialog.Messages.length - 1].Message || 'Write me anything'}
+            lastImg={dialog.Messages[dialog.Messages.length - 1].Avatar || emptyPhoto}
+
         />);
+    debugger
     return(
         <div>
             {dialogsData}

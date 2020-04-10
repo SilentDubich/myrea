@@ -4,15 +4,17 @@ import * as axios from 'axios';
 
 function AllFriends(props) {
     // debugger
-    let allFriends = props.Friends.map( char => <ThatFriend
-        id={char.id}
-        name={char.Name}
-        lastName={char.LastName}
-        img={char.Avatar}
-        getProfileThunk={props.getProfileThunk}
-        />
-    );
-    return(
+    let allFriends = props.Friends
+        .map(char => <ThatFriend
+                key={char.id}
+                id={char.id}
+                name={char.Name}
+                lastName={char.LastName}
+                img={char.Avatar}
+                getProfileThunk={props.getProfileThunk}
+            />
+        );
+    return (
         <div>
             {allFriends}
         </div>

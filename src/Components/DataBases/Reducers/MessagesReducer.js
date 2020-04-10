@@ -5,13 +5,28 @@ import Goliy from "../../../img/Avatars/goliy.jpg";
 import Agronom from "../../../img/Avatars/Agronom.jpg";
 import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
 import Dialogs from "../../Dialog/MainDialogPage/Dialogs";
+import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
+import {API} from "../API/API";
 
 const ADD_MESSAGE = 'addMessage';
 const UPDATE_TEXT_MESSAGE = 'updateTextMessage';
 const DELETE_TEXT_MESSAGE = 'deleteMessage';
-export const messageCreation = (date, id) => ({type: ADD_MESSAGE, date: date, id: id});
-export const updateMessageCreation = (text, id) => ({type: UPDATE_TEXT_MESSAGE, text: text, id: id});
-export const deleteMessageCreation = (id, mesId) => ({type: DELETE_TEXT_MESSAGE, id: id, mesId: mesId});
+const DIALOG_CREATION = 'dialogCreation';
+export const messageCreation = (date, id) => ({type: ADD_MESSAGE, date, id});
+export const updateMessageCreation = (text, id) => ({type: UPDATE_TEXT_MESSAGE, text, id});
+export const deleteMessageCreation = (id, mesId) => ({type: DELETE_TEXT_MESSAGE, id, mesId});
+export const dialogCreation = data => ({type: DIALOG_CREATION, data});
+
+export const putNewDialogThunk = data => {
+    return dispatch => {
+        debugger
+        return API.putNewDialog(data.id)
+            .then( () => {
+                debugger
+                return dispatch(dialogCreation(data));
+            })
+    }
+};
 
 
 let defaultStateMessage = {
@@ -113,7 +128,7 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
     switch (action.type) {
         case ADD_MESSAGE:
             let id = 0;
-            if (state.Dialogs[action.id].Messages.length !== 0){
+            if (state.Dialogs[action.id].Messages.length !== 0) {
                 id = state
                     .Dialogs[action.id]
                     .Messages[state.Dialogs[action.id].Messages.length - 1]
@@ -134,16 +149,35 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
         case UPDATE_TEXT_MESSAGE:
             stateCopy.Dialogs[action.id].Temp = action.text;
             return stateCopy;
-
+        case DIALOG_CREATION:
+            let newDialog = {
+                id: action.data.id,
+                Name: action.data.name,
+                LastName: '',
+                Avatar: action.data.avatar || emptyPhoto,
+                Temp: '',
+                Messages: [
+                    {
+                        id: action.data.id,
+                        Who: action.data.name,
+                        Avatar: action.data.avatar || emptyPhoto,
+                        Data: '',
+                        Message: 'Write me anything'
+                    }
+                ]
+            }
+            stateCopy.Dialogs.push(newDialog)
+            debugger
+            return stateCopy;
         case DELETE_TEXT_MESSAGE:
             for (let i = 0; i < stateCopy.Dialogs[action.id].Messages.length; i++) {
                 if (stateCopy.Dialogs[action.id].Messages[i].id === action.mesId) {
                     stateCopy.Dialogs[action.id].Messages.splice(i, 1)
                 }
             }
-            if (stateCopy.Dialogs[action.id].Messages.length === 0){
+            if (stateCopy.Dialogs[action.id].Messages.length === 0) {
                 stateCopy.Dialogs.splice(action.id, 1);
-                for (let i = action.id; i < stateCopy.Dialogs.length; i++){
+                for (let i = action.id; i < stateCopy.Dialogs.length; i++) {
                     stateCopy.Dialogs[i].id--
                 }
             }

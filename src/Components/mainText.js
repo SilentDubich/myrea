@@ -13,6 +13,7 @@ import AllUsersClassContainer from "./Friends/FindFriends/AllUsers/allUsersClass
 import {ProfileCenterInfoClassContainer} from "./Profile/MainProfilePage/ProfileCenterInfoClassContainer";
 import {LoginPageContainer, LoginReduxForm} from "./UpperMenu/Login/LoginPage/LoginPageContainer";
 import {SettingsContainer, SettingsForm} from "./Settings/settingsContainer";
+import {DialogPageContainer} from "./Dialog/MainDialogPage/DialogPage/DialogPageContainer";
 
 
 function Text(props) {
@@ -25,7 +26,11 @@ function Text(props) {
         state={props.state}
     />;
 
-    let personDialog = () => <DialogPage
+    // let personDialog = () => <DialogPage
+    //     dispatch={props.dispatch}
+    //     state={props.state}
+    // />;
+    let personDialog = () => <DialogPageContainer
         dispatch={props.dispatch}
         state={props.state}
     />;
@@ -51,7 +56,7 @@ function Text(props) {
                 <div>
                     <Route path='/profile' render={Profile}/>
                     <Route path='/dialogs' render={dialogs}/>
-                    <Route path='/dialog' render={personDialog}/>
+                    <Route exact path='/dialog/:userID' render={personDialog}/>
                     <Route path='/friends' render={myFriends}/>
                     <Route path='/users' render={allUsers}/>
                     <Route path='/login' render={loginPage}/>

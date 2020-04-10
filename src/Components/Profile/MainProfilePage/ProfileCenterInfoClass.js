@@ -1,46 +1,47 @@
-import React from "react";
-import * as axios from "axios";
+import React, {useEffect, useState} from "react";
 import Displays from "../../../CssModules/DisplayView.module.css";
 import AvatarPhoto from "../Avatar/Avatar";
 import FriendList from "../FriendList/Friend";
 import Subscribes from "../Subscribes/SubscribeList";
 import MainInfo from "../MainInfo/nameAndAbout";
 import PostRedactorContainer from "../PostRedactor/PostRedactorContainer";
-import MyPosts from "../../../Trash/posts";
 import {PostsClassContainer} from "../MyPosts/postsClassContainer";
+import Preloader from "../../Pre-loaders/Preloader";
+import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
 
 
-class ProfileCenterInfoClass extends React.Component {
-
-    componentDidMount() {
-
-    };
-
-
-    render() {
-        // debugger
-        return(
-            <div className={Displays.inside_ContentProfile__displayFlex}>
+function ProfileCenterInfoClass(props) {
+    let [fetch, setFetch] = useState(props.isFetching)
+    useEffect(() => {
+        setFetch(props.isFetching)
+    }, [props.isFetching])
+// debugger
+    return (
+        <div>
+            {fetch ? <Preloader/> : <div className={Displays.inside_ContentProfile__displayFlex}>
                 <div className={Displays.inside_ProfileCenter__FlexProportion}>
                     <AvatarPhoto
-                        avatar={this.props.currentProfile.Avatar}
-                        updatePhoto={this.props.postProfilePhotoThunk}
-                        id={this.props.currentProfile.id}
+                        avatar={props.currentProfile.Avatar}
+                        updatePhoto={props.postProfilePhotoThunk}
+                        id={props.currentProfile.id}
+                        name={props.currentProfile.Name}
+                        myProfile={props.myProfile}
+                        putNewDialogThunk={props.putNewDialogThunk}
                     />
                     <FriendList
-                        dispatch={this.props.dispatch}
-                        state={this.props.state}
+                        dispatch={props.dispatch}
+                        state={props.state}
                     />
                     <Subscribes
-                        dispatch={this.props.dispatch}
-                        state={this.props.state}
+                        dispatch={props.dispatch}
+                        state={props.state}
                     />
                 </div>
                 <div className={Displays.inside_ProfileRight__FlexProportion}>
                     <MainInfo
-                        name={this.props.currentProfile.Name}
-                        status={this.props.currentProfile.Status}
-                        aboutMe={this.props.currentProfile.AboutMe}
+                        name={props.currentProfile.Name}
+                        status={props.currentProfile.Status}
+                        aboutMe={props.currentProfile.AboutMe}
                     />
                     <PostRedactorContainer/>
                     {/*<MyPosts*/}
@@ -48,13 +49,14 @@ class ProfileCenterInfoClass extends React.Component {
                     {/*    state={this.props.state}*/}
                     {/*/>*/}
                     <PostsClassContainer
-                        dispatch={this.props.dispatch}
-                        state={this.props.state}
+                        dispatch={props.dispatch}
+                        state={props.state}
                     />
                 </div>
             </div>
-        )
-    }
+            }
+        </div>
+    )
 }
 
 export default ProfileCenterInfoClass

@@ -18,6 +18,7 @@ class MacketAppClass extends React.Component {
         API.getAuth()
             .then(data => {
                 this.props.logData(data.data.id, data.data.login, data.data.email);
+                // debugger
                 return data.data.id
             })
             .then(data => {
@@ -45,7 +46,8 @@ let mapStateToProps = state => {
         store: store,
         dispatch: store.dispatch.bind(store),
         initializate: state.loginReducer.loadProfileData,
-        isLogged: state.loginReducer.isLogged
+        isLogged: state.loginReducer.isLogged,
+        isFetching: state.usersReducer.isFetching
     }
 }
 

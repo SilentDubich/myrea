@@ -89,8 +89,23 @@ export const API = {
     postAvatarPhoto(formData) {
         return instancePhoto.post(`profile/photo`, formData)
             .then(response => {
-                debugger
+                // debugger
                 return response.data.data
+            })
+    },
+    putNewDialog(id) {
+        // debugger
+        return instance.put(`dialogs/${id}`)
+            .then( response => {
+
+                return response
+            })
+    },
+    getAllDialogs() {
+        // debugger
+        return instance.put(`dialogs`)
+            .then( response => {
+                return response
             })
     }
 };

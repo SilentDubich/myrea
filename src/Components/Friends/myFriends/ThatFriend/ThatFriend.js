@@ -9,7 +9,7 @@ function ThatFriend(props) {
         props.getProfileThunk(props.id)
     }
     return (
-        <div>
+        <div key={props.key}>
             <NavLink onClick={throwProfileInfo} to={'/profile/' + props.id}
                      className={`${Dialog.display__flex} ${Dialog.hover__decor} ${Dialog.NavLinks__fontsDecor}`}>
                 <div>
