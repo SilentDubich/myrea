@@ -13,6 +13,7 @@ function DialogLists(props) {
             id={dialog.id}
             message={dialog.Messages[dialog.Messages.length - 1].Message}
             lastImg={dialog.Messages[dialog.Messages.length - 1].Avatar}
+            getDialogs={props.getMessages}
 
         />);
     // debugger

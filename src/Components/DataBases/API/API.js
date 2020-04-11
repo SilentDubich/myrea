@@ -5,7 +5,9 @@ import {store} from '../Redux/Store';
 const instance = axios.create({
     withCredentials: true,
     headers: {
-        'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a',
+        // 'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a',
+        'API-KEY': '8d2e390a-6ddc-4d40-87d5-55b4df812b3f',
+        // 'API-KEY': '750fc5a8-75a5-4ef1-94f4-80017fafe472',
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 });
@@ -13,7 +15,9 @@ const instance = axios.create({
 const instancePhoto = axios.create({
     withCredentials: true,
     headers: {
-        'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a',
+        // 'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a',
+        'API-KEY': '8d2e390a-6ddc-4d40-87d5-55b4df812b3f',
+        // 'API-KEY': '750fc5a8-75a5-4ef1-94f4-80017fafe472',
         'Content-Type': 'multipart/form-data'
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
@@ -106,7 +110,7 @@ export const API = {
         return instance.get(`dialogs`)
             .then( response => {
                 // debugger
-                return response
+                return response.data
             })
     },
     postMessage(id, body) {
@@ -115,6 +119,20 @@ export const API = {
             .then( response => {
                 // debugger
                 return response
+            })
+    },
+    getDialog(id) {
+        return instance.get(`dialogs/${id}/messages`)
+            .then( response => {
+                // debugger
+                return response.data
+            })
+    },
+    getAPI_KEY(id) {
+        return instance.post(`Auth/Account/RegenerateApiKey`)
+            .then( response => {
+                // debugger
+                return response.data
             })
     }
 };

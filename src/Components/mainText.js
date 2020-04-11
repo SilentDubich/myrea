@@ -21,27 +21,16 @@ function Text(props) {
         dispatch={props.dispatch}
         state={props.state}
     />;
-    let dialogs = () => <Dialogs
-        dispatch={props.dispatch}
-        state={props.state}
-    />;
-
-    // let personDialog = () => <DialogPage
-    //     dispatch={props.dispatch}
-    //     state={props.state}
-    // />;
-    let personDialog = () => <DialogPageContainer
-        dispatch={props.dispatch}
-        state={props.state}
-    />;
+    // container
+    let dialogs = () => <Dialogs/>;
+    let personDialog = () => <DialogPageContainer/>;
     let myFriends = () => <MyFriends state={props.state}/>;
     let allUsers = () => <AllUsersClassContainer dispatch={props.dispatch} state={props.state}/>;
     let loginPage = () => <LoginReduxForm/>;
     let settingsPage = () => <SettingsForm initialValues={initial()}/>
     let initial = () => {
         return {
-            FullName: props.state.profileInfoReducer.logged.Name,
-            AboutMe: props.state.profileInfoReducer.logged.AboutMe
+            ...props.state.profileInfoReducer.logged,
         }
     }
 

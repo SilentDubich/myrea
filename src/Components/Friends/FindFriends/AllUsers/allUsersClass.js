@@ -1,17 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import Content from "../../../../CssModules/content.module.css";
 import UsersContainer from "../UserDecor/FindFriendsContainer";
-import Users from "../UserDecor/findFriends";
-import Dialogs from "../../../Dialog/MainDialogPage/Dialogs";
-import * as axios from "axios";
-import {setUsersCreation} from "../../../DataBases/Reducers/UserReducer";
-import FriendsSearch from "../../myFriends/FriendsSearch";
 import UserSearch from "./usersSearch";
-import Pages from "./PagesButtons/pages";
 import {PagesContainer} from "./PagesButtons/pagesContainer";
 import Preloader from "../../../Pre-loaders/Preloader";
 import Preloaders from '../../../../CssModules/Preloader/Preloaders.module.css'
-import {API} from "../../../DataBases/API/API";
 
 function AllUsersClass (props) {
     useEffect(() => {

@@ -10,16 +10,16 @@ function Input(props) {
         }
     };
 
-    let post = (event) => {
+    let post = event => {
         let text = ref.current.value;
         if (event.which === 13) {
-            props.postMessageThunk(2, text)
+            props.postMessageThunk(props.id, text)
         }
     }
 
     let currentText = () => {
         let text = ref.current.value;
-        props.currentText(text)
+        props.currentText(text, props.index)
     };
 
     // debugger

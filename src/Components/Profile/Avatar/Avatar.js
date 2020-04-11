@@ -18,7 +18,7 @@ function AvatarPhoto(props) {
     }
     let startDialog = () => {
         props.putNewDialogThunk({id: props.id, name: props.name, avatar: props.avatar})
-        debugger
+        // debugger
     }
 
     return(

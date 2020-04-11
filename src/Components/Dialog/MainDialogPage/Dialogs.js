@@ -13,10 +13,6 @@ function Dialogs(props) {
                        placeholder='Search'/>
             </div>
             <div>
-                {/*<DialogLists*/}
-                {/*    dispatch={props.dispatch}*/}
-                {/*    state={props.state}*/}
-                {/*/>*/}
                 <DialogsListContainer/>
             </div>
         </div>

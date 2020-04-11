@@ -9,19 +9,24 @@ import {connect} from "react-redux";
 
 
 let mapStateToProps = (state, props)  => {
-    let loc = window.location.href;
-    // let dialogId = Number(loc.charAt(loc.length - 1));
     let dialogId = props.loc;
+    let index;
+    // refactor
+    for (let i = 0; i < state.messageReducer.Dialogs.length; i++){
+        if (dialogId === state.messageReducer.Dialogs[i].id){
+            index = i
+        }
+    }
     // debugger
     return {
-        Temp: state.messageReducer.Dialogs[dialogId].Temp,
+        Temp: state.messageReducer.Dialogs[index].Temp,
+        id: dialogId,
+        index
 
     }
 };
 
 let mapDispatchToProps = (dispatch, props) => {
-    let loc = window.location.href;
-    // let dialogId = Number(loc.charAt(loc.length - 1));
     let dialogId = props.loc;
     let date = new Date();
     let hour = date.getHours();
@@ -29,8 +34,8 @@ let mapDispatchToProps = (dispatch, props) => {
     let second = date.getSeconds();
     let time = `${hour}:${minute}:${second}`;
     return {
-        currentText: text => {
-            dispatch(updateMessageCreation(text, dialogId));
+        currentText: (text, id) => {
+            dispatch(updateMessageCreation(text, id));
         },
         submit: () => {
             dispatch(messageCreation(time, dialogId))

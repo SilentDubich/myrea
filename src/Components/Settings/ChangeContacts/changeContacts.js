@@ -9,56 +9,56 @@ function ChangeContacts(props) {
             <span>My contacts: </span>
             <div>
                 <Field autoFocus
-                       name={'facebook'}
+                       name={'contacts.facebook'}
                        component={'input'}
                        type={'text'}
                 />
             </div>
             <div>
                 <Field autoFocus
-                       name={'website'}
+                       name={'contacts.website'}
                        component={'input'}
                        type={'text'}
                 />
             </div>
             <div>
                 <Field autoFocus
-                       name={'vk'}
+                       name={'contacts.vk'}
                        component={'input'}
                        type={'text'}
                 />
             </div>
             <div>
                 <Field autoFocus
-                       name={'twitter'}
+                       name={'contacts.twitter'}
                        component={'input'}
                        type={'text'}
                 />
             </div>
             <div>
                 <Field autoFocus
-                       name={'instagram'}
+                       name={'contacts.instagram'}
                        component={'input'}
                        type={'text'}
                 />
             </div>
             <div>
                 <Field autoFocus
-                       name={'youtube'}
+                       name={'contacts.youtube'}
                        component={'input'}
                        type={'text'}
                 />
             </div>
             <div>
                 <Field autoFocus
-                       name={'github'}
+                       name={'contacts.github'}
                        component={'input'}
                        type={'text'}
                 />
             </div>
             <div>
                 <Field autoFocus
-                       name={'mainLink'}
+                       name={'contacts.mainLink'}
                        component={'input'}
                        type={'text'}
                 />

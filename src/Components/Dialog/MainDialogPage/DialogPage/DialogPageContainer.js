@@ -7,6 +7,18 @@ import {authRedirect} from "../../../redirect";
 import ProfileCenterInfoClass from "../../../Profile/MainProfilePage/ProfileCenterInfoClass";
 import DialogPage from "./DialogPage";
 import {withRouter} from "react-router-dom";
+import {API} from "../../../DataBases/API/API";
+
+class DialogGetterData extends React.Component {
+
+
+    render() {
+        return(
+            <div></div>
+        )
+    }
+}
+
 
 
 let mapStateToProps = state => {
@@ -14,7 +26,11 @@ let mapStateToProps = state => {
         state
     }
 }
-
+// API.getDialog(2)
+//     .then(response => {
+//         debugger
+//         return response
+//     })
 
 export const DialogPageContainer =
     compose

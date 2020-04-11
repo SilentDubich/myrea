@@ -24,7 +24,7 @@ function ProfileCenterInfoClass(props) {
                         avatar={props.currentProfile.Avatar}
                         updatePhoto={props.postProfilePhotoThunk}
                         id={props.currentProfile.id}
-                        name={props.currentProfile.Name}
+                        name={props.currentProfile.FullName}
                         myProfile={props.myProfile}
                         putNewDialogThunk={props.putNewDialogThunk}
                     />
@@ -39,19 +39,12 @@ function ProfileCenterInfoClass(props) {
                 </div>
                 <div className={Displays.inside_ProfileRight__FlexProportion}>
                     <MainInfo
-                        name={props.currentProfile.Name}
+                        name={props.currentProfile.FullName}
                         status={props.currentProfile.Status}
                         aboutMe={props.currentProfile.AboutMe}
                     />
                     <PostRedactorContainer/>
-                    {/*<MyPosts*/}
-                    {/*    dispatch={this.props.dispatch}*/}
-                    {/*    state={this.props.state}*/}
-                    {/*/>*/}
-                    <PostsClassContainer
-                        dispatch={props.dispatch}
-                        state={props.state}
-                    />
+                    <PostsClassContainer/>
                 </div>
             </div>
             }

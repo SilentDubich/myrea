@@ -7,17 +7,21 @@ import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
 import Dialogs from "../../Dialog/MainDialogPage/Dialogs";
 import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
 import {API} from "../API/API";
+import {switchIsFetching} from "./UserReducer";
+import {getProfileThunk} from "./ProfileInfoReducer";
 
 const ADD_MESSAGE = 'addMessage';
 const UPDATE_TEXT_MESSAGE = 'updateTextMessage';
 const DELETE_TEXT_MESSAGE = 'deleteMessage';
 const DIALOG_CREATION = 'dialogCreation';
 const GET_ALL_DIALOGS = 'getAllDialogs';
+const GET_MESSAGES_WITH_USER = 'getMessagesWithUser';
 export const messageCreation = (date, id) => ({type: ADD_MESSAGE, date, id});
 export const updateMessageCreation = (text, id) => ({type: UPDATE_TEXT_MESSAGE, text, id});
 export const deleteMessageCreation = (id, mesId) => ({type: DELETE_TEXT_MESSAGE, id, mesId});
 export const dialogCreation = data => ({type: DIALOG_CREATION, data});
 export const getAllDialogs = data => ({type: GET_ALL_DIALOGS, data});
+export const getMessagesWithUser = (data, user) => ({type: GET_MESSAGES_WITH_USER, data, user});
 
 export const putNewDialogThunk = data => {
     return dispatch => {
@@ -29,7 +33,27 @@ export const putNewDialogThunk = data => {
             })
     }
 };
-export const postMessageThunk = ( id, message ) => {
+export const getDialogThunk = id => {
+    return dispatch => {
+        // debugger
+        return API.getDialog(id)
+            .then((data) => {
+                // debugger
+                return data ;
+            })
+            .then( data => {
+                dispatch(getProfileThunk(id))
+                    .then((response) => {
+                        dispatch(getMessagesWithUser(data, response))
+                        debugger
+                    })
+            })
+            // .then( data => {
+            //     dispatch(getMessagesWithUser(data))
+            // })
+    }
+};
+export const postMessageThunk = (id, message) => {
     return dispatch => {
         // debugger
         return API.postMessage(id, message)
@@ -39,6 +63,16 @@ export const postMessageThunk = ( id, message ) => {
             })
     }
 };
+
+export const getUserAllMessagesThunk = id => dispatch => {
+    dispatch(switchIsFetching(true))
+    let promise = dispatch(getDialogThunk(id));
+    Promise.all([promise])
+        .then(() => {
+            // debugger
+            dispatch(switchIsFetching(false))
+        });
+}
 
 
 let defaultStateMessage = {
@@ -96,38 +130,7 @@ let defaultStateMessage = {
                 }
             ]
         },
-        {
-            id: 2,
-            Name: "Goliy",
-            LastName: 'Shmiga',
-            Avatar: Goliy,
-            Temp: '',
-            Messages: [
-                {
-                    id: 0,
-                    Who: 'Goliy',
-                    Avatar: Goliy,
-                    Data: '25:00:00',
-                    Message: 'Omg im burned'
-                }
-            ]
-        },
-        {
-            id: 3,
-            Name: "Agronom",
-            LastName: 'Bomj',
-            Avatar: Agronom,
-            Temp: '',
-            Messages: [
-                {
-                    id: 0,
-                    Who: 'Agronom',
-                    Avatar: Agronom,
-                    Data: '25:00:00',
-                    Message: 'im king lol'
-                }
-            ]
-        }
+
     ],
 };
 
@@ -161,10 +164,8 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
         case UPDATE_TEXT_MESSAGE:
             stateCopy.Dialogs[action.id].Temp = action.text;
             return stateCopy;
-        case GET_ALL_DIALOGS:
-            // stateCopy.Dialogs[action.id].Temp = action.text;
-            return stateCopy;
         case DIALOG_CREATION:
+            // сделать проверку на наличие данного диалога
             let newDialog = {
                 id: action.data.id,
                 Name: action.data.name,
@@ -182,6 +183,50 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                 ]
             }
             stateCopy.Dialogs.push(newDialog)
+            // debugger
+            return stateCopy;
+        case GET_ALL_DIALOGS:
+            for (let i = 0; i < action.data.length; i++) {
+                let gettedDialog = {
+                    id: action.data[i].id,
+                    Name: action.data[i].userName,
+                    LastName: '',
+                    Avatar: action.data[i].photos.large || emptyPhoto,
+                    Temp: '',
+                    Messages: [
+                        {
+                            id: action.data[i].id,
+                            Who: action.data[i].userName,
+                            Avatar: action.data[i].photos.large || emptyPhoto,
+                            Data: '',
+                            Message: 'Write me anything'
+                        }
+                    ]
+                }
+                stateCopy.Dialogs.push(gettedDialog)
+            }
+            // debugger
+            return stateCopy;
+        case GET_MESSAGES_WITH_USER:
+            for (let i = 0; i < action.data.length; i++) {
+                let gettedDialog = {
+                    id: action.data[i].id,
+                    Name: action.data[i].userName,
+                    LastName: '',
+                    Avatar: action.data[i].photos.large || emptyPhoto,
+                    Temp: '',
+                    Messages: [
+                        {
+                            id: action.data[i].id,
+                            Who: action.data[i].name,
+                            Avatar: action.data.avatar || emptyPhoto,
+                            Data: '',
+                            Message: 'Write me anything'
+                        }
+                    ]
+                }
+                stateCopy.Dialogs.push(gettedDialog)
+            }
             // debugger
             return stateCopy;
         case DELETE_TEXT_MESSAGE:

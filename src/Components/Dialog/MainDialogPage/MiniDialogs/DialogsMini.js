@@ -5,8 +5,12 @@ import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css
 
 function MiniDialogs(props) {
     // debugger
+    let get = () => {
+        props.getDialogs(props.id)
+        console.log('click');
+    }
     return (
-        <div>
+        <div onClick={get}>
             <NavLink to={'/dialog/' + props.id}
                      className={`${Dialog.display__flex} ${Dialog.hover__decor} ${Dialog.NavLinks__fontsDecor}`}>
                 <div>

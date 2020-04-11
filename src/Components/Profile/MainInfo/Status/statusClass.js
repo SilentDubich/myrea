@@ -10,14 +10,12 @@ function StatusClass(props) {
     }, [props.currentProfile.Status])
 
     let onSubmit = status => {
-        let promise = props.putStatusThunk(status.status, props.currentProfile.id)
-        Promise.all([promise])
-            .then(() => {
+        props.putStatusThunk(status.status, props.currentProfile.id)
+            .then( () => {
                 switchMode(false);
-            })
+            }
+        )
     }
-
-
     return (
         <div>
             {

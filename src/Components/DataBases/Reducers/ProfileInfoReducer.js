@@ -25,7 +25,6 @@ export const getProfileThunk = (id) => {
     return dispatch => {
         return API.getProfile(id)
             .then(data => {
-                dispatch(setProfile(false))
                 dispatch(getProfile(data));
             })
             .then(() => {
@@ -44,7 +43,7 @@ export const getMyProfileThunk = (id) => {
             .then(data => {
                 // debugger
                 dispatch(getMyProfile(data));
-                dispatch(setProfile(true))
+                // dispatch(setProfile(true))
 
             })
             .then(() => {
@@ -56,7 +55,7 @@ export const getMyProfileThunk = (id) => {
             .then(() => {
                 return API.getAllDialogs()
                     .then( data => {
-                        debugger
+                        // debugger
                 })
             })
 
@@ -65,6 +64,7 @@ export const getMyProfileThunk = (id) => {
 
 export const setAnotherProfile = id => dispatch => {
     dispatch(switchIsFetching(true))
+    dispatch(setProfile(false))
     let promise = dispatch(getProfileThunk(id));
     Promise.all([promise])
         .then(() => {
@@ -72,6 +72,7 @@ export const setAnotherProfile = id => dispatch => {
             dispatch(switchIsFetching(false))
         });
 }
+
 
 export const initializeApp = id => dispatch => {
     let promise = dispatch(getMyProfileThunk(id));
@@ -112,6 +113,7 @@ export const putProfileInfoThunk = (data, id) => {
 
                     })
             })
+
     }
 };
 export const postProfilePhotoThunk = (formData, id) => {
@@ -131,7 +133,7 @@ export const postProfilePhotoThunk = (formData, id) => {
 let defaultStateProfile = {
     logged: {
         id: null,
-        Name: null,
+        FullName: null,
         LastName: null,
         Status: null,
         AboutMe: null,
@@ -176,7 +178,7 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
         case GET_PROFILE:
             let currentProfile = {
                 id: action.user.userId,
-                Name: action.user.fullName,
+                FullName: action.user.fullName,
                 AboutMe: action.user.aboutMe,
                 Avatar: action.user.photos.large,
                 Contacts: {
@@ -195,12 +197,12 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
         case GET_MY_PROFILE:
             let myProfile = {
                 id: action.data.userId,
-                Name: action.data.fullName,
+                FullName: action.data.fullName,
                 Status: stateCopy.logged.Status,
                 AboutMe: action.data.aboutMe,
                 Avatar: action.data.photos.large,
-                Contacts: {
-                    Facebook: action.data.contacts.facebook,
+                contacts: {
+                    facebook: action.data.contacts.facebook,
                     Vk: action.data.contacts.vk
                 }
             };

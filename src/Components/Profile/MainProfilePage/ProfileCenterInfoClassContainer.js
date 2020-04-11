@@ -13,7 +13,7 @@ let mapStateToProps = state => {
             state.profileInfoReducer.logged : state.profileInfoReducer.currentProfile,
         myProfilePosts: state.postsReducer.Posts,
         myProfile: state.profileInfoReducer.myProfile,
-        isFetching: state.usersReducer.isFetching
+        isFetching: state.usersReducer.isFetching,
 
     }
 };
