@@ -11,7 +11,7 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import MacketApp from "./Structure";
 import Preloader from "../Pre-loaders/Preloader";
-import {getAllDialogs} from "../DataBases/Reducers/MessagesReducer";
+import {getAllDialogs, getDialogThunk} from "../DataBases/Reducers/MessagesReducer";
 
 
 class MacketAppClass extends React.Component {
@@ -29,12 +29,10 @@ class MacketAppClass extends React.Component {
 
                 return data.data.id
             })
-            // .then(() => {
-            //     return API.getDialog(2)
-            //         .then(response => {
-            //             debugger
-            //             return response
-            //         })
+            // .then(data => {
+            //     debugger
+            //     this.props.getDialogThunk(data)
+            //     return data
             // })
             .then(data => {
                 // debugger
@@ -67,7 +65,15 @@ let mapStateToProps = state => {
 }
 
 export const MacketAppContainer = compose(
-    connect(mapStateToProps, {loadProfileData, logData, getMyProfileThunk, getStatusThunk, initializeApp, getAllDialogs})
+    connect(mapStateToProps, {
+        loadProfileData,
+        logData,
+        getMyProfileThunk,
+        getStatusThunk,
+        initializeApp,
+        getAllDialogs,
+        getDialogThunk
+    })
 )(MacketAppClass)
 
 

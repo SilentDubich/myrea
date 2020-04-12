@@ -9,21 +9,12 @@ import DialogPage from "./DialogPage";
 import {withRouter} from "react-router-dom";
 import {API} from "../../../DataBases/API/API";
 
-class DialogGetterData extends React.Component {
-
-
-    render() {
-        return(
-            <div></div>
-        )
-    }
-}
-
 
 
 let mapStateToProps = state => {
     return {
-        state
+        state,
+        isFetching: state.usersReducer.isFetching
     }
 }
 // API.getDialog(2)

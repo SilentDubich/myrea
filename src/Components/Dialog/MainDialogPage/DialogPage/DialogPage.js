@@ -6,6 +6,7 @@ import Input from "./DialogInput/DialogInput";
 import Upper from "./DialogUpper";
 import Text from "../../../mainText";
 import InputContainer from "./DialogInput/DialogInputContainer";
+import Preloader from "../../../Pre-loaders/Preloader";
 
 function DialogPage(props) {
 
@@ -33,8 +34,9 @@ function DialogPage(props) {
         who={mes.Who}
         date={mes.Data}
     />)
-    console.log(currentMessages);
+    // console.log(currentMessages);
     // debugger
+    if(props.isFetching) return <Preloader/>
     return(
         <div>
             <div className={`${Content.content__menu_decorationBlocks} ${Person.paddingOff}`}>

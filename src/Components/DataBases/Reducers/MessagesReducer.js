@@ -1,14 +1,12 @@
 import React from "react";
-import Pendalf from "../../../img/Avatars/pendalf.jpg";
-import Senya from "../../../img/Avatars/senya.jpg";
-import Goliy from "../../../img/Avatars/goliy.jpg";
-import Agronom from "../../../img/Avatars/Agronom.jpg";
-import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
-import Dialogs from "../../Dialog/MainDialogPage/Dialogs";
-import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
 import {API} from "../API/API";
 import {switchIsFetching} from "./UserReducer";
-import {getProfileThunk} from "./ProfileInfoReducer";
+import {getProfile, getProfileThunk} from "./ProfileInfoReducer";
+import Pendalf from "../../../img/Avatars/pendalf.jpg";
+import Senya from "../../../img/Avatars/senya.jpg";
+import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
+import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
+
 
 const ADD_MESSAGE = 'addMessage';
 const UPDATE_TEXT_MESSAGE = 'updateTextMessage';
@@ -39,18 +37,15 @@ export const getDialogThunk = id => {
         return API.getDialog(id)
             .then((data) => {
                 // debugger
-                return data ;
+                return data.items;
             })
-            .then( data => {
-                dispatch(getProfileThunk(id))
-                    .then((response) => {
+            .then(data => {
+                return API.getProfile(id)
+                    .then(response => {
+                        // debugger
                         dispatch(getMessagesWithUser(data, response))
-                        debugger
                     })
             })
-            // .then( data => {
-            //     dispatch(getMessagesWithUser(data))
-            // })
     }
 };
 export const postMessageThunk = (id, message) => {
@@ -135,7 +130,7 @@ let defaultStateMessage = {
 };
 
 export function MessagesInstructions(state = defaultStateMessage, action) {
-    // debugger
+    debugger
     let stateCopy = {
         ...state,
         Dialogs: [...state.Dialogs]
@@ -208,26 +203,29 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
             // debugger
             return stateCopy;
         case GET_MESSAGES_WITH_USER:
-            for (let i = 0; i < action.data.length; i++) {
-                let gettedDialog = {
-                    id: action.data[i].id,
-                    Name: action.data[i].userName,
-                    LastName: '',
-                    Avatar: action.data[i].photos.large || emptyPhoto,
-                    Temp: '',
-                    Messages: [
-                        {
-                            id: action.data[i].id,
-                            Who: action.data[i].name,
-                            Avatar: action.data.avatar || emptyPhoto,
-                            Data: '',
-                            Message: 'Write me anything'
-                        }
-                    ]
+            let index;
+            let messages = [];
+            for (let i = 0; i < stateCopy.Dialogs.length; i++) {
+                if (stateCopy.Dialogs[i].id === action.user.userId) {
+                    index = i
+                    debugger
                 }
-                stateCopy.Dialogs.push(gettedDialog)
             }
-            // debugger
+            for (let i = 0; i < action.data.length; i++) {
+                let gettedDialog =
+                    {
+                        id: action.data[i].id,
+                        Who: action.data[i].senderName,
+                        Avatar: action.data.avatar || emptyPhoto,
+                        Data: action.data[i].addedAt,
+                        Message: action.data[i].body
+                    }
+                debugger
+                // stateCopy.Dialogs[index].Messages.push(gettedDialog)
+                messages.push(gettedDialog)
+            }
+            stateCopy.Dialogs[index].Messages = messages
+            debugger
             return stateCopy;
         case DELETE_TEXT_MESSAGE:
             for (let i = 0; i < stateCopy.Dialogs[action.id].Messages.length; i++) {

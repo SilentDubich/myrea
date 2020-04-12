@@ -1,6 +1,6 @@
 import React from "react";
 import MiniDialogs from "./MiniDialogs/DialogsMini";
-import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
+
 
 function DialogLists(props) {
     // debugger
@@ -13,7 +13,7 @@ function DialogLists(props) {
             id={dialog.id}
             message={dialog.Messages[dialog.Messages.length - 1].Message}
             lastImg={dialog.Messages[dialog.Messages.length - 1].Avatar}
-            getDialogs={props.getMessages}
+            getDialogs={props.getUserAllMessagesThunk}
 
         />);
     // debugger

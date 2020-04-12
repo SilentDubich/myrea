@@ -30,9 +30,10 @@ export const API = {
                 return response.data
             })
     },
-    getProfile(id = store.getState().profileInfoReducer.id){
+    getProfile(id){
         return instance.get(`profile/${id}`)
             .then(response => {
+                // debugger
                 return response.data
             })
     },

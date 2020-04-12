@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter, NavLink} from "react-router-dom";
 import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
 
 function MiniDialogs(props) {
-    // debugger
+    debugger
+    let [getted, setGetted] = useState(false)
     let get = () => {
-        props.getDialogs(props.id)
-        console.log('click');
+        if (!getted){
+            props.getDialogs(props.id)
+            console.log('click');
+            setGetted(true)
+            debugger
+        }
     }
+
     return (
         <div onClick={get}>
             <NavLink to={'/dialog/' + props.id}

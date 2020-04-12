@@ -10,18 +10,19 @@ import {getUserAllMessagesThunk} from "../../DataBases/Reducers/MessagesReducer"
 
 let mapStateToProps = state => {
     return {
-        dialogs: state.messageReducer.Dialogs
-    }
-}
-
-let mapDispatchToProps = dispatch => {
-    return {
-        getMessages: id => {
-            dispatch(getUserAllMessagesThunk(id))
-        }
+        dialogs: state.messageReducer.Dialogs,
 
     }
 }
 
+// let mapDispatchToProps = dispatch => {
+//     return {
+//         getMessages: id => {
+//             dispatch(getUserAllMessagesThunk(id))
+//         }
+//
+//     }
+// }
 
-export const DialogsListContainer = connect(mapStateToProps, mapDispatchToProps)(DialogLists)
+
+export const DialogsListContainer = connect(mapStateToProps, {getUserAllMessagesThunk})(DialogLists)

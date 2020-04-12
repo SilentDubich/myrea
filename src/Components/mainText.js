@@ -14,6 +14,7 @@ import {ProfileCenterInfoClassContainer} from "./Profile/MainProfilePage/Profile
 import {LoginPageContainer, LoginReduxForm} from "./UpperMenu/Login/LoginPage/LoginPageContainer";
 import {SettingsContainer, SettingsForm} from "./Settings/settingsContainer";
 import {DialogPageContainer} from "./Dialog/MainDialogPage/DialogPage/DialogPageContainer";
+import {DialogContainer} from "./Dialog/MainDialogPage/DialogsContainer";
 
 
 function Text(props) {
@@ -22,7 +23,9 @@ function Text(props) {
         state={props.state}
     />;
     // container
-    let dialogs = () => <Dialogs/>;
+    // let dialogs = () => <Dialogs/>;
+    let dialogs = () => <DialogContainer/>;
+
     let personDialog = () => <DialogPageContainer/>;
     let myFriends = () => <MyFriends state={props.state}/>;
     let allUsers = () => <AllUsersClassContainer dispatch={props.dispatch} state={props.state}/>;

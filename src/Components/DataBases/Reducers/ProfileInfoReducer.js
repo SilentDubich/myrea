@@ -30,6 +30,7 @@ export const getProfileThunk = (id) => {
             .then(() => {
                 return API.getStatus(id)
                     .then(data => {
+                        // debugger
                         dispatch(getStatus(data));
                     })
             })
@@ -38,13 +39,9 @@ export const getProfileThunk = (id) => {
 export const getMyProfileThunk = (id) => {
     return dispatch => {
         // debugger
-
         return API.getMyProfile(id)
             .then(data => {
-                // debugger
                 dispatch(getMyProfile(data));
-                // dispatch(setProfile(true))
-
             })
             .then(() => {
                 return API.getStatus(id)
@@ -209,6 +206,9 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             // debugger
             return {...state, logged: myProfile}
         case GET_STATUS:
+            // баг со статусом через сообщения здесь
+            // в диспатч добавить доп булевский параметр
+            // также можно сделать с диспачем профиля
                 stateCopy.myProfile
                     ?
                     stateCopy.logged.Status = action.status
