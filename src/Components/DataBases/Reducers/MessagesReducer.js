@@ -16,7 +16,7 @@ const GET_ALL_DIALOGS = 'getAllDialogs';
 const GET_MESSAGES_WITH_USER = 'getMessagesWithUser';
 export const messageCreation = (date, id) => ({type: ADD_MESSAGE, date, id});
 export const updateMessageCreation = (text, id) => ({type: UPDATE_TEXT_MESSAGE, text, id});
-export const deleteMessageCreation = (id, mesId) => ({type: DELETE_TEXT_MESSAGE, id, mesId});
+export const deleteMessageCreation = (mesId, id) => ({type: DELETE_TEXT_MESSAGE, mesId, id});
 export const dialogCreation = data => ({type: DIALOG_CREATION, data});
 export const getAllDialogs = data => ({type: GET_ALL_DIALOGS, data});
 export const getMessagesWithUser = (data, user) => ({type: GET_MESSAGES_WITH_USER, data, user});
@@ -56,6 +56,22 @@ export const postMessageThunk = (id, message) => {
                 // debugger
                 // return dispatch(dialogCreation(message));
             })
+            .then(() => {
+                dispatch(getDialogThunk(id))
+            })
+    }
+};
+export const deleteMessageThunk = (mesId, id) => {
+    return dispatch => {
+        // debugger
+        return API.deleteMessage(mesId)
+            .then(() => {
+                // debugger
+                // return dispatch(dialogCreation(message));
+            })
+            .then(() => {
+                dispatch(deleteMessageCreation(mesId, id))
+            })
     }
 };
 
@@ -71,70 +87,37 @@ export const getUserAllMessagesThunk = id => dispatch => {
 
 
 let defaultStateMessage = {
-    ProfileInfo: {
-        id: 0,
-        Name: "Sarumyan",
-        LastName: '',
-        Status: '',
-        Avatar: Sarumyan,
-    },
+    // ProfileInfo: {
+    //     id: 0,
+    //     Name: "Sarumyan",
+    //     LastName: '',
+    //     Status: '',
+    //     Avatar: Sarumyan,
+    // },
     Dialogs: [
-        {
-            id: 0,
-            Name: "Pendalf",
-            LastName: 'Grey',
-            Avatar: Pendalf,
-            Temp: '',
-            Messages: [
-                {
-                    id: 0,
-                    Who: 'Pendalf',
-                    Avatar: Pendalf,
-                    Data: '25:00:00',
-                    Message: 'Lol, Fedor did it)))0)'
-                },
-                {
-                    id: 1,
-                    Who: 'Pendalf',
-                    Avatar: Pendalf,
-                    Data: '25:00:00',
-                    Message: 'U hear me?)'
-                }
-            ]
-        },
-        {
-            id: 1,
-            Name: "Senya",
-            LastName: '',
-            Avatar: Senya,
-            Temp: '',
-            Messages: [
-                {
-                    id: 0,
-                    Who: 'Senya',
-                    Avatar: Senya,
-                    Data: '25:00:00',
-                    Message: 'Ezzzzz'
-                },
-                {
-                    id: 1,
-                    Who: 'Senya',
-                    Avatar: Senya,
-                    Data: '25:00:00',
-                    Message: 'Ezzzzz'
-                }
-            ]
-        },
+
 
     ],
 };
 
 export function MessagesInstructions(state = defaultStateMessage, action) {
-    debugger
+    // debugger
     let stateCopy = {
         ...state,
         Dialogs: [...state.Dialogs]
     };
+
+    let getIndex = id => {
+        let index;
+        for (let i = 0; i < stateCopy.Dialogs.length; i++) {
+            if (stateCopy.Dialogs[i].id === id) {
+                index = i
+                // debugger
+            }
+        }
+        return index
+    };
+
     switch (action.type) {
         case ADD_MESSAGE:
             let id = 0;
@@ -189,13 +172,13 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                     Avatar: action.data[i].photos.large || emptyPhoto,
                     Temp: '',
                     Messages: [
-                        {
-                            id: action.data[i].id,
-                            Who: action.data[i].userName,
-                            Avatar: action.data[i].photos.large || emptyPhoto,
-                            Data: '',
-                            Message: 'Write me anything'
-                        }
+                        // {
+                        //     id: action.data[i].id,
+                        //     Who: action.data[i].userName,
+                        //     Avatar: action.data[i].photos.large || emptyPhoto,
+                        //     Data: '',
+                        //     Message: 'Write me anything'
+                        // }
                     ]
                 }
                 stateCopy.Dialogs.push(gettedDialog)
@@ -205,12 +188,13 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
         case GET_MESSAGES_WITH_USER:
             let index;
             let messages = [];
-            for (let i = 0; i < stateCopy.Dialogs.length; i++) {
-                if (stateCopy.Dialogs[i].id === action.user.userId) {
-                    index = i
-                    debugger
-                }
-            }
+            // for (let i = 0; i < stateCopy.Dialogs.length; i++) {
+            //     if (stateCopy.Dialogs[i].id === action.user.userId) {
+            //         index = i
+            //         // debugger
+            //     }
+            // }
+
             for (let i = 0; i < action.data.length; i++) {
                 let gettedDialog =
                     {
@@ -224,23 +208,73 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                 // stateCopy.Dialogs[index].Messages.push(gettedDialog)
                 messages.push(gettedDialog)
             }
-            stateCopy.Dialogs[index].Messages = messages
-            debugger
+            stateCopy.Dialogs[getIndex(action.user.userId)].Messages = messages
+            // debugger
             return stateCopy;
         case DELETE_TEXT_MESSAGE:
-            for (let i = 0; i < stateCopy.Dialogs[action.id].Messages.length; i++) {
-                if (stateCopy.Dialogs[action.id].Messages[i].id === action.mesId) {
-                    stateCopy.Dialogs[action.id].Messages.splice(i, 1)
+            // debugger
+            for (let i = 0; i < stateCopy.Dialogs[getIndex(action.id)].Messages.length; i++) {
+                if (stateCopy.Dialogs[getIndex(action.id)].Messages[i].id === action.mesId) {
+                    stateCopy.Dialogs[getIndex(action.id)].Messages.splice(i, 1)
                 }
             }
-            if (stateCopy.Dialogs[action.id].Messages.length === 0) {
-                stateCopy.Dialogs.splice(action.id, 1);
-                for (let i = action.id; i < stateCopy.Dialogs.length; i++) {
-                    stateCopy.Dialogs[i].id--
-                }
-            }
+            // if (stateCopy.Dialogs[action.id].Messages.length === 0) {
+            //     stateCopy.Dialogs.splice(action.id, 1);
+            //     for (let i = action.id; i < stateCopy.Dialogs.length; i++) {
+            //         stateCopy.Dialogs[i].id--
+            //     }
+            // }
+            // debugger
             return stateCopy;
         default:
             return state
     }
 }
+
+
+// {
+//     id: 0,
+//         Name: "Pendalf",
+//     LastName: 'Grey',
+//     Avatar: Pendalf,
+//     Temp: '',
+//     Messages: [
+//     {
+//         id: 0,
+//         Who: 'Pendalf',
+//         Avatar: Pendalf,
+//         Data: '25:00:00',
+//         Message: 'Lol, Fedor did it)))0)'
+//     },
+//     {
+//         id: 1,
+//         Who: 'Pendalf',
+//         Avatar: Pendalf,
+//         Data: '25:00:00',
+//         Message: 'U hear me?)'
+//     }
+// ]
+// },
+// {
+//     id: 1,
+//         Name: "Senya",
+//     LastName: '',
+//     Avatar: Senya,
+//     Temp: '',
+//     Messages: [
+//     {
+//         id: 0,
+//         Who: 'Senya',
+//         Avatar: Senya,
+//         Data: '25:00:00',
+//         Message: 'Ezzzzz'
+//     },
+//     {
+//         id: 1,
+//         Who: 'Senya',
+//         Avatar: Senya,
+//         Data: '25:00:00',
+//         Message: 'Ezzzzz'
+//     }
+// ]
+// },

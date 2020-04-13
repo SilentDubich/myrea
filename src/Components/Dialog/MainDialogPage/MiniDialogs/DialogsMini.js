@@ -24,10 +24,10 @@ function MiniDialogs(props) {
                 </div>
                 <div className={Dialog.border__borderBottom}>
                     <p className={`${Dialog.text__NameFontsDecor}`}>{props.name}</p>
-                    <div className={`${Dialog.display__flex}`}>
-                        <img className={Dialog.lastImg__decor} src={props.lastImg} alt=""/>
-                        <p className={`${Dialog.text__MessageFontsDecor}`}>{props.message}</p>
-                    </div>
+                    {/*<div className={`${Dialog.display__flex}`}>*/}
+                    {/*    <img className={Dialog.lastImg__decor} src={props.lastImg} alt=""/>*/}
+                    {/*    <p className={`${Dialog.text__MessageFontsDecor}`}>{props.message}</p>*/}
+                    {/*</div>*/}
                 </div>
             </NavLink>
         </div>

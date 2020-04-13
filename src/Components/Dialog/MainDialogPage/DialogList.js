@@ -11,8 +11,8 @@ function DialogLists(props) {
             name={dialog.Name}
             img={dialog.Avatar}
             id={dialog.id}
-            message={dialog.Messages[dialog.Messages.length - 1].Message}
-            lastImg={dialog.Messages[dialog.Messages.length - 1].Avatar}
+            // message={dialog.Messages[dialog.Messages.length - 1].Message}
+            // lastImg={dialog.Messages[dialog.Messages.length - 1].Avatar}
             getDialogs={props.getUserAllMessagesThunk}
 
         />);

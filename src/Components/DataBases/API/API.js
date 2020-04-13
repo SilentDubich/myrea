@@ -106,7 +106,7 @@ export const API = {
                 return response
             })
     },
-    getAllDialogs() {
+    getDialogs() {
         // debugger
         return instance.get(`dialogs`)
             .then( response => {
@@ -117,6 +117,14 @@ export const API = {
     postMessage(id, body) {
         // debugger
         return instance.post(`dialogs/${id}/messages`, {body})
+            .then( response => {
+                // debugger
+                return response
+            })
+    },
+    deleteMessage(messageId) {
+        debugger
+        return instance.delete(`dialogs/messages/${messageId}`)
             .then( response => {
                 // debugger
                 return response

@@ -6,7 +6,8 @@ import {deleteMessageCreation} from "../../../DataBases/Reducers/MessagesReducer
 function Message(props) {
     // debugger
     let setDeleteMessage = () => {
-        props.dispatch(deleteMessageCreation(props.id, props.mesId))
+        // props.dispatch(deleteMessageCreation(props.id, props.mesId))
+        props.deleteMessage(props.mesId, props.id )
     };
     return(
         <div>

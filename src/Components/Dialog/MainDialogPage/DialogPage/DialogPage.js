@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Content from '../../../../CssModules/content.module.css';
 import Person from '../../../../CssModules/Dialog/PersonDialog.module.css'
 import Message from "./DialogMessage";
@@ -33,6 +33,7 @@ function DialogPage(props) {
         message={mes.Message}
         who={mes.Who}
         date={mes.Data}
+        deleteMessage={props.deleteMessageThunk}
     />)
     // console.log(currentMessages);
     // debugger

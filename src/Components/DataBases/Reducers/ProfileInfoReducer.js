@@ -50,7 +50,7 @@ export const getMyProfileThunk = (id) => {
                     })
             })
             .then(() => {
-                return API.getAllDialogs()
+                return API.getDialogs()
                     .then( data => {
                         // debugger
                 })

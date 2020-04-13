@@ -20,7 +20,7 @@ class MacketAppClass extends React.Component {
             .then(data => {
                 this.props.logData(data.data.id, data.data.login, data.data.email);
                 // debugger
-                API.getAllDialogs()
+                API.getDialogs()
                     .then(response => {
                         this.props.getAllDialogs(response)
                         // debugger
