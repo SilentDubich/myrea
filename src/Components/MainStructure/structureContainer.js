@@ -13,6 +13,7 @@ import MacketApp from "./Structure";
 import Preloader from "../Pre-loaders/Preloader";
 import {getAllDialogs, getDialogThunk} from "../DataBases/Reducers/MessagesReducer";
 
+// Сделать условие проверяющее адреса строки и в зависимости от этого делало запросы
 
 class MacketAppClass extends React.Component {
     componentDidMount() {
@@ -29,11 +30,6 @@ class MacketAppClass extends React.Component {
 
                 return data.data.id
             })
-            // .then(data => {
-            //     debugger
-            //     this.props.getDialogThunk(data)
-            //     return data
-            // })
             .then(data => {
                 // debugger
                 this.props.initializeApp(data)

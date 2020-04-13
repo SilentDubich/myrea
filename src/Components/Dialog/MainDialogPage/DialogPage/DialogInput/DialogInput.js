@@ -13,7 +13,7 @@ function Input(props) {
     let post = event => {
         let text = ref.current.value;
         if (event.which === 13) {
-            props.postMessageThunk(props.id, text)
+            props.postMessageThunk(props.id, text, props.me)
             ref.current.value = ''
         }
     }

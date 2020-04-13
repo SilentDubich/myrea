@@ -6,12 +6,13 @@ let defaultStateUsers = {
     users: [],
     totalUsers: 0,
     currentPage: 1,
-    pageSize: 5,
+    pageSize: 10,
     isFetching: false,
     pageButton: false,
     addButton: false
 };
 
+//create class for dispatches
 const SET_USERS = 'setUsers';
 const SET_PAGE = 'setPage';
 const SET_TOTAL_USERS = 'setTotalUsers';

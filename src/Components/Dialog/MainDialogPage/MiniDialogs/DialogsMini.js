@@ -4,15 +4,8 @@ import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
 
 function MiniDialogs(props) {
-    debugger
-    let [getted, setGetted] = useState(false)
     let get = () => {
-        if (!getted){
-            props.getDialogs(props.id)
-            console.log('click');
-            setGetted(true)
-            debugger
-        }
+        props.getDialogs(props.id, props.me)
     }
 
     return (

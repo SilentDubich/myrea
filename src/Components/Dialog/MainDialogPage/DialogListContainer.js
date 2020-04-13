@@ -11,6 +11,7 @@ import {getUserAllMessagesThunk} from "../../DataBases/Reducers/MessagesReducer"
 let mapStateToProps = state => {
     return {
         dialogs: state.messageReducer.Dialogs,
+        me: state.profileInfoReducer.logged
 
     }
 }

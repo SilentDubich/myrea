@@ -1,10 +1,6 @@
 import React from "react";
 import {API} from "../API/API";
 import {switchIsFetching} from "./UserReducer";
-import {getProfile, getProfileThunk} from "./ProfileInfoReducer";
-import Pendalf from "../../../img/Avatars/pendalf.jpg";
-import Senya from "../../../img/Avatars/senya.jpg";
-import Sarumyan from "../../../img/Avatars/sarumyan.jpg";
 import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
 
 
@@ -19,7 +15,7 @@ export const updateMessageCreation = (text, id) => ({type: UPDATE_TEXT_MESSAGE, 
 export const deleteMessageCreation = (mesId, id) => ({type: DELETE_TEXT_MESSAGE, mesId, id});
 export const dialogCreation = data => ({type: DIALOG_CREATION, data});
 export const getAllDialogs = data => ({type: GET_ALL_DIALOGS, data});
-export const getMessagesWithUser = (data, user) => ({type: GET_MESSAGES_WITH_USER, data, user});
+export const getMessagesWithUser = (data, user, me) => ({type: GET_MESSAGES_WITH_USER, data, user, me});
 
 export const putNewDialogThunk = data => {
     return dispatch => {
@@ -31,7 +27,7 @@ export const putNewDialogThunk = data => {
             })
     }
 };
-export const getDialogThunk = id => {
+export const getDialogThunk = (id, me) => {
     return dispatch => {
         // debugger
         return API.getDialog(id)
@@ -43,7 +39,7 @@ export const getDialogThunk = id => {
                 return API.getProfile(id)
                     .then(response => {
                         // debugger
-                        dispatch(getMessagesWithUser(data, response))
+                        dispatch(getMessagesWithUser(data, response, me))
                     })
             })
     }
@@ -75,9 +71,9 @@ export const deleteMessageThunk = (mesId, id) => {
     }
 };
 
-export const getUserAllMessagesThunk = id => dispatch => {
+export const getUserAllMessagesThunk = (id, me) => dispatch => {
     dispatch(switchIsFetching(true))
-    let promise = dispatch(getDialogThunk(id));
+    let promise = dispatch(getDialogThunk(id, me));
     Promise.all([promise])
         .then(() => {
             // debugger
@@ -94,10 +90,7 @@ let defaultStateMessage = {
     //     Status: '',
     //     Avatar: Sarumyan,
     // },
-    Dialogs: [
-
-
-    ],
+    Dialogs: [],
 };
 
 export function MessagesInstructions(state = defaultStateMessage, action) {
@@ -120,23 +113,6 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
 
     switch (action.type) {
         case ADD_MESSAGE:
-            let id = 0;
-            if (state.Dialogs[action.id].Messages.length !== 0) {
-                id = state
-                    .Dialogs[action.id]
-                    .Messages[state.Dialogs[action.id].Messages.length - 1]
-                    .id + 1;
-            }
-
-            let createMessage = {
-                id: id,
-                Who: state.ProfileInfo.Name,
-                Avatar: state.ProfileInfo.Avatar,
-                Data: action.date,
-                Message: state.Dialogs[action.id].Temp,
-            };
-            stateCopy.Dialogs[action.id].Messages.push(createMessage);
-            stateCopy.Dialogs[action.id].Temp = '';
             return stateCopy
 
         case UPDATE_TEXT_MESSAGE:
@@ -150,15 +126,7 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                 LastName: '',
                 Avatar: action.data.avatar || emptyPhoto,
                 Temp: '',
-                Messages: [
-                    {
-                        id: action.data.id,
-                        Who: action.data.name,
-                        Avatar: action.data.avatar || emptyPhoto,
-                        Data: '',
-                        Message: 'Write me anything'
-                    }
-                ]
+                Messages: []
             }
             stateCopy.Dialogs.push(newDialog)
             // debugger
@@ -199,12 +167,12 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                 let gettedDialog =
                     {
                         id: action.data[i].id,
-                        Who: action.data[i].senderName,
-                        Avatar: action.data.avatar || emptyPhoto,
+                        Who: action.data[i].senderId === action.me.id ? action.me.FullName : action.user.fullName,
+                        Avatar: action.data[i].senderId === action.me.id ? action.me.Avatar : action.user.photos.large || emptyPhoto,
                         Data: action.data[i].addedAt,
                         Message: action.data[i].body
                     }
-                debugger
+                // debugger
                 // stateCopy.Dialogs[index].Messages.push(gettedDialog)
                 messages.push(gettedDialog)
             }
@@ -278,3 +246,23 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
 //     }
 // ]
 // },
+
+
+// ADD MESSAGE
+// let id = 0;
+// if (state.Dialogs[action.id].Messages.length !== 0) {
+//     id = state
+//         .Dialogs[action.id]
+//         .Messages[state.Dialogs[action.id].Messages.length - 1]
+//         .id + 1;
+// }
+//
+// let createMessage = {
+//     id: id,
+//     Who: state.ProfileInfo.Name,
+//     Avatar: state.ProfileInfo.Avatar,
+//     Data: action.date,
+//     Message: state.Dialogs[action.id].Temp,
+// };
+// stateCopy.Dialogs[action.id].Messages.push(createMessage);
+// stateCopy.Dialogs[action.id].Temp = '';

@@ -21,7 +21,8 @@ let mapStateToProps = (state, props)  => {
     return {
         Temp: state.messageReducer.Dialogs[index].Temp,
         id: dialogId,
-        index
+        index,
+        me: state.profileInfoReducer.logged
 
     }
 };
