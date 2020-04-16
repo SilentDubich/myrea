@@ -44,7 +44,7 @@ export const getDialogThunk = (id, me) => {
             })
     }
 };
-export const postMessageThunk = (id, message) => {
+export const postMessageThunk = (id, message, me) => {
     return dispatch => {
         // debugger
         return API.postMessage(id, message)
@@ -53,7 +53,7 @@ export const postMessageThunk = (id, message) => {
                 // return dispatch(dialogCreation(message));
             })
             .then(() => {
-                dispatch(getDialogThunk(id))
+                dispatch(getDialogThunk(id, me))
             })
     }
 };
@@ -139,30 +139,14 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                     LastName: '',
                     Avatar: action.data[i].photos.large || emptyPhoto,
                     Temp: '',
-                    Messages: [
-                        // {
-                        //     id: action.data[i].id,
-                        //     Who: action.data[i].userName,
-                        //     Avatar: action.data[i].photos.large || emptyPhoto,
-                        //     Data: '',
-                        //     Message: 'Write me anything'
-                        // }
-                    ]
+                    Messages: []
                 }
                 stateCopy.Dialogs.push(gettedDialog)
             }
             // debugger
             return stateCopy;
         case GET_MESSAGES_WITH_USER:
-            let index;
             let messages = [];
-            // for (let i = 0; i < stateCopy.Dialogs.length; i++) {
-            //     if (stateCopy.Dialogs[i].id === action.user.userId) {
-            //         index = i
-            //         // debugger
-            //     }
-            // }
-
             for (let i = 0; i < action.data.length; i++) {
                 let gettedDialog =
                     {
@@ -172,8 +156,6 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                         Data: action.data[i].addedAt,
                         Message: action.data[i].body
                     }
-                // debugger
-                // stateCopy.Dialogs[index].Messages.push(gettedDialog)
                 messages.push(gettedDialog)
             }
             stateCopy.Dialogs[getIndex(action.user.userId)].Messages = messages

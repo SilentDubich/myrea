@@ -14,7 +14,8 @@ let mapStateToProps = state => {
     return {
         state: state.usersReducer,
         addButton: state.usersReducer.addButton,
-        isFetching: state.usersReducer.isFetching
+        isFetching: state.usersReducer.isFetching,
+
     }
 };
 

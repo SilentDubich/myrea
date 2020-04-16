@@ -12,6 +12,10 @@ import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
 
 function ProfileCenterInfoClass(props) {
     let [fetch, setFetch] = useState(props.isFetching)
+    let [follow, setFollow] = useState(props.followed)
+    useEffect(() => {
+        setFollow(props.followed)
+    }, [props.followed])
     useEffect(() => {
         setFetch(props.isFetching)
     }, [props.isFetching])
@@ -27,6 +31,7 @@ function ProfileCenterInfoClass(props) {
                         name={props.currentProfile.FullName}
                         myProfile={props.myProfile}
                         putNewDialogThunk={props.putNewDialogThunk}
+                        followed={follow}
                     />
                     <FriendList
                         dispatch={props.dispatch}

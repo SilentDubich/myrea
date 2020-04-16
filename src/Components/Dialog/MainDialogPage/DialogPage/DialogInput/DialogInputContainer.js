@@ -41,8 +41,8 @@ let mapDispatchToProps = (dispatch, props) => {
         submit: () => {
             dispatch(messageCreation(time, dialogId))
         },
-        postMessageThunk: (id, message) => {
-            dispatch(postMessageThunk(id, message))
+        postMessageThunk: (id, message, me) => {
+            dispatch(postMessageThunk(id, message, me))
         }
     }
     // debugger

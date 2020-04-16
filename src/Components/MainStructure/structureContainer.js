@@ -12,11 +12,13 @@ import {connect} from "react-redux";
 import MacketApp from "./Structure";
 import Preloader from "../Pre-loaders/Preloader";
 import {getAllDialogs, getDialogThunk} from "../DataBases/Reducers/MessagesReducer";
+import {loadFriendsDataThunk} from "../DataBases/Reducers/FriendsReducer";
 
 // Сделать условие проверяющее адреса строки и в зависимости от этого делало запросы
 
 class MacketAppClass extends React.Component {
     componentDidMount() {
+
         API.getAuth()
             .then(data => {
                 this.props.logData(data.data.id, data.data.login, data.data.email);
@@ -30,6 +32,17 @@ class MacketAppClass extends React.Component {
 
                 return data.data.id
             })
+            // .then((data) => {
+            //     API.getUsers(1, 1).then(response => {
+            //         let pageSize = 100
+            //         let totalPages = Math.ceil(response.totalCount / pageSize);
+            //         for (let i = 1; i <= totalPages; i++){
+            //             this.props.loadFriendsDataThunk(pageSize, i)
+            //         }
+            //
+            //     })
+            //     return data
+            // })
             .then(data => {
                 // debugger
                 this.props.initializeApp(data)
@@ -49,10 +62,10 @@ class MacketAppClass extends React.Component {
 
 
 let mapStateToProps = state => {
-    // debugger
+    debugger
     return {
         state: state,
-        store: store,
+        // store: store,
         dispatch: store.dispatch.bind(store),
         initializate: state.loginReducer.loadProfileData,
         isLogged: state.loginReducer.isLogged,
@@ -68,7 +81,8 @@ export const MacketAppContainer = compose(
         getStatusThunk,
         initializeApp,
         getAllDialogs,
-        getDialogThunk
+        getDialogThunk,
+        loadFriendsDataThunk
     })
 )(MacketAppClass)
 

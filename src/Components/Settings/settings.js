@@ -6,6 +6,7 @@ import ChangePhoto from "./ChangePhoto/changePhoto";
 import {putProfileInfoThunk} from "../DataBases/Reducers/ProfileInfoReducer";
 import ChangeContacts from "./ChangeContacts/changeContacts";
 import ChangeLookJob from "./ChangeLookJob/changeLookJob";
+import {ChangePasswordReduxForm} from "./ChangePassword/changePasswordContainer";
 
 
 
@@ -16,6 +17,7 @@ function Settings(props) {
     }
     return(
         <div>
+            {/*<ChangePasswordReduxForm/>*/}
             <form onSubmit={props.handleSubmit(onSubmit)}>
                 <ChangeNameClassContainer/>
                 <ChangeAboutMe/>

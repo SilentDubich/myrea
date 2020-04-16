@@ -11,6 +11,8 @@ const SET_PROFILE = 'setProfile';
 export const setProfile = bool => ({type: SET_PROFILE, bool});
 const GET_MY_PROFILE = 'getMyProfile';
 export const getMyProfile = data => ({type: GET_MY_PROFILE, data});
+const GET_FOLLOW = 'follow';
+export const getFollow = boolean => ({type: GET_FOLLOW, boolean});
 const GET_STATUS = 'getStatus';
 export const getStatus = status => ({type: GET_STATUS, status});
 const SET_TEMPS_MY_PROFILE = 'setTempsMyProfile';
@@ -21,7 +23,7 @@ export const setTemps = (name, status, avatar, contacts) => ({
 const UPDATE_TEMPS_MY_PROFILE = 'updateTempsMyProfile';
 export const updateTemps = (data, temp) => ({type: UPDATE_TEMPS_MY_PROFILE, data, temp});
 
-export const getProfileThunk = (id) => {
+export const getProfileThunk = id => {
     return dispatch => {
         return API.getProfile(id)
             .then(data => {
@@ -32,6 +34,11 @@ export const getProfileThunk = (id) => {
                     .then(data => {
                         // debugger
                         dispatch(getStatus(data));
+                    })
+            }).then(() => {
+                return API.getFollow(id)
+                    .then(response => {
+                        dispatch(getFollow(response))
                     })
             })
     }
@@ -51,9 +58,9 @@ export const getMyProfileThunk = (id) => {
             })
             .then(() => {
                 return API.getDialogs()
-                    .then( data => {
+                    .then(data => {
                         // debugger
-                })
+                    })
             })
 
     }
@@ -75,6 +82,8 @@ export const initializeApp = id => dispatch => {
     let promise = dispatch(getMyProfileThunk(id));
     Promise.all([promise])
         .then(() => {
+        })
+        .then(() => {
             dispatch(loadProfileData());
         });
 }
@@ -93,7 +102,7 @@ export const putStatusThunk = (status, id) => {
     return dispatch => {
         // debugger
         return API.putStatus(status)
-            .then( () => {
+            .then(() => {
                 return dispatch(getStatus(status));
             })
     }
@@ -102,14 +111,20 @@ export const putProfileInfoThunk = (data, id) => {
     return dispatch => {
         // debugger
         return API.putProfileInfo(data)
-            .then( () => {
+            .then(() => {
                 return API.getMyProfile(id)
                     .then(data => {
                         dispatch(getMyProfile(data));
                         dispatch(setProfile(true))
-
                     })
             })
+
+    }
+};
+export const changePasswordThunk = formData => {
+    return dispatch => {
+        // debugger
+        return API.switchPassword(formData)
 
     }
 };
@@ -117,7 +132,7 @@ export const postProfilePhotoThunk = (formData, id) => {
     return dispatch => {
         // debugger
         return API.postAvatarPhoto(formData)
-            .then( () => {
+            .then(() => {
                 return API.getMyProfile(id)
                     .then(data => {
                         dispatch(getMyProfile(data));
@@ -160,7 +175,8 @@ let defaultStateProfile = {
             Youtube: null,
             Github: null,
             MainLink: null
-        }
+        },
+        followed: null
     },
     myProfile: true
 };
@@ -209,13 +225,16 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             // баг со статусом через сообщения здесь
             // в диспатч добавить доп булевский параметр
             // также можно сделать с диспачем профиля
-                stateCopy.myProfile
-                    ?
-                    stateCopy.logged.Status = action.status
-                    :
-                    stateCopy.currentProfile.Status = action.status
+            stateCopy.myProfile
+                ?
+                stateCopy.logged.Status = action.status
+                :
+                stateCopy.currentProfile.Status = action.status
             // stateCopy.logged.Status = action.status
             // debugger
+            return stateCopy
+        case GET_FOLLOW:
+            stateCopy.currentProfile.followed = action.boolean
             return stateCopy
         default:
             return state

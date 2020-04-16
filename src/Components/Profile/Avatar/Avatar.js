@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import Content from "../../../CssModules/content.module.css";
 import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
 import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
+import AddButtonContainer from "../../Friends/FindFriends/AddButton/addButtonContainer";
 
 function AvatarPhoto(props) {
     let [avatar, setAvatar] = useState(props.avatar)
@@ -36,7 +37,11 @@ function AvatarPhoto(props) {
                 :
                 <div>
                     <button onClick={startDialog}>Start dialog</button>
-
+                    <AddButtonContainer id={props.id}
+                                        name={props.name}
+                                        followed={props.followed}
+                                        avatar={props.avatar}
+                    />
                 </div>
             }
         </div>

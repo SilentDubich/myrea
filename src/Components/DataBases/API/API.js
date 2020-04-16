@@ -11,6 +11,16 @@ const instance = axios.create({
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 });
+const instanceProfile = axios.create({
+    withCredentials: true,
+    headers: {
+        // 'API-KEY': '42e7eb43-bd21-414d-a069-9584e7654f6a',
+        'API-KEY': '8d2e390a-6ddc-4d40-87d5-55b4df812b3f',
+        // 'API-KEY': '750fc5a8-75a5-4ef1-94f4-80017fafe472',
+        'Content-type': 'application/x-www-form-urlencoded'
+    },
+    baseURL: 'https://social-network.samuraijs.com/'
+});
 
 const instancePhoto = axios.create({
     withCredentials: true,
@@ -30,7 +40,7 @@ export const API = {
                 return response.data
             })
     },
-    getProfile(id){
+    getProfile(id) {
         return instance.get(`profile/${id}`)
             .then(response => {
                 // debugger
@@ -67,7 +77,7 @@ export const API = {
                 return response.data
             })
     },
-    postLog(email, password, remember){
+    postLog(email, password, remember) {
         return instance.post(`auth/login?email=${email}&password=${password}&rememberMe=${remember}`)
             .then(response => {
                 return response
@@ -77,6 +87,12 @@ export const API = {
         return instance.post(`auth/logout`)
             .then(response => {
                 return response
+            })
+    },
+    getFollow(id) {
+        return instance.get(`follow/${id}`)
+            .then(response => {
+                return response.data
             })
     },
     postFriendFollow(id) {
@@ -101,7 +117,7 @@ export const API = {
     putNewDialog(id) {
         // debugger
         return instance.put(`dialogs/${id}`)
-            .then( response => {
+            .then(response => {
 
                 return response
             })
@@ -109,7 +125,7 @@ export const API = {
     getDialogs() {
         // debugger
         return instance.get(`dialogs`)
-            .then( response => {
+            .then(response => {
                 // debugger
                 return response.data
             })
@@ -117,35 +133,42 @@ export const API = {
     postMessage(id, body) {
         // debugger
         return instance.post(`dialogs/${id}/messages`, {body})
-            .then( response => {
+            .then(response => {
                 // debugger
                 return response
             })
     },
     deleteMessage(messageId) {
-        debugger
+        // debugger
         return instance.delete(`dialogs/messages/${messageId}`)
-            .then( response => {
+            .then(response => {
                 // debugger
                 return response
             })
     },
     getDialog(id) {
         return instance.get(`dialogs/${id}/messages`)
-            .then( response => {
+            .then(response => {
                 // debugger
                 return response.data
             })
     },
     getAPI_KEY(id) {
-        return instance.post(`Auth/Account/RegenerateApiKey`)
-            .then( response => {
+        return instanceProfile.post(`Auth/Account/RegenerateApiKey`)
+            .then(response => {
                 // debugger
                 return response.data
+            })
+    },
+    switchPassword(formData) {
+        return instanceProfile.post(`Auth/Account/UpdatePassword`, formData)
+            .then(response => {
+                debugger
+                return response
             })
     }
 };
 
 
-
+// ChangePasswordModel.OldPassword, ChangePasswordModel.NewPassword, formData
 

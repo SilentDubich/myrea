@@ -1,6 +1,7 @@
 import React from "react";
 import {API} from "../API/API";
 import {addFriend, deleteFriend} from "./FriendsReducer";
+import {getFollow} from "./ProfileInfoReducer";
 
 let defaultStateUsers = {
     users: [],
@@ -34,7 +35,7 @@ export const getUsersThunk = (pageSize, currentPage) => {
     return dispatch => {
         dispatch(switchIsFetching(true));
         dispatch(switchIsButton(true));
-        API.getUsers(pageSize, currentPage)
+        return API.getUsers(pageSize, currentPage)
             .then(data => {
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsers(data.totalCount));
@@ -51,6 +52,7 @@ export const addUserThunk = (id, name, avatar) => {
             .then(() => {
                 dispatch(addFriend(id, name, avatar, true));
                 dispatch(addUser(id))
+                dispatch(getFollow(true))
                 dispatch(switchIsAddButton(false));
             })
     }
@@ -62,6 +64,7 @@ export const deleteUserThunk = (id) => {
             .then(() => {
                 dispatch(deleteFriend(id));
                 dispatch(deleteUser(id))
+                dispatch(getFollow(false))
                 dispatch(switchIsAddButton(false));
             })
     }

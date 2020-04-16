@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Content from "../../../../CssModules/content.module.css";
 import {API} from "../../../DataBases/API/API";
 
 function AddButton(props) {
     // debugger
+    let [follow, setFollow] = useState(props.followed)
+
+    useEffect(() => {
+        setFollow(props.followed)
+    }, [props.followed])
+
     let addUser = () => {
         props.addUserThunk(props.id, props.name, props.avatar)
     };
@@ -26,7 +32,7 @@ function AddButton(props) {
     return (
         <div>
             {
-                props.followed ?
+                follow ?
                     <button
                         onClick={deleteUser}
                         disabled={props.addButton || props.isFetching}

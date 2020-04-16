@@ -4,7 +4,7 @@ import Objects from '../CssModules/DisplayView.module.css';
 import ProfileCenterInfo from "../Trash/ProfileCenterInfo";
 import Dialogs from "./Dialog/MainDialogPage/Dialogs";
 import DialogPage from "./Dialog/MainDialogPage/DialogPage/DialogPage";
-import {NavLink, Route} from "react-router-dom"
+import {NavLink, Redirect, Route, Switch} from "react-router-dom"
 import MyFriends from "./Friends/myFriends/myFriends";
 import Users from "./Friends/FindFriends/UserDecor/findFriends";
 import AllUsers from "../Trash/allUsers";
@@ -39,22 +39,26 @@ function Text(props) {
 
     return (
         // <BrowserRouter>
-            <div className={`${Objects.main__displayGRid}`}>
-                <div>
-                    <LeftMenu dispatch={props.dispatch}
-                              state={props.state}/>
-                </div>
+        <div className={`${Objects.main__displayGRid}`}>
+            <div>
+                <LeftMenu dispatch={props.dispatch}
+                          state={props.state}/>
+            </div>
 
-                <div>
+            <div>
+                <Switch>
+                    <Route path='/dialog/:userID' render={personDialog}/>
                     <Route path='/profile' render={Profile}/>
                     <Route path='/dialogs' render={dialogs}/>
-                    <Route exact path='/dialog/:userID' render={personDialog}/>
                     <Route path='/friends' render={myFriends}/>
                     <Route path='/users' render={allUsers}/>
                     <Route path='/login' render={loginPage}/>
                     <Route path='/settings' render={settingsPage}/>
-                </div>
+                    <Redirect from="/" to="/profile"/>
+                </Switch>
+
             </div>
+        </div>
         // </BrowserRouter>
     )
 }

@@ -14,6 +14,7 @@ let mapStateToProps = state => {
         myProfilePosts: state.postsReducer.Posts,
         myProfile: state.profileInfoReducer.myProfile,
         isFetching: state.usersReducer.isFetching,
+        followed: state.profileInfoReducer.currentProfile.followed
 
     }
 };
