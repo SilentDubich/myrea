@@ -2,6 +2,8 @@ import React from "react";
 import Person from "../../../../CssModules/Dialog/PersonDialog.module.css";
 import Posts from "../../../../CssModules/Profile/MyPosts/posts.module.css";
 import {deleteMessageCreation} from "../../../DataBases/Reducers/MessagesReducer";
+import {NavLink} from "react-router-dom";
+import {getProfileThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 function Message(props) {
     // debugger
@@ -9,12 +11,16 @@ function Message(props) {
         // props.dispatch(deleteMessageCreation(props.id, props.mesId))
         props.deleteMessage(props.mesId, props.id )
     };
+    let throwToProfile = () => {
+        props.setAnotherProfile(props.id, 'notMe')
+    }
+    // onClick={throwToProfile} to={`profile/` + props.id}
     return(
         <div>
             <div className={Person.dialog__flex}>
-                <div className={`${Person.dialog_name__margin}`}>
+                <NavLink onClick={throwToProfile} to={`/profile/` + props.id} className={`${Person.dialog_name__margin}`}>
                     <img className={Person.dialog_img} src={props.avatars}/>
-                </div>
+                </NavLink>
                 <div className={`${Person.dialog_name} ${Person.dialog_name__margin}`}>
                     <p>{props.who}</p>
                 </div>

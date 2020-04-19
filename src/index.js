@@ -18,7 +18,7 @@ import {getMyProfileThunk, getProfile, getStatusThunk} from "./Components/DataBa
 import {authRedirect} from "./Components/redirect";
 import ProfileCenterInfoClass from "./Components/Profile/MainProfilePage/ProfileCenterInfoClass";
 import {loadProfileData, logData} from "./Components/DataBases/Reducers/LoginReducer";
-import Preloader from "./Components/Pre-loaders/Preloader";
+import Preloader from "./Components/Common/Preloader";
 import {MacketAppContainer} from "./Components/MainStructure/structureContainer";
 
 // let Render = (state) => {

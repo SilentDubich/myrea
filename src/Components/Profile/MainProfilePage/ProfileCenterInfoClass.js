@@ -6,8 +6,9 @@ import Subscribes from "../Subscribes/SubscribeList";
 import MainInfo from "../MainInfo/nameAndAbout";
 import PostRedactorContainer from "../PostRedactor/PostRedactorContainer";
 import {PostsClassContainer} from "../MyPosts/postsClassContainer";
-import Preloader from "../../Pre-loaders/Preloader";
+import Preloader from "../../Common/Preloader";
 import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
+import {updatePhotoSize, uploadPhoto} from "../../DataBases/Reducers/ProfileInfoReducer";
 
 
 function ProfileCenterInfoClass(props) {
@@ -32,6 +33,9 @@ function ProfileCenterInfoClass(props) {
                         myProfile={props.myProfile}
                         putNewDialogThunk={props.putNewDialogThunk}
                         followed={follow}
+                        uploadPhoto={props.uploadPhoto}
+                        updatePhotoSize={props.updatePhotoSize}
+                        tempPhoto={props.tempPhoto}
                     />
                     <FriendList
                         dispatch={props.dispatch}

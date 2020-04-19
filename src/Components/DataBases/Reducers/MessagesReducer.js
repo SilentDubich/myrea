@@ -10,11 +10,13 @@ const DELETE_TEXT_MESSAGE = 'deleteMessage';
 const DIALOG_CREATION = 'dialogCreation';
 const GET_ALL_DIALOGS = 'getAllDialogs';
 const GET_MESSAGES_WITH_USER = 'getMessagesWithUser';
+const UPDATE_SEARCH_TEXT = 'updateSearchText';
 export const messageCreation = (date, id) => ({type: ADD_MESSAGE, date, id});
 export const updateMessageCreation = (text, id) => ({type: UPDATE_TEXT_MESSAGE, text, id});
 export const deleteMessageCreation = (mesId, id) => ({type: DELETE_TEXT_MESSAGE, mesId, id});
 export const dialogCreation = data => ({type: DIALOG_CREATION, data});
 export const getAllDialogs = data => ({type: GET_ALL_DIALOGS, data});
+export const updateSearchText = text => ({type: UPDATE_SEARCH_TEXT, text});
 export const getMessagesWithUser = (data, user, me) => ({type: GET_MESSAGES_WITH_USER, data, user, me});
 
 export const putNewDialogThunk = data => {
@@ -91,6 +93,7 @@ let defaultStateMessage = {
     //     Avatar: Sarumyan,
     // },
     Dialogs: [],
+    tempSearch: ''
 };
 
 export function MessagesInstructions(state = defaultStateMessage, action) {
@@ -112,9 +115,10 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
     };
 
     switch (action.type) {
+        case UPDATE_SEARCH_TEXT:
+            return {...state, tempSearch: action.text}
         case ADD_MESSAGE:
             return stateCopy
-
         case UPDATE_TEXT_MESSAGE:
             stateCopy.Dialogs[action.id].Temp = action.text;
             return stateCopy;

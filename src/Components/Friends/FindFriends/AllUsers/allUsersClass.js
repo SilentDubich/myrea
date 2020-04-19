@@ -3,7 +3,7 @@ import Content from "../../../../CssModules/content.module.css";
 import UsersContainer from "../UserDecor/FindFriendsContainer";
 import UserSearch from "./usersSearch";
 import {PagesContainer} from "./PagesButtons/pagesContainer";
-import Preloader from "../../../Pre-loaders/Preloader";
+import Preloader from "../../../Common/Preloader";
 import Preloaders from '../../../../CssModules/Preloader/Preloaders.module.css'
 
 function AllUsersClass (props) {

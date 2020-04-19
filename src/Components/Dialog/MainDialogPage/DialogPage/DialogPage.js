@@ -6,7 +6,8 @@ import Input from "./DialogInput/DialogInput";
 import Upper from "./DialogUpper";
 import Text from "../../../mainText";
 import InputContainer from "./DialogInput/DialogInputContainer";
-import Preloader from "../../../Pre-loaders/Preloader";
+import Preloader from "../../../Common/Preloader";
+import {getProfileThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 function DialogPage(props) {
 
@@ -34,6 +35,7 @@ function DialogPage(props) {
         who={mes.Who}
         date={mes.Data}
         deleteMessage={props.deleteMessageThunk}
+        setAnotherProfile={props.setAnotherProfile}
     />)
     // console.log(currentMessages);
     // debugger

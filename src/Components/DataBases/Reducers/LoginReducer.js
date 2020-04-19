@@ -2,6 +2,7 @@ import React from "react";
 import {API} from "../API/API";
 import {getMyProfileThunk} from "./ProfileInfoReducer";
 import {Redirect} from "react-router-dom";
+import {reset} from "redux-form";
 
 const LOGIN_REQUEST = 'loginRequest';
 export const loginRequest = (email, password, remember) => ({type: LOGIN_REQUEST, data: {email, password, remember}});
@@ -38,7 +39,7 @@ export const postLogThunk = (email, password, remember) => {
                         .then((data) => {
                             // debugger
                             dispatch(getMyProfileThunk(data));
-
+                            dispatch(reset('login'))
                         })
                 }
             })

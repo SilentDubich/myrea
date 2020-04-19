@@ -10,7 +10,7 @@ import {store} from "../DataBases/Redux/Store";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import MacketApp from "./Structure";
-import Preloader from "../Pre-loaders/Preloader";
+import Preloader from "../Common/Preloader";
 import {getAllDialogs, getDialogThunk} from "../DataBases/Reducers/MessagesReducer";
 import {loadFriendsDataThunk} from "../DataBases/Reducers/FriendsReducer";
 
@@ -45,7 +45,7 @@ class MacketAppClass extends React.Component {
             // })
             .then(data => {
                 // debugger
-                this.props.initializeApp(data)
+                this.props.initializeApp(data, 'me')
             })
     }
 
@@ -62,7 +62,7 @@ class MacketAppClass extends React.Component {
 
 
 let mapStateToProps = state => {
-    debugger
+    // debugger
     return {
         state: state,
         // store: store,

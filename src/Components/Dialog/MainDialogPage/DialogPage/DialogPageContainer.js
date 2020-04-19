@@ -1,7 +1,12 @@
 import React from "react";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {getProfile, postProfilePhotoThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
+import {
+    getProfile,
+    getProfileThunk,
+    postProfilePhotoThunk,
+    setAnotherProfile
+} from "../../../DataBases/Reducers/ProfileInfoReducer";
 import {deleteMessageThunk, putNewDialogThunk} from "../../../DataBases/Reducers/MessagesReducer";
 import {authRedirect} from "../../../redirect";
 import ProfileCenterInfoClass from "../../../Profile/MainProfilePage/ProfileCenterInfoClass";
@@ -26,7 +31,7 @@ let mapStateToProps = state => {
 export const DialogPageContainer =
     compose
     (
-        connect(mapStateToProps, {getProfile, postProfilePhotoThunk, putNewDialogThunk, deleteMessageThunk}),
+        connect(mapStateToProps, {getProfile, postProfilePhotoThunk, putNewDialogThunk, deleteMessageThunk, setAnotherProfile}),
         withRouter,
         authRedirect
     )(DialogPage)

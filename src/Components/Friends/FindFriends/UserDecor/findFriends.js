@@ -12,7 +12,7 @@ function Users(props) {
     let throwProfileInfo = e => {
         if (props.isFetching) return e.preventDefault()
         // props.getProfileThunk(props.id)
-        props.setAnotherProfile(props.id)
+        props.setAnotherProfile(props.id, 'notMe')
     }
     return (
         <div className={`${props.users.isFetching ? Preloaders.Preloader__backgroundOpacity : null}`}>

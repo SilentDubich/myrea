@@ -6,7 +6,7 @@ import {loadProfileData, logData} from "./LoginReducer";
 import {switchIsFetching} from "./UserReducer";
 
 const GET_PROFILE = 'getProfile';
-export const getProfile = user => ({type: GET_PROFILE, user});
+export const getProfile = (user, who) => ({type: GET_PROFILE, user, who});
 const SET_PROFILE = 'setProfile';
 export const setProfile = bool => ({type: SET_PROFILE, bool});
 const GET_MY_PROFILE = 'getMyProfile';
@@ -15,6 +15,10 @@ const GET_FOLLOW = 'follow';
 export const getFollow = boolean => ({type: GET_FOLLOW, boolean});
 const GET_STATUS = 'getStatus';
 export const getStatus = status => ({type: GET_STATUS, status});
+const UPLOAD_PHOTO = 'uploadPhoto';
+export const uploadPhoto = photo => ({type: UPLOAD_PHOTO, photo});
+const UPDATE_PHOTO_SIZE = 'updatePhotoSize';
+export const updatePhotoSize = size => ({type: UPDATE_PHOTO_SIZE, size});
 const SET_TEMPS_MY_PROFILE = 'setTempsMyProfile';
 export const setTemps = (name, status, avatar, contacts) => ({
     type: SET_TEMPS_MY_PROFILE,
@@ -23,11 +27,11 @@ export const setTemps = (name, status, avatar, contacts) => ({
 const UPDATE_TEMPS_MY_PROFILE = 'updateTempsMyProfile';
 export const updateTemps = (data, temp) => ({type: UPDATE_TEMPS_MY_PROFILE, data, temp});
 
-export const getProfileThunk = id => {
+export const getProfileThunk = (id, who) => {
     return dispatch => {
         return API.getProfile(id)
             .then(data => {
-                dispatch(getProfile(data));
+                dispatch(getProfile(data, who));
             })
             .then(() => {
                 return API.getStatus(id)
@@ -43,12 +47,12 @@ export const getProfileThunk = id => {
             })
     }
 };
-export const getMyProfileThunk = (id) => {
+export const getMyProfileThunk = (id, who) => {
     return dispatch => {
         // debugger
         return API.getMyProfile(id)
             .then(data => {
-                dispatch(getMyProfile(data));
+                dispatch(getProfile(data, who));
             })
             .then(() => {
                 return API.getStatus(id)
@@ -66,10 +70,10 @@ export const getMyProfileThunk = (id) => {
     }
 };
 
-export const setAnotherProfile = id => dispatch => {
+export const setAnotherProfile = (id, who) => dispatch => {
     dispatch(switchIsFetching(true))
     dispatch(setProfile(false))
-    let promise = dispatch(getProfileThunk(id));
+    let promise = dispatch(getProfileThunk(id, who));
     Promise.all([promise])
         .then(() => {
             // debugger
@@ -78,8 +82,8 @@ export const setAnotherProfile = id => dispatch => {
 }
 
 
-export const initializeApp = id => dispatch => {
-    let promise = dispatch(getMyProfileThunk(id));
+export const initializeApp = (id, who) => dispatch => {
+    let promise = dispatch(getMyProfileThunk(id, who));
     Promise.all([promise])
         .then(() => {
         })
@@ -178,7 +182,16 @@ let defaultStateProfile = {
         },
         followed: null
     },
-    myProfile: true
+    myProfile: true,
+    photo: {
+        name: null,
+        lastModified: null,
+        lastModifiedDate: null,
+        webkitRelativePath: null,
+        size: null,
+        type: null
+    }
+
 };
 
 export function ProfileInstructions(state = defaultStateProfile, action) {
@@ -189,7 +202,17 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
     // debugger
     switch (action.type) {
         case GET_PROFILE:
-            let currentProfile = {
+            // let currentProfile = {
+            //     id: action.user.userId,
+            //     FullName: action.user.fullName,
+            //     AboutMe: action.user.aboutMe,
+            //     Avatar: action.user.photos.large,
+            //     Contacts: {
+            //         Facebook: action.user.contacts.facebook,
+            //         Vk: action.user.contacts.vk
+            //     }
+            // };
+            let gettedProfile = {
                 id: action.user.userId,
                 FullName: action.user.fullName,
                 AboutMe: action.user.aboutMe,
@@ -199,13 +222,15 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
                     Vk: action.user.contacts.vk
                 }
             };
-            return {...state, currentProfile};
+            let who = action.who === 'me' ? stateCopy.logged = gettedProfile : stateCopy.currentProfile = gettedProfile
+            // debugger
+            return stateCopy;
+            // return {...state, who};
         case SET_PROFILE:
-            return {...state, myProfile: action.bool};
+            return {...state, myProfile: action.bool, currentProfile: {...null}};
         case SET_TEMPS_MY_PROFILE:
             return {...state, temps: action.temps};
         case UPDATE_TEMPS_MY_PROFILE:
-
             return {...state, temp: action.data};
         case GET_MY_PROFILE:
             let myProfile = {
@@ -235,6 +260,21 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
             return stateCopy
         case GET_FOLLOW:
             stateCopy.currentProfile.followed = action.boolean
+            return stateCopy
+        case UPLOAD_PHOTO:
+            let photo = {
+                name: action.photo.name,
+                lastModified: action.photo.lastModified,
+                lastModifiedDate: action.photo.lastModifiedDate,
+                webkitRelativePath: action.photo.webkitRelativePath,
+                size: action.photo.size,
+                type: action.photo.type
+            }
+            // debugger
+            return {...state, photo: action.photo}
+        case UPDATE_PHOTO_SIZE:
+            debugger
+            stateCopy.photo.size = action.size
             return stateCopy
         default:
             return state
