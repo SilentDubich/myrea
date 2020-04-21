@@ -11,6 +11,7 @@ const instance = axios.create({
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 });
+
 const instanceProfile = axios.create({
     withCredentials: true,
     headers: {
