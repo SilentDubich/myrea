@@ -5,6 +5,7 @@ import UserSearch from "./usersSearch";
 import {PagesContainer} from "./PagesButtons/pagesContainer";
 import Preloader from "../../../Common/Preloader";
 import Preloaders from '../../../../CssModules/Preloader/Preloaders.module.css'
+import {getUsersThunk} from "../../../DataBases/Reducers/UserReducer";
 
 function AllUsersClass (props) {
     useEffect(() => {
@@ -14,10 +15,11 @@ function AllUsersClass (props) {
         // debugger
         return (
             <div className={`${Content.content__menu_decorationBlocks} `}>
-                <UserSearch/>
+                <UserSearch getUsersThunk={props.getUsersThunk} updateSearchText={props.updateSearchText} tempSearch={props.tempSearch}/>
                 <PagesContainer/>
                 {props.state.isFetching ? <Preloader className={Preloaders.Preloader__Opacity}/> : null}
                 {props.state.users.map(us => <UsersContainer
+                    key={us.id}
                     id={us.id}
                     avatar={us.photos.small}
                     name={us.name}

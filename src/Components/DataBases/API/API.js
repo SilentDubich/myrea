@@ -34,8 +34,8 @@ const instancePhoto = axios.create({
 });
 
 export const API = {
-    getUsers(pageSize = 10, currentPage = 1) {
-        return instance.get(`users?count=${pageSize}&page=${currentPage}`)
+    getUsers(pageSize = 10, currentPage = 1, user = '') {
+        return instance.get(`users?count=${pageSize}&page=${currentPage}&term=${user}`)
             .then(response => {
                 return response.data
             })
@@ -77,8 +77,8 @@ export const API = {
                 return response.data
             })
     },
-    postLog(email, password, remember) {
-        return instance.post(`auth/login?email=${email}&password=${password}&rememberMe=${remember}`)
+    postLog(email, password, remember, captcha) {
+        return instance.post(`auth/login?email=${email}&password=${password}&rememberMe=${remember}&captcha=${captcha}`)
             .then(response => {
                 return response
             })
@@ -126,7 +126,7 @@ export const API = {
         // debugger
         return instance.get(`dialogs`)
             .then(response => {
-                // debugger
+                debugger
                 return response.data
             })
     },
@@ -149,7 +149,7 @@ export const API = {
     getDialog(id) {
         return instance.get(`dialogs/${id}/messages`)
             .then(response => {
-                // debugger
+                debugger
                 return response.data
             })
     },
@@ -163,8 +163,15 @@ export const API = {
     switchPassword(formData) {
         return instanceProfile.post(`Auth/Account/UpdatePassword`, formData)
             .then(response => {
-                debugger
+                // debugger
                 return response
+            })
+    },
+    getCaptcha() {
+        return instance.get(`security/get-captcha-url`)
+            .then(response => {
+                // debugger
+                return response.data.url
             })
     }
 };

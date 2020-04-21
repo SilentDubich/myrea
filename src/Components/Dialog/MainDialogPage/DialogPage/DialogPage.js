@@ -30,12 +30,15 @@ function DialogPage(props) {
         dialogs={props.state.messageReducer.Dialogs[index]}
         id={props.state.messageReducer.Dialogs[index].id}
         mesId={mes.id}
+        viewed={mes.viewed}
+        senderId={mes.mesId}
         avatars={mes.Avatar}
         message={mes.Message}
         who={mes.Who}
         date={mes.Data}
         deleteMessage={props.deleteMessageThunk}
         setAnotherProfile={props.setAnotherProfile}
+        myId={props.myId}
     />)
     // console.log(currentMessages);
     // debugger

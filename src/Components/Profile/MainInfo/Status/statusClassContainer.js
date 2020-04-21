@@ -2,7 +2,7 @@ import React from "react";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {getStatus, getStatusThunk, putStatusThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
-import {authRedirect} from "../../../redirect";
+import {authRedirect} from "../../../Common/redirectToLogin";
 import ProfileCenterInfoClass from "../../MainProfilePage/ProfileCenterInfoClass";
 import StatusClass from "./statusClass";
 import {reduxForm} from "redux-form";

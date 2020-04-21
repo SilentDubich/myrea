@@ -9,6 +9,7 @@ import {PostsClassContainer} from "../MyPosts/postsClassContainer";
 import Preloader from "../../Common/Preloader";
 import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
 import {updatePhotoSize, uploadPhoto} from "../../DataBases/Reducers/ProfileInfoReducer";
+import {FriendListContainer} from "../FriendList/friendContainer";
 
 
 function ProfileCenterInfoClass(props) {
@@ -37,10 +38,7 @@ function ProfileCenterInfoClass(props) {
                         updatePhotoSize={props.updatePhotoSize}
                         tempPhoto={props.tempPhoto}
                     />
-                    <FriendList
-                        dispatch={props.dispatch}
-                        state={props.state}
-                    />
+                    <FriendListContainer/>
                     <Subscribes
                         dispatch={props.dispatch}
                         state={props.state}

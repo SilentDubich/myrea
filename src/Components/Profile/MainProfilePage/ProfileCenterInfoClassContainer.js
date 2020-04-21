@@ -7,7 +7,7 @@ import {
     uploadPhoto
 } from "../../DataBases/Reducers/ProfileInfoReducer";
 import ProfileCenterInfoClass from "./ProfileCenterInfoClass";
-import {authRedirect} from "../../redirect";
+import {authRedirect} from "../../Common/redirectToLogin";
 import {compose} from "redux";
 import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
 

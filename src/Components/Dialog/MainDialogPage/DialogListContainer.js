@@ -1,8 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
 import DialogLists from "./DialogList";
-import {getProfile} from "../../DataBases/Reducers/ProfileInfoReducer";
-import {getUserAllMessagesThunk} from "../../DataBases/Reducers/MessagesReducer";
+import {
+    getProfile,
+    postProfilePhotoThunk,
+    updatePhotoSize,
+    uploadPhoto
+} from "../../DataBases/Reducers/ProfileInfoReducer";
+import {getUserAllMessagesThunk, putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
+import {authRedirect} from "../../Common/redirectToLogin";
+import {compose} from "redux";
+import ProfileCenterInfoClass from "../../Profile/MainProfilePage/ProfileCenterInfoClass";
 
 
 
@@ -27,5 +35,11 @@ let mapStateToProps = state => {
 //     }
 // }
 
+// authRedirect()
+// export const DialogsListContainer = connect(mapStateToProps, {getUserAllMessagesThunk})(DialogLists)
 
-export const DialogsListContainer = connect(mapStateToProps, {getUserAllMessagesThunk})(DialogLists)
+
+export const DialogsListContainer = compose(
+    connect(mapStateToProps, {getUserAllMessagesThunk}),
+    authRedirect
+)(DialogLists)

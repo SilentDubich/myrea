@@ -4,8 +4,9 @@ import NoResultSearch from "../../Common/NoResultSearch";
 
 
 function DialogLists(props) {
+    debugger
     let dialogsData
-    let pattern = new RegExp(props.tempSearch, ['gi'] );
+    let pattern = new RegExp(props.tempSearch, ['giy'] );
     dialogsData = props.dialogs
         .map( dialog => {
             if (props.tempSearch.length === 0 || dialog.Name.match(pattern)) {
@@ -14,6 +15,7 @@ function DialogLists(props) {
                     name={dialog.Name}
                     img={dialog.Avatar}
                     id={dialog.id}
+                    newMess={dialog.newMessages}
                     // message={dialog.Messages[dialog.Messages.length - 1].Message}
                     // lastImg={dialog.Messages[dialog.Messages.length - 1].Avatar}
                     getDialogs={props.getUserAllMessagesThunk}

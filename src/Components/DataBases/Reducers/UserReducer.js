@@ -5,6 +5,7 @@ import {getFollow} from "./ProfileInfoReducer";
 
 let defaultStateUsers = {
     users: [],
+    tempSearch : '',
     totalUsers: 0,
     currentPage: 1,
     pageSize: 10,
@@ -22,6 +23,7 @@ const DELETE_USER = 'deleteUser';
 const SWITCH_IS_FETCHING = 'switchIsFetching';
 const SWITCH_IS_BUTTON = 'switchIsButton';
 const SWITCH_IS_ADD_BUTTON = 'switchIsAddButton';
+const UPDATE_SEARCH_TEXT = 'updateSearchText';
 export const addUser = (id) => ({type: ADD_USER, id});
 export const deleteUser = (id) => ({type: DELETE_USER, id});
 export const setUsers = (users) => ({type: SET_USERS, users});
@@ -30,12 +32,13 @@ export const setPage = (page) => ({type: SET_PAGE, page});
 export const switchIsFetching = (bool) => ({type: SWITCH_IS_FETCHING, bool});
 export const switchIsButton = (bool) => ({type: SWITCH_IS_BUTTON, bool});
 export const switchIsAddButton = (bool) => ({type: SWITCH_IS_ADD_BUTTON, bool});
+export const updateSearchText = (text) => ({type: UPDATE_SEARCH_TEXT, text});
 
-export const getUsersThunk = (pageSize, currentPage) => {
+export const getUsersThunk = (pageSize, currentPage, user) => {
     return dispatch => {
         dispatch(switchIsFetching(true));
         dispatch(switchIsButton(true));
-        return API.getUsers(pageSize, currentPage)
+        return API.getUsers(pageSize, currentPage, user)
             .then(data => {
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsers(data.totalCount));
@@ -94,6 +97,8 @@ export function UsersInstructions(state = defaultStateUsers, action) {
                     return us
                 })
             };
+        case UPDATE_SEARCH_TEXT:
+            return {...state, tempSearch: action.text}
         case SET_USERS:
             return {...state, users: [...action.users]};
         case SET_PAGE:

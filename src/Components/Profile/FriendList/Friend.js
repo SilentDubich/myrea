@@ -10,16 +10,16 @@ function FriendList(props) {
     // let allFriends = props.state.friendsReducer.map( friend => <MyFriend name={friend.Name} img={friend.Avatar}/>);
     let allFriends = () => {
         let all = [];
-        let array = props.state.friendsReducer;
-        // let shuffledArray = array.sort(() => Math.random() - 0.5);
+        let array = props.friends;
+        let shuffledArray = array.sort(() => Math.random() - 0.5);
         for (let i = 0; i < Math.min(array.length, 6); i++){
             all.push(array[i])
         }
-        return all.map(friend => <MyFriend name={friend.Name} img={friend.Avatar}/>)
+        return all.map(friend => <MyFriend myId={props.myId} setAnotherProfile={props.setAnotherProfile} id={friend.id} key={friend.id} name={friend.Name} img={friend.Avatar}/>)
     };
     return(
         <div className={`${Content.content__menu_decorationBlocks}`}>
-            <p className={Friends.font__size}>My friends: <span>{props.state.friendsReducer.length}</span></p>
+            <p className={Friends.font__size}>My friends: <span>{props.friends.length}</span></p>
             <div className={Friends.display__grid}>
                 {allFriends()}
             </div>

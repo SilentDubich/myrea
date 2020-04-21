@@ -7,7 +7,7 @@ import {
     setTotalUsers,
     setUsers, switchIsAddButton,
     switchIsButton,
-    switchIsFetching,
+    switchIsFetching, updateSearchText,
 } from "../../../DataBases/Reducers/UserReducer";
 import {updatePostTextCreation} from "../../../DataBases/Reducers/PostsReducer";
 
@@ -18,12 +18,15 @@ import {updatePostTextCreation} from "../../../DataBases/Reducers/PostsReducer";
 let mapStateToProps = (state) => {
     // debugger
     return {
-        state: state.usersReducer
+        state: state.usersReducer,
+        tempSearch: state.usersReducer.tempSearch
     }
 };
 
 
 
-const AllUsersClassContainer = connect(mapStateToProps, {setUsers, setTotalUsers, switchIsButton, switchIsFetching, getUsersThunk})(AllUsersClass);
+export const AllUsersClassContainer = connect(mapStateToProps,
+    {setUsers, setTotalUsers, switchIsButton, switchIsFetching, getUsersThunk, updateSearchText})
+(AllUsersClass);
 
-export default AllUsersClassContainer
+// export default AllUsersClassContainer

@@ -12,13 +12,15 @@ function Message(props) {
         props.deleteMessage(props.mesId, props.id )
     };
     let throwToProfile = () => {
-        props.setAnotherProfile(props.id, 'notMe')
+        let meOrNot = props.senderId === props.myId ? 'me' : 'notMe'
+        props.setAnotherProfile(props.senderId, meOrNot)
+        // debugger
     }
     // onClick={throwToProfile} to={`profile/` + props.id}
     return(
-        <div>
+        <div className={`${!props.viewed && Person.dialog_viewedMessages__color}`}>
             <div className={Person.dialog__flex}>
-                <NavLink onClick={throwToProfile} to={`/profile/` + props.id} className={`${Person.dialog_name__margin}`}>
+                <NavLink onClick={throwToProfile} to={`/profile/${props.senderId}`} className={`${Person.dialog_name__margin}`}>
                     <img className={Person.dialog_img} src={props.avatars}/>
                 </NavLink>
                 <div className={`${Person.dialog_name} ${Person.dialog_name__margin}`}>

@@ -16,7 +16,10 @@ function LeftMenu(props) {
                     <NavLink to='/feed' className={`${MenuLeft.container__menu_decoration}`}>News</NavLink>
                 </li>
                 <li>
-                    <NavLink to='/dialogs' className={`${MenuLeft.container__menu_decoration}`}>Messages</NavLink>
+                    <NavLink to='/dialogs' className={`${MenuLeft.container__menu_decoration}`}>Messages
+                        {props.state.messageReducer.freshDialogs > 0 && props.state.messageReducer.freshDialogs}
+                    </NavLink>
+
                 </li>
                 <li>
                     <NavLink to='/friends' className={`${MenuLeft.container__menu_decoration}`}>Friends</NavLink>

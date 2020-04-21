@@ -8,21 +8,24 @@ import AsyncValidationForm from "../../../Validations/LoginValidate/loginAsyncFo
 
 
 function LoginPage(props) {
-    let onSubmit = formData => {
-        props.postLogThunk(formData.email, formData.password, formData.remember)
-        // return <Redirect to='/profile'/>
-    };
+    // let onSubmit = formData => {
+    //     props.postLogThunk(formData.email, formData.password, formData.remember)
+    //     // return <Redirect to='/profile'/>
+    // };
     let buttonLoginClasses =
         `
     ${Person.log__padding}
     ${Person.log__button} 
     `;
+    if (props.isLogged && props.initialized) return <Redirect to='/profile'/>;
     return (
         <div>
             <AsyncValidationForm
                 buttonRequest={props.buttonRequest}
                 logThunk={props.postLogThunk}
-                submit={onSubmit} class={buttonLoginClasses}
+                class={buttonLoginClasses}
+                captcha={props.captcha}
+                initialValues={{'remember': false}}
             />
         </div>
     )

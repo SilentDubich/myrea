@@ -1,10 +1,18 @@
 import React from "react";
 import Pendalf from '../../../../img/Avatars/pendalf.jpg'
 import Friends from '../../../../CssModules/Profile/FriendList/Friends.module.css';
+import {NavLink} from "react-router-dom";
+
 function MyFriend(props) {
+    let setProfile = () => {
+        let meOrNot = props.id === props.myId ? 'me' : 'notMe'
+        props.setAnotherProfile(props.id, meOrNot)
+    }
     return (
         <div>
-            <img className={Friends.Friend__Ava} src={props.img}/>
+            <NavLink onClick={setProfile} to={`/profile/${props.id}`}>
+                <img className={Friends.Friend__Ava} src={props.img}/>
+            </NavLink>
             <p className={Friends.Friend__Font}>{props.name}</p>
         </div>
     )

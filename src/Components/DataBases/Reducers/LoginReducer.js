@@ -2,7 +2,7 @@ import React from "react";
 import {API} from "../API/API";
 import {getMyProfileThunk} from "./ProfileInfoReducer";
 import {Redirect} from "react-router-dom";
-import {reset} from "redux-form";
+import {reset, stopSubmit} from "redux-form";
 
 const LOGIN_REQUEST = 'loginRequest';
 export const loginRequest = (email, password, remember) => ({type: LOGIN_REQUEST, data: {email, password, remember}});
@@ -18,21 +18,24 @@ const BUTTON_ACTION = 'buttonAction';
 export const buttonAction = bool => ({type: BUTTON_ACTION, bool});
 const LOAD_PROFILE_DATA = 'loadProfileData';
 export const loadProfileData = () => ({type: LOAD_PROFILE_DATA});
+const GET_CAPTCHA = 'getCaptcha';
+export const getCaptcha = cap => ({type: GET_CAPTCHA, cap});
 
-export const postLogThunk = (email, password, remember) => {
+export const postLogThunk = (email, password, remember, captcha) => {
     return dispatch => {
         dispatch(buttonAction(true))
-        API.postLog(email, password, remember)
+        API.postLog(email, password, remember, captcha)
             .then(response => {
-                return response.status
+                // debugger
+                return response
             })
             .then(response => {
-                if (response === 200) {
+                if (response.data.resultCode === 0) {
                     API.getAuth()
                         .then(data => {
                                 dispatch(logData(data.data.id, data.data.login, data.data.email));
                                 dispatch(loginRequest(email, password, remember))
-                                dispatch(buttonAction(false))
+                                // dispatch(buttonAction(false))
                                 return data.data.id
                             }
                         )
@@ -41,7 +44,17 @@ export const postLogThunk = (email, password, remember) => {
                             dispatch(getMyProfileThunk(data));
                             dispatch(reset('login'))
                         })
+                } else if (response.data.resultCode === 10) {
+                    API.getCaptcha()
+                        .then(data => {
+                            dispatch(getCaptcha(data))
+                        })
+                } else {
+                    dispatch(stopSubmit('asyncValidation', {_error: response.data.messages[0]}))
                 }
+            })
+            .then(() => {
+                dispatch(buttonAction(false))
             })
 
     }
@@ -65,11 +78,13 @@ let defaultStateLogin = {
     logData: {
         id: null,
         login: null,
-        email: null
+        email: null,
     },
     isLogged: false,
     buttonRequest: false,
-    loadProfileData: false
+    loadProfileData: false,
+    // captchaImage: null,
+    captcha: null
 };
 
 export function LoginInstructions(state = defaultStateLogin, action) {
@@ -79,6 +94,8 @@ export function LoginInstructions(state = defaultStateLogin, action) {
     }
     // debugger
     switch (action.type) {
+        case GET_CAPTCHA:
+            return {...state, captcha: action.cap}
         case LOGIN_REQUEST:
             return {...state, ...action.data, email: '', password: '', remember: false}
         case CHANGE_EMAIL_DATA:

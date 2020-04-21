@@ -2,6 +2,7 @@ import React from "react";
 import {API} from "../API/API";
 import {switchIsFetching} from "./UserReducer";
 import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
+import {Redirect} from "react-router-dom";
 
 
 const ADD_MESSAGE = 'addMessage';
@@ -93,7 +94,8 @@ let defaultStateMessage = {
     //     Avatar: Sarumyan,
     // },
     Dialogs: [],
-    tempSearch: ''
+    tempSearch: '',
+    freshDialogs: 0
 };
 
 export function MessagesInstructions(state = defaultStateMessage, action) {
@@ -124,6 +126,12 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
             return stateCopy;
         case DIALOG_CREATION:
             // сделать проверку на наличие данного диалога
+            for (let i = 0; i < stateCopy.Dialogs.length; i++){
+                if (stateCopy.Dialogs[i].id === action.data.id){
+                    debugger
+                    return stateCopy
+                }
+            }
             let newDialog = {
                 id: action.data.id,
                 Name: action.data.name,
@@ -136,18 +144,22 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
             // debugger
             return stateCopy;
         case GET_ALL_DIALOGS:
+            let countUpdatingDialogs = 0;
             for (let i = 0; i < action.data.length; i++) {
+                if (action.data[i].newMessagesCount > 0) countUpdatingDialogs++;
                 let gettedDialog = {
                     id: action.data[i].id,
                     Name: action.data[i].userName,
                     LastName: '',
                     Avatar: action.data[i].photos.large || emptyPhoto,
                     Temp: '',
+                    newMessages: action.data[i].newMessagesCount,
                     Messages: []
                 }
                 stateCopy.Dialogs.push(gettedDialog)
             }
             // debugger
+            stateCopy.freshDialogs = countUpdatingDialogs
             return stateCopy;
         case GET_MESSAGES_WITH_USER:
             let messages = [];
@@ -155,10 +167,12 @@ export function MessagesInstructions(state = defaultStateMessage, action) {
                 let gettedDialog =
                     {
                         id: action.data[i].id,
+                        mesId: action.data[i].senderId,
                         Who: action.data[i].senderId === action.me.id ? action.me.FullName : action.user.fullName,
                         Avatar: action.data[i].senderId === action.me.id ? action.me.Avatar : action.user.photos.large || emptyPhoto,
                         Data: action.data[i].addedAt,
-                        Message: action.data[i].body
+                        Message: action.data[i].body,
+                        viewed: action.data[i].viewed
                     }
                 messages.push(gettedDialog)
             }

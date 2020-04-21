@@ -15,7 +15,7 @@ import {connect, Provider} from "react-redux";
 import {API} from "./Components/DataBases/API/API";
 import {compose} from "redux";
 import {getMyProfileThunk, getProfile, getStatusThunk} from "./Components/DataBases/Reducers/ProfileInfoReducer";
-import {authRedirect} from "./Components/redirect";
+import {authRedirect} from "./Components/Common/redirectToLogin";
 import ProfileCenterInfoClass from "./Components/Profile/MainProfilePage/ProfileCenterInfoClass";
 import {loadProfileData, logData} from "./Components/DataBases/Reducers/LoginReducer";
 import Preloader from "./Components/Common/Preloader";

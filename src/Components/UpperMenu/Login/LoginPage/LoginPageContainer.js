@@ -9,7 +9,6 @@ import {
     logData
 } from "../../../DataBases/Reducers/LoginReducer";
 import LoginPage from "./LoginPage";
-import {reduxForm} from "redux-form";
 
 let mapStateToProps = state => {
     return {
@@ -17,16 +16,19 @@ let mapStateToProps = state => {
         password: state.loginReducer.password,
         remember: state.loginReducer.remember,
         buttonRequest: state.loginReducer.buttonRequest,
+        captcha: state.loginReducer.captcha,
+        isLogged: state.loginReducer.isLogged,
+        initialized: state.loginReducer.loadProfileData
     }
 };
 
 
-
-export const LoginPageContainer = connect(mapStateToProps,
+export const LoginReduxForm = connect(mapStateToProps,
     {
         loginRequest, changeEmail, changePassword,
         changeRemember, logData, postLogThunk
-    }
+    },
+    // reduxForm({form: 'login'}),
 )(LoginPage)
 
-export const LoginReduxForm = reduxForm({form: 'login'})(LoginPageContainer)
+// export const LoginReduxForm = reduxForm({form: 'login'})(LoginPageContainer)

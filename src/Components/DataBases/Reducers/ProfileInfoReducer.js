@@ -71,9 +71,11 @@ export const getMyProfileThunk = (id, who) => {
 };
 
 export const setAnotherProfile = (id, who) => dispatch => {
+    let checkWho = who === 'me'
     dispatch(switchIsFetching(true))
-    dispatch(setProfile(false))
-    let promise = dispatch(getProfileThunk(id, who));
+    dispatch(setProfile(checkWho))
+    let promise = checkWho ? dispatch(getMyProfileThunk(id, who)) : dispatch(getProfileThunk(id, who));
+    debugger
     Promise.all([promise])
         .then(() => {
             // debugger
@@ -85,8 +87,6 @@ export const setAnotherProfile = (id, who) => dispatch => {
 export const initializeApp = (id, who) => dispatch => {
     let promise = dispatch(getMyProfileThunk(id, who));
     Promise.all([promise])
-        .then(() => {
-        })
         .then(() => {
             dispatch(loadProfileData());
         });
@@ -217,9 +217,9 @@ export function ProfileInstructions(state = defaultStateProfile, action) {
                 FullName: action.user.fullName,
                 AboutMe: action.user.aboutMe,
                 Avatar: action.user.photos.large,
-                Contacts: {
-                    Facebook: action.user.contacts.facebook,
-                    Vk: action.user.contacts.vk
+                contacts: {
+                    facebook: action.user.contacts.facebook,
+                    vk: action.user.contacts.vk
                 }
             };
             let who = action.who === 'me' ? stateCopy.logged = gettedProfile : stateCopy.currentProfile = gettedProfile

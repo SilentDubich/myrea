@@ -17,6 +17,7 @@ function MiniDialogs(props) {
                 </div>
                 <div className={Dialog.border__borderBottom}>
                     <p className={`${Dialog.text__NameFontsDecor}`}>{props.name}</p>
+                    <p>{props.newMess > 0 && props.newMess}</p>
                     {/*<div className={`${Dialog.display__flex}`}>*/}
                     {/*    <img className={Dialog.lastImg__decor} src={props.lastImg} alt=""/>*/}
                     {/*    <p className={`${Dialog.text__MessageFontsDecor}`}>{props.message}</p>*/}

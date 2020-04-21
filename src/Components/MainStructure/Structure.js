@@ -12,6 +12,8 @@ class MacketApp extends React.Component {
                 </div>
                 <div className='container'>
                     <Text
+                        initializate={this.props.initializate}
+                        logged={this.props.isLogged}
                         dispatch={this.props.dispatch}
                         state={this.props.state}
                     />

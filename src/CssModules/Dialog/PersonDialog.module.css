@@ -53,6 +53,10 @@
     margin-left: 1rem;
 }
 
+.dialog_viewedMessages__color{
+    background-color: #d4d4d4;
+}
+
 .dialog_time{
     font-size: 1rem;
     opacity: .5;
