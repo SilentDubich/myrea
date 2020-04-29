@@ -7,8 +7,8 @@ import FriendList from "./Friend";
 
 let mapStateToProps = state => {
     return {
-        friends: state.friendsReducer,
-        myId: state.profileInfoReducer.logged.id
+        friends: state.friendsReducer.friends,
+        myId: state.profileInfoReducer.currentProfile.userId
     }
 }
 

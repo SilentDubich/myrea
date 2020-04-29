@@ -1,22 +1,16 @@
 import React from "react";
 import Person from "../../../../CssModules/Dialog/PersonDialog.module.css";
 import Posts from "../../../../CssModules/Profile/MyPosts/posts.module.css";
-import {deleteMessageCreation} from "../../../DataBases/Reducers/MessagesReducer";
 import {NavLink} from "react-router-dom";
-import {getProfileThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 function Message(props) {
-    // debugger
     let setDeleteMessage = () => {
-        // props.dispatch(deleteMessageCreation(props.id, props.mesId))
         props.deleteMessage(props.mesId, props.id )
     };
     let throwToProfile = () => {
         let meOrNot = props.senderId === props.myId ? 'me' : 'notMe'
         props.setAnotherProfile(props.senderId, meOrNot)
-        // debugger
     }
-    // onClick={throwToProfile} to={`profile/` + props.id}
     return(
         <div className={`${!props.viewed && Person.dialog_viewedMessages__color}`}>
             <div className={Person.dialog__flex}>

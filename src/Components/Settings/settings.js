@@ -1,14 +1,10 @@
 import React from "react";
 import {ChangeNameClassContainer} from "./СhangeName/changeNameClassContainer";
-import {Field} from "redux-form";
 import ChangeAboutMe from "./ChangeAboutMe/changeAboutMe";
-import ChangePhoto from "./ChangePhoto/changePhoto";
-import {putProfileInfoThunk} from "../DataBases/Reducers/ProfileInfoReducer";
 import ChangeContacts from "./ChangeContacts/changeContacts";
 import ChangeLookJob from "./ChangeLookJob/changeLookJob";
-import {ChangePasswordReduxForm} from "./ChangePassword/changePasswordContainer";
-
-
+import {CreateFieldForm} from "../Common/createFieldForm";
+import {renderField} from "../Validations/LoginValidate/loginAsyncForm";
 
 
 function Settings(props) {
@@ -17,11 +13,10 @@ function Settings(props) {
     }
     return(
         <div>
-            {/*<ChangePasswordReduxForm/>*/}
             <form onSubmit={props.handleSubmit(onSubmit)}>
                 <ChangeNameClassContainer/>
                 <ChangeAboutMe/>
-                <ChangeContacts/>
+                <ChangeContacts contacts={props.contacts}/>
                 <ChangeLookJob/>
                 <div>
                     <button>Save</button>

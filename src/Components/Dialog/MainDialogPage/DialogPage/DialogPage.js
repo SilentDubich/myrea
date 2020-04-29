@@ -1,53 +1,41 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Content from '../../../../CssModules/content.module.css';
 import Person from '../../../../CssModules/Dialog/PersonDialog.module.css'
 import Message from "./DialogMessage";
-import Input from "./DialogInput/DialogInput";
 import Upper from "./DialogUpper";
-import Text from "../../../mainText";
 import InputContainer from "./DialogInput/DialogInputContainer";
 import Preloader from "../../../Common/Preloader";
-import {getProfileThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 function DialogPage(props) {
-
-    // Сделать контейнер для этой страницы, чтобы избавиться от колхоза ниже
     let loc = Number(props.match.params.userID);
-    // debugger
     let currentMessages = [];
     let index = 0;
     for (let i = 0; i < props.state.messageReducer.Dialogs.length; i++){
         if (loc === props.state.messageReducer.Dialogs[i].id){
-            // debugger
             currentMessages = props.state.messageReducer.Dialogs[i].Messages
             index = i
-            // debugger
         }
     }
-    // debugger
     let allDialog = currentMessages.map( mes => <Message
-        dispatch={props.dispatch}
-        dialogs={props.state.messageReducer.Dialogs[index]}
+        key={mes.id}
         id={props.state.messageReducer.Dialogs[index].id}
         mesId={mes.id}
         viewed={mes.viewed}
-        senderId={mes.mesId}
+        senderId={mes.senderId}
         avatars={mes.Avatar}
-        message={mes.Message}
-        who={mes.Who}
-        date={mes.Data}
+        message={mes.body}
+        who={mes.senderName}
+        date={mes.addedAt}
         deleteMessage={props.deleteMessageThunk}
         setAnotherProfile={props.setAnotherProfile}
         myId={props.myId}
     />)
-    // console.log(currentMessages);
-    // debugger
+
     if(props.isFetching) return <Preloader/>
     return(
         <div>
             <div className={`${Content.content__menu_decorationBlocks} ${Person.paddingOff}`}>
                 <Upper id={index}
-                       dispatch={props.dispatch}
                        state={props.state}
                 />
                 <div className={`${Person.container}`}>

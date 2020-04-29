@@ -5,7 +5,6 @@ import {NavLink} from "react-router-dom";
 
 
 function UpperLogInfo(props) {
-    // debugger
     let loginButtonClasses = `
     ${Person.log__margin} 
     ${Person.log__padding}

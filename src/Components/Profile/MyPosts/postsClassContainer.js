@@ -5,7 +5,6 @@ import {deletePostCreation} from "../../DataBases/Reducers/PostsReducer";
 
 
 let mapStateToProps = state => {
-    // debugger
     return {
         posts: state.profileInfoReducer.myProfile ? state.postsReducer.Posts : state.postsReducer.currentProfilePosts,
         current: state.profileInfoReducer.myProfile

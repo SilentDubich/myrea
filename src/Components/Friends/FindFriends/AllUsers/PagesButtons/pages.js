@@ -1,12 +1,9 @@
 import React, {useState} from "react";
 import PagesButtons from '../../../../../CssModules/UsersSearch/pagesSearch.module.css'
-import * as axios from "axios";
 import {API} from "../../../../DataBases/API/API";
 
 
 function Pages(props) {
-    // debugger
-
     let pagesCount = Math.ceil(props.totalUsers / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -22,7 +19,7 @@ function Pages(props) {
         .filter(number => number > leftPageNumber && number <= rightPageNumber)
         .map(number => <button
             disabled={props.pageButton}
-            onClick={event => currentPage(number)}
+            onClick={() => currentPage(number)}
             className={`
             ${PagesButtons.button__decor} 
             ${PagesButtons.button__padding} 

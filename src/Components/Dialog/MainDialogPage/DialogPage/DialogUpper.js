@@ -11,7 +11,7 @@ function Upper(props) {
             ${Person.upper_text__padding}
             `}
             >
-                {`${props.state.messageReducer.Dialogs[props.id].Name} ${props.state.messageReducer.Dialogs[props.id].LastName}`}
+                {`${props.state.messageReducer.Dialogs[props.id].userName}`}
             </p>
         </div>
     )

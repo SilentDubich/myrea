@@ -9,9 +9,7 @@ import Ali from '../../../img/Avatars/ali.png'
 import Staff from '../../../img/Avatars/cat.jpeg'
 
 function Subscribes(props) {
-    // let allSubs = props.subscribes.map( sub => <Groups GroupName={sub.Name} Picture={sub.Avatar}/>);
-    // let allSubs = props.state.Profile.Subscribes.map( sub => <Groups GroupName={sub.Name} Picture={sub.Avatar}/>);
-    let allSubs = props.state.subscribesReducer.map( sub => <Groups GroupName={sub.Name} Picture={sub.Avatar}/>);
+    let allSubs = props.subscribe.map( sub => <Groups key={sub.id} GroupName={sub.Name} Picture={sub.Avatar}/>);
     return(
         <div className={`${Content.content__menu_decorationBlocks}`}>
             <p className={Subscribe.font__size}>My subscribes: <span>{allSubs.length}</span></p>

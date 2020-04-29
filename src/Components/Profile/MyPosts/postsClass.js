@@ -2,27 +2,24 @@ import React from "react";
 import NewPost from "./post";
 
 
-class PostsClass extends React.Component {
-    render() {
-        // debugger
-
-        let sortedPosts = this.props.posts
-        .map( elem => <NewPost
+function PostsClass(props) {
+    let sortedPosts = props.posts
+        .map(elem => <NewPost
+            key={elem.id}
             id={elem.id}
             name={elem.name}
             text={elem.text}
             pict={elem.ava}
             likes={elem.likes}
-            deletePost={this.props.deletePostCreation}
-            current={this.props.current}
+            deletePost={props.deletePostCreation}
+            current={props.current}
         />)
         .reverse();
-        return(
-            <div>
-                {sortedPosts}
-            </div>
-        )
-    }
+    return (
+        <div>
+            {sortedPosts}
+        </div>
+    )
 }
 
 export default PostsClass

@@ -9,20 +9,11 @@ import './index.css'
 import * as serviceWorker from './serviceWorker';
 import {store} from "./Components/DataBases/Redux/Store";
 import ReactDOM from "react-dom";
-import MacketApp from "./Components/MainStructure/Structure";
 import {BrowserRouter} from "react-router-dom";
-import {connect, Provider} from "react-redux";
-import {API} from "./Components/DataBases/API/API";
-import {compose} from "redux";
-import {getMyProfileThunk, getProfile, getStatusThunk} from "./Components/DataBases/Reducers/ProfileInfoReducer";
-import {authRedirect} from "./Components/Common/redirectToLogin";
-import ProfileCenterInfoClass from "./Components/Profile/MainProfilePage/ProfileCenterInfoClass";
-import {loadProfileData, logData} from "./Components/DataBases/Reducers/LoginReducer";
-import Preloader from "./Components/Common/Preloader";
+import {Provider} from "react-redux";
 import {MacketAppContainer} from "./Components/MainStructure/structureContainer";
 
-// let Render = (state) => {
-// debugger
+
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
@@ -31,14 +22,7 @@ ReactDOM.render(
     </BrowserRouter>,
     document.getElementById('root')
 );
-// };
-//
-// Render(store.getState(), store);
-//
-// store.subscribe(() => {
-//     let state = store.getState();
-//     Render(state, store)
-// });
+
 
 
 // If you want your app to work offline and load faster, you can change

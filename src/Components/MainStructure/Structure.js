@@ -2,44 +2,17 @@ import Text from "../mainText";
 import React from "react";
 import {UpperClassContainerTwo} from "../UpperMenu/upperClassContainerX2";
 
-class MacketApp extends React.Component {
-
-    render() {
-        return (
+function MacketApp(props) {
+    return (
+        <div>
             <div>
-                <div>
-                    <UpperClassContainerTwo/>
-                </div>
-                <div className='container'>
-                    <Text
-                        initializate={this.props.initializate}
-                        logged={this.props.isLogged}
-                        dispatch={this.props.dispatch}
-                        state={this.props.state}
-                    />
-                </div>
+                <UpperClassContainerTwo/>
             </div>
-
-        )
-    }
+            <div className='container'>
+                <Text/>
+            </div>
+        </div>
+    )
 }
 
-// function MacketApp(props){
-//     // debugger
-//     return(
-//         <div>
-//             <div>
-//                 {/*<Navigate/>*/}
-//                 <UpperClassContainerTwo/>
-//             </div>
-//             <div className='container'>
-//                 <Text
-//                     dispatch={props.dispatch}
-//                     state={props.state}
-//                 />
-//             </div>
-//         </div>
-//     )
-// }
-//
 export default MacketApp

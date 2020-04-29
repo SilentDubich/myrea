@@ -1,26 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Field} from "redux-form";
-import {changePasswordThunk} from "../../DataBases/Reducers/ProfileInfoReducer";
 
 
 function ChangePassword(props) {
-    let oldPassword = 'ChangePasswordModel.OldPassword'
     let [editMode, setEditMode] = useState(false);
     let onSubmit = data => {
         let formData = new FormData();
         formData.append('ChangePasswordModel.OldPassword', data.ChangePasswordModel.OldPassword);
         formData.append('ChangePasswordModel.NewPassword', data.ChangePasswordModel.NewPassword);
-        // let formData = {
-        //     'ChangePasswordModel.OldPassword': data.ChangePasswordModel.OldPassword,
-        //     'ChangePasswordModel.NewPassword': data.ChangePasswordModel.NewPassword,
-        // }
-        console.log('submit');
-        // props.changePasswordThunk(formData)
-        props.changePasswordThunk(formData)
-            .then(() => {
-                setEditMode(false)
-            })
-        debugger
     }
     if (!editMode) return <button onClick={() => {
         setEditMode(true)

@@ -1,36 +1,37 @@
 import React, {useEffect, useState} from "react";
 import Displays from "../../../CssModules/DisplayView.module.css";
 import AvatarPhoto from "../Avatar/Avatar";
-import FriendList from "../FriendList/Friend";
 import Subscribes from "../Subscribes/SubscribeList";
 import MainInfo from "../MainInfo/nameAndAbout";
 import PostRedactorContainer from "../PostRedactor/PostRedactorContainer";
 import {PostsClassContainer} from "../MyPosts/postsClassContainer";
 import Preloader from "../../Common/Preloader";
-import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
-import {updatePhotoSize, uploadPhoto} from "../../DataBases/Reducers/ProfileInfoReducer";
 import {FriendListContainer} from "../FriendList/friendContainer";
 
 
 function ProfileCenterInfoClass(props) {
-    let [fetch, setFetch] = useState(props.isFetching)
     let [follow, setFollow] = useState(props.followed)
+    let [fetch, setFetch] = useState(props.isFetching)
+
     useEffect(() => {
         setFollow(props.followed)
     }, [props.followed])
+
     useEffect(() => {
         setFetch(props.isFetching)
     }, [props.isFetching])
-// debugger
+
+    if (fetch) return <Preloader/>
+
     return (
         <div>
-            {fetch ? <Preloader/> : <div className={Displays.inside_ContentProfile__displayFlex}>
+            <div className={Displays.inside_ContentProfile__displayFlex}>
                 <div className={Displays.inside_ProfileCenter__FlexProportion}>
                     <AvatarPhoto
-                        avatar={props.currentProfile.Avatar}
+                        avatar={props.currentProfile.photos.large}
                         updatePhoto={props.postProfilePhotoThunk}
-                        id={props.currentProfile.id}
-                        name={props.currentProfile.FullName}
+                        id={props.currentProfile.userId}
+                        name={props.currentProfile.fullName}
                         myProfile={props.myProfile}
                         putNewDialogThunk={props.putNewDialogThunk}
                         followed={follow}
@@ -39,22 +40,19 @@ function ProfileCenterInfoClass(props) {
                         tempPhoto={props.tempPhoto}
                     />
                     <FriendListContainer/>
-                    <Subscribes
-                        dispatch={props.dispatch}
-                        state={props.state}
-                    />
+                    <Subscribes subscribe={props.subscribe}/>
                 </div>
                 <div className={Displays.inside_ProfileRight__FlexProportion}>
                     <MainInfo
-                        name={props.currentProfile.FullName}
-                        status={props.currentProfile.Status}
-                        aboutMe={props.currentProfile.AboutMe}
+                        name={props.currentProfile.fullName}
+                        status={props.currentProfile.status}
+                        aboutMe={props.currentProfile.aboutMe}
                     />
                     <PostRedactorContainer/>
                     <PostsClassContainer/>
                 </div>
             </div>
-            }
+
         </div>
     )
 }

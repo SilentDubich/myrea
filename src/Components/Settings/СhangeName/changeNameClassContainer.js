@@ -1,7 +1,5 @@
 import React from "react";
 import {connect} from "react-redux";
-import {setTemps} from "../../DataBases/Reducers/ProfileInfoReducer";
-import ChangeNameClass from "./changeNameClass";
 import ChangeName from "./changeNameClass";
 
 
@@ -12,4 +10,4 @@ let mapStateToProps = state => {
 }
 
 
-export const ChangeNameClassContainer = connect(mapStateToProps, {setTemps})(ChangeName)
+export const ChangeNameClassContainer = connect(mapStateToProps, {})(ChangeName)

@@ -3,17 +3,12 @@ import {Field, reduxForm} from 'redux-form'
 import validate from './loginValidateSync'
 import asyncValidate from './loginValidateAsync'
 import Person from "../../../CssModules/UpperMenu/UpperMenu.module.css";
+import {CreateFieldForm} from "../../Common/createFieldForm";
 
-const renderField = ({
-                         input,
-                         label,
-                         type,
-                         meta: {asyncValidating, touched, error}
-                     }) => (
+export const renderField = Component => ({input, label, type, meta: {asyncValidating, touched, error}}) => (
     <div>
-        <label>{label}</label>
         <div className={asyncValidating ? 'async-validating' : ''}>
-            <input {...input} type={type} placeholder={label}/>
+            <Component {...input} type={type} placeholder={label}/>
             {touched && error && <span>{error}</span>}
         </div>
     </div>
@@ -27,39 +22,11 @@ const AsyncValidationForm = props => {
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Field
-                name="email"
-                type="text"
-                component={renderField}
-                label="Username"
-            />
-            <Field
-                name="password"
-                type="password"
-                component={renderField}
-                label="Password"
-            />
-            <Field
-                name="remember"
-                type="checkbox"
-                component={renderField}
-                label="Remember me"
-            />
-            {
-                props.captcha
-                    ?
-                    <div>
-                        <img src={props.captcha}/>
-                        <Field
-                            name="captcha"
-                            type="text"
-                            component={renderField}
-                            label="captcha"
-                        />
-                    </div>
-                    :
-                    null
-            }
+            {CreateFieldForm({name: 'email', type: 'text', component: renderField('input'), label: 'Username'})}
+            {CreateFieldForm({name: 'password', type: 'password', component: renderField('input'), label: 'Password'})}
+            {CreateFieldForm({name: 'remember', type: 'checkbox', component: renderField('input'), label: 'Remember me'})}
+            {props.captcha && <img src={props.captcha}/>}
+            {props.captcha && CreateFieldForm({name: 'captcha', type: 'text', component: renderField('input'), label: 'captcha'})}
             {props.error && <div>{props.error}</div>}
             <div>
                 <button className={`${props.class} ${props.buttonRequest ? Person.log__buttonDisabled : ''}`}
@@ -79,42 +46,3 @@ export default reduxForm({
 })(AsyncValidationForm)
 
 
-{/*<form onSubmit={props.handleSubmit(onSubmit)}>*/
-}
-{/*    <div>*/
-}
-{/*        <Field name={'email'} placeholder={'Your email'} component={'input'}/>*/
-}
-{/*    </div>*/
-}
-{/*    <div>*/
-}
-
-{/*        <Field name={'password'} type={'password'} placeholder={'Password'} component={'input'}/>*/
-}
-{/*    </div>*/
-}
-{/*    <div>*/
-}
-{/*        <span>Remember me:</span>*/
-}
-{/*        <Field name={'remember'} type={'checkbox'} component={'input'}/>*/
-}
-{/*    </div>*/
-}
-{/*    <div>*/
-}
-{/*        <button disabled={props.buttonRequest}*/
-}
-{/*                className={`${buttonLoginClasses} ${props.buttonRequest ? Person.log__buttonDisabled : ''}`}*/
-}
-{/*        >*/
-}
-{/*            Login*/
-}
-{/*        </button>*/
-}
-{/*    </div>*/
-}
-{/*</form>*/
-}

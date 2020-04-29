@@ -4,11 +4,10 @@ import {connect} from "react-redux";
 import {authRedirect} from "../../Common/redirectToLogin";
 import ChangePassword from "./changePassword";
 import {reduxForm} from "redux-form";
-import {changePasswordThunk} from "../../DataBases/Reducers/ProfileInfoReducer";
 
 
 export const ChangePasswordContainer = compose(
-    connect(null, {changePasswordThunk}),
+    connect(null, {}),
     authRedirect
 )(ChangePassword)
 

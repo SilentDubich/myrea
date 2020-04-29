@@ -8,10 +8,8 @@ import Preloaders from "../../../../CssModules/Preloader/Preloaders.module.css";
 
 
 function Users(props) {
-    // debugger
     let throwProfileInfo = e => {
         if (props.isFetching) return e.preventDefault()
-        // props.getProfileThunk(props.id)
         props.setAnotherProfile(props.id, 'notMe')
     }
     return (

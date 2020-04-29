@@ -5,9 +5,6 @@ import MyFriend from "./MyFriend/FriendLittleAva";
 
 
 function FriendList(props) {
-    // debugger
-    // let allFriends = props.state.Profile.Friends.map( friend => <MyFriend name={friend.Name} img={friend.Avatar}/>);
-    // let allFriends = props.state.friendsReducer.map( friend => <MyFriend name={friend.Name} img={friend.Avatar}/>);
     let allFriends = () => {
         let all = [];
         let array = props.friends;
@@ -15,7 +12,7 @@ function FriendList(props) {
         for (let i = 0; i < Math.min(array.length, 6); i++){
             all.push(array[i])
         }
-        return all.map(friend => <MyFriend myId={props.myId} setAnotherProfile={props.setAnotherProfile} id={friend.id} key={friend.id} name={friend.Name} img={friend.Avatar}/>)
+        return all.map(friend => <MyFriend myId={props.myId} setAnotherProfile={props.setAnotherProfile} id={friend.id} key={friend.id} name={friend.name} img={friend.avatar}/>)
     };
     return(
         <div className={`${Content.content__menu_decorationBlocks}`}>

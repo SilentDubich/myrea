@@ -1,10 +1,7 @@
 import React from "react";
-import Content from "../../../CssModules/content.module.css";
 import {postCreation, updatePostTextCreation} from "../../DataBases/Reducers/PostsReducer";
 import PostRedactor from "./postRedactor";
-import StoreContext from "../../StoreContext";
 import {connect} from "react-redux";
-
 
 
 let mapStateToProps = (state) => {

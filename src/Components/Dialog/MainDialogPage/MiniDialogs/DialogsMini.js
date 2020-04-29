@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {BrowserRouter, NavLink} from "react-router-dom";
+import React from "react";
+import {NavLink} from "react-router-dom";
 import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
 
@@ -18,10 +18,6 @@ function MiniDialogs(props) {
                 <div className={Dialog.border__borderBottom}>
                     <p className={`${Dialog.text__NameFontsDecor}`}>{props.name}</p>
                     <p>{props.newMess > 0 && props.newMess}</p>
-                    {/*<div className={`${Dialog.display__flex}`}>*/}
-                    {/*    <img className={Dialog.lastImg__decor} src={props.lastImg} alt=""/>*/}
-                    {/*    <p className={`${Dialog.text__MessageFontsDecor}`}>{props.message}</p>*/}
-                    {/*</div>*/}
                 </div>
             </NavLink>
         </div>

@@ -2,9 +2,9 @@ import React from "react";
 import MenuLeft from '../../CssModules/LeftMenu/menu.module.css'
 import {NavLink} from "react-router-dom";
 import {setProfile} from "../DataBases/Reducers/ProfileInfoReducer";
-function LeftMenu(props) {
+function NavigateMenu(props) {
     let goToMyProfile = () => {
-        props.dispatch(setProfile(true))
+        props.setProfile(true)
     }
     return(
         <nav>
@@ -17,7 +17,7 @@ function LeftMenu(props) {
                 </li>
                 <li>
                     <NavLink to='/dialogs' className={`${MenuLeft.container__menu_decoration}`}>Messages
-                        {props.state.messageReducer.freshDialogs > 0 && props.state.messageReducer.freshDialogs}
+                        {props.freshDialogs > 0 && props.freshDialogs}
                     </NavLink>
 
                 </li>
@@ -32,4 +32,4 @@ function LeftMenu(props) {
     )
 }
 
-export default LeftMenu
+export default NavigateMenu

@@ -19,12 +19,12 @@ export default function MyEditor(props) {
             const reader = new FileReader();
             reader.addEventListener('load', () => setUpImg(reader.result));
             reader.readAsDataURL(e.target.files[0]);
+            setPreviewLoad(e.target.files[0])
         }
     };
 
     const onLoad = useCallback(img => {
         setImgRef(img);
-        // setCrop({ unit: 'px', width: 300, height: 300, x: 0, y: 0 })
     }, []);
 
     const makeClientCrop = async crop => {
@@ -68,10 +68,14 @@ export default function MyEditor(props) {
 
         });
     };
-    let uploadFile = () => {
+    let uploadFile = async () => {
         let formData = new FormData();
         formData.append('image', previewLoad);
-        props.updatePhoto(formData, props.id)
+       await props.updatePhoto(formData, props.id)
+        setUpImg(null)
+        setPreviewLoad(null)
+        setPreviewUrl(null)
+        document.getElementById('photo').value = ''
     }
 
     return (

@@ -3,8 +3,6 @@ import {connect} from "react-redux";
 import {
     getProfile,
     postProfilePhotoThunk,
-    updatePhotoSize,
-    uploadPhoto
 } from "../../DataBases/Reducers/ProfileInfoReducer";
 import ProfileCenterInfoClass from "./ProfileCenterInfoClass";
 import {authRedirect} from "../../Common/redirectToLogin";
@@ -17,18 +15,15 @@ let mapStateToProps = state => {
         currentProfile: state.profileInfoReducer.myProfile ?
             state.profileInfoReducer.logged : state.profileInfoReducer.currentProfile,
         myProfilePosts: state.postsReducer.Posts,
-        myProfile: state.profileInfoReducer.myProfile,
         isFetching: state.usersReducer.isFetching,
-        followed: state.profileInfoReducer.currentProfile.followed,
-        tempPhoto: state.profileInfoReducer.photo
-
+        myProfile: state.profileInfoReducer.myProfile,
+        followed: state.profileInfoReducer.followed,
+        subscribe: state.subscribesReducer
     }
 };
 
-// let redirect = authRedirect(ProfileCenterInfoClass)
 
 export const ProfileCenterInfoClassContainer = compose(
-    connect(mapStateToProps, {getProfile, postProfilePhotoThunk, putNewDialogThunk, uploadPhoto, updatePhotoSize}),
+    connect(mapStateToProps, {getProfile, postProfilePhotoThunk, putNewDialogThunk}),
     authRedirect
 )(ProfileCenterInfoClass)
-// connect(mapStateToProps, {getProfile})(redirect);

@@ -5,13 +5,13 @@ import {getFollow} from "./ProfileInfoReducer";
 
 let defaultStateUsers = {
     users: [],
-    tempSearch : '',
+    tempSearch: '',
     totalUsers: 0,
     currentPage: 1,
     pageSize: 10,
     isFetching: false,
     pageButton: false,
-    addButton: false
+    addButton: false,
 };
 
 //create class for dispatches
@@ -35,47 +35,41 @@ export const switchIsAddButton = (bool) => ({type: SWITCH_IS_ADD_BUTTON, bool});
 export const updateSearchText = (text) => ({type: UPDATE_SEARCH_TEXT, text});
 
 export const getUsersThunk = (pageSize, currentPage, user) => {
-    return dispatch => {
+    return async dispatch => {
         dispatch(switchIsFetching(true));
-        dispatch(switchIsButton(true));
-        return API.getUsers(pageSize, currentPage, user)
-            .then(data => {
-                dispatch(setUsers(data.items));
-                dispatch(setTotalUsers(data.totalCount));
-                dispatch(switchIsFetching(false));
-                dispatch(switchIsButton(false));
-            })
+        // dispatch(switchIsButton(true));
+        let data = await API.getUsers(pageSize, currentPage, user)
+        dispatch(setUsers(data.items));
+        dispatch(setTotalUsers(data.totalCount));
+        dispatch(switchIsFetching(false));
+        // dispatch(switchIsButton(false));
     }
 };
 
 export const addUserThunk = (id, name, avatar) => {
-    return dispatch => {
+    return async dispatch => {
         dispatch(switchIsAddButton(true));
-        API.postFriendFollow(id)
-            .then(() => {
-                dispatch(addFriend(id, name, avatar, true));
-                dispatch(addUser(id))
-                dispatch(getFollow(true))
-                dispatch(switchIsAddButton(false));
-            })
+        await API.postFriendFollow(id)
+        dispatch(addFriend({id, name, avatar, followed: true}));
+        dispatch(addUser(id))
+        dispatch(getFollow(true))
+        dispatch(switchIsAddButton(false));
+
     }
 };
 export const deleteUserThunk = (id) => {
-    return dispatch => {
+    return async dispatch => {
         dispatch(switchIsAddButton(true));
-        API.postFriendUnFollow(id)
-            .then(() => {
-                dispatch(deleteFriend(id));
-                dispatch(deleteUser(id))
-                dispatch(getFollow(false))
-                dispatch(switchIsAddButton(false));
-            })
+        await API.postFriendUnFollow(id)
+        dispatch(deleteFriend(id));
+        dispatch(deleteUser(id))
+        dispatch(getFollow(false))
+        dispatch(switchIsAddButton(false));
     }
 };
 
 
 export function UsersInstructions(state = defaultStateUsers, action) {
-    // debugger
     switch (action.type) {
         case ADD_USER:
             return {
@@ -85,7 +79,7 @@ export function UsersInstructions(state = defaultStateUsers, action) {
                         return {...us, followed: true}
                     }
                     return us
-                })
+                }),
             };
         case DELETE_USER:
             return {

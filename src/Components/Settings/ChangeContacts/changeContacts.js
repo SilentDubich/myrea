@@ -1,6 +1,7 @@
 import React from "react";
 import {Field} from "redux-form";
-
+import {CreateFieldForm} from "../../Common/createFieldForm";
+import {renderField} from "../../Validations/LoginValidate/loginAsyncForm";
 
 
 function ChangeContacts(props) {
@@ -8,60 +9,19 @@ function ChangeContacts(props) {
         <div>
             <span>My contacts: </span>
             <div>
-                <Field autoFocus
-                       name={'contacts.facebook'}
-                       component={'input'}
-                       type={'text'}
-                />
-            </div>
-            <div>
-                <Field autoFocus
-                       name={'contacts.website'}
-                       component={'input'}
-                       type={'text'}
-                />
-            </div>
-            <div>
-                <Field autoFocus
-                       name={'contacts.vk'}
-                       component={'input'}
-                       type={'text'}
-                />
-            </div>
-            <div>
-                <Field autoFocus
-                       name={'contacts.twitter'}
-                       component={'input'}
-                       type={'text'}
-                />
-            </div>
-            <div>
-                <Field autoFocus
-                       name={'contacts.instagram'}
-                       component={'input'}
-                       type={'text'}
-                />
-            </div>
-            <div>
-                <Field autoFocus
-                       name={'contacts.youtube'}
-                       component={'input'}
-                       type={'text'}
-                />
-            </div>
-            <div>
-                <Field autoFocus
-                       name={'contacts.github'}
-                       component={'input'}
-                       type={'text'}
-                />
-            </div>
-            <div>
-                <Field autoFocus
-                       name={'contacts.mainLink'}
-                       component={'input'}
-                       type={'text'}
-                />
+                {Object.keys(props.contacts).map(key => {
+                    return (
+                        <div key={key}>
+                            <b>{key}</b>
+                            {CreateFieldForm({
+                                name: `contacts.${key}`,
+                                type: 'text',
+                                component: renderField('input'),
+                                label: `Your ${key} link`
+                            })}
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ import {getProfileThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 let mapStateToProps = state => {
     return {
-        Friends: state.friendsReducer
+        friends: state.friendsReducer.friends
     }
 };
 

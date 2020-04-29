@@ -1,7 +1,6 @@
 import React from "react";
 import Content from "../../../CssModules/content.module.css";
 import Dialog from '../../../CssModules/Dialog/DialogFriend.module.css';
-import DialogLists from "./DialogList";
 import {DialogsListContainer} from "./DialogListContainer";
 
 
@@ -18,7 +17,6 @@ function Dialogs(props) {
                        placeholder='Search'
                        ref={temp}
                        onChange={currentText}
-
                 />
             </div>
             <div>
