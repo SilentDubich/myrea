@@ -1,30 +1,32 @@
-import React, {useCallback, useReducer, useState} from 'react'
-import AvatarEditor from 'react-avatar-editor'
-import Dropzone from "react-dropzone";
-import Sarumyan from '../../../img/Avatars/sarumyan 300x300.jpg'
-import Avatar from "react-avatar-edit";
+import React, {useCallback, useState} from 'react'
 import ReactCrop from "react-image-crop";
 import 'react-image-crop/dist/ReactCrop.css';
-import Content from "../../../CssModules/content.module.css";
+import {Modal} from "../../../index";
+import Portal from "../../../CssModules/portal.module.css"
+import AvaEdit from "../../../CssModules/AvatarEditor/avatarEditor.module.css"
 
 
 export default function MyEditor(props) {
     const [upImg, setUpImg] = useState();
     const [imgRef, setImgRef] = useState(null);
-    const [crop, setCrop] = useState({ unit: 'px', width: 300, height: 300 });
+    const [crop, setCrop] = useState({unit: 'px', width: 300, height: 300});
     const [previewUrl, setPreviewUrl] = useState();
     const [previewLoad, setPreviewLoad] = useState(null)
+    const [editMode, setEditMode] = useState(false)
+    const [disabled, setDisabled] = useState(false)
     const onSelectFile = e => {
         if (e.target.files && e.target.files.length > 0) {
             const reader = new FileReader();
             reader.addEventListener('load', () => setUpImg(reader.result));
             reader.readAsDataURL(e.target.files[0]);
             setPreviewLoad(e.target.files[0])
+            setEditMode(true)
         }
     };
 
     const onLoad = useCallback(img => {
         setImgRef(img);
+        setCrop({unit: 'px', width: 300, height: 300})
     }, []);
 
     const makeClientCrop = async crop => {
@@ -69,34 +71,57 @@ export default function MyEditor(props) {
         });
     };
     let uploadFile = async () => {
+        setDisabled(true)
         let formData = new FormData();
         formData.append('image', previewLoad);
-       await props.updatePhoto(formData, props.id)
+        await props.updatePhoto(formData, props.id)
+        clearImgData()
+    }
+    const clearImgData = () => {
         setUpImg(null)
         setPreviewLoad(null)
         setPreviewUrl(null)
+        setEditMode(false)
+        setCrop({unit: 'px', width: 300, height: 300})
+        setDisabled(false)
         document.getElementById('photo').value = ''
     }
-
+    const buttonClasses = `${AvaEdit.avaEdit__button} ${AvaEdit.avaEdit_button__padding} ${AvaEdit.avaEdit_button__margin}`
     return (
         <div>
-            <div>
-                <input id={'photo'} type="file" accept="image/*" onChange={onSelectFile} />
+            <div className={AvaEdit.fileUpload}>
+                <label>
+                    <input id={'photo'} type="file" accept="image/*" onChange={onSelectFile}/>
+                    <span>Change photo</span>
+                </label>
             </div>
-            <ReactCrop
-                src={upImg}
-                onImageLoaded={onLoad}
-                crop={crop}
-                onChange={c => setCrop(c)}
-                onComplete={makeClientCrop}
-                maxHeight={300}
-                maxWidth={300}
-                // locked={true}
-            />
-            {previewUrl && <img alt="Crop preview" src={previewUrl} />}
-            <div>
-                <button onClick={uploadFile}>loaddd</button>
-            </div>
+            {editMode && <Modal>
+                <div className={Portal.modal}>
+                    <div className={Portal.cropImage__width}>
+                        <ReactCrop
+                            src={upImg}
+                            onImageLoaded={onLoad}
+                            crop={crop}
+                            onChange={c => setCrop(c)}
+                            onComplete={makeClientCrop}
+                            maxHeight={300}
+                            maxWidth={300}
+                        />
+                    </div>
+                    <div>
+                        <button
+                            disabled={disabled}
+                            className={`${buttonClasses} ${disabled && AvaEdit.avaEdit__buttonDisabled}`}
+                            onClick={uploadFile}
+                        >Load
+                        </button>
+                    </div>
+                    <div>
+                        <button className={`${buttonClasses}`} onClick={() => clearImgData()}>Cancel</button>
+                    </div>
+                </div>
+            </Modal>
+            }
         </div>
     );
 }

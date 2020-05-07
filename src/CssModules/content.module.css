@@ -59,6 +59,8 @@
     color: #fff;
     border-radius: .25rem;
     box-shadow: 0 0 .2rem #606060;
+    font-size: .85rem;
+    font-weight: bold;
 }
 
 .content__asideRightDeleteButton_decor{

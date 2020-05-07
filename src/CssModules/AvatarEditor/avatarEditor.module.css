@@ -1,0 +1,87 @@
+.fileUpload input[type="file"]{
+    display: none;/* скрываем input file */
+}
+
+/* задаем стили кнопки выбора файла*/
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    width: 15rem;
+    height: 2.5rem;
+    text-align: center;
+    border: none;
+    background: #3a356a;
+    color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    margin: 1rem auto 0;
+}
+
+.fileUpload:hover {
+    transition: 0.25s;
+    background: #8445c2;
+}
+
+/* Растягиваем label на всю область блока .file-upload */
+
+.fileUpload label {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* стиль текста на кнопке*/
+
+.fileUpload span {
+    line-height: .5rem;
+    font-weight: bold;
+    font-size: .85rem;
+}
+
+.avaEdit__button {
+    border: none;
+    background: #5a368b;
+    color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    cursor: pointer;
+}
+
+.avaEdit__button:hover {
+    transition: 0.25s;
+    background: #8445c2;
+}
+
+.avaEdit__buttonDisabled {
+    opacity: .5;
+    cursor: default;
+}
+.avaEdit__buttonDisabled:hover{
+    opacity: .5;
+    background: #5a368b;
+    cursor: default;
+}
+
+.avaEdit__buttonWidth {
+    width: 5rem
+}
+
+.avaEdit__button:active, .avaEdit__button:focus {
+    outline: none;
+}
+
+.avaEdit_button__padding {
+    padding: .25rem .5rem;
+}
+.avaEdit_button__margin{
+    margin-left: .5rem;
+}
+
+.crop {
+    border: 200px solid black;
+}
