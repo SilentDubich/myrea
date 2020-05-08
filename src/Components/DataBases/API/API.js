@@ -21,8 +21,8 @@ const instancePhoto = axios.create({
 });
 
 export const API = {
-    getUsers(pageSize = 10, currentPage = 1, user = '') {
-        return instance.get(`users?count=${pageSize}&page=${currentPage}&term=${user}`)
+    getUsers(pageSize = 10, currentPage = 1, user = '', bool = '') {
+        return instance.get(`users?count=${pageSize}&page=${currentPage}&term=${user}&friend=${bool}`)
             .then(response => {
                 return response.data
             })

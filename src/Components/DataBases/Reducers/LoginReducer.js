@@ -27,6 +27,7 @@ export const postLogThunk = (email, password, remember, captcha) => {
         } else if (response.data.resultCode === 10) {
             let data = await API.getCaptcha()
             dispatch(getCaptcha(data))
+            dispatch(stopSubmit('asyncValidation', {_error: response.data.messages[0]}))
         } else {
             dispatch(stopSubmit('asyncValidation', {_error: response.data.messages[0]}))
         }

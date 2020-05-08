@@ -1,0 +1,125 @@
+.settings_container__flex {
+    display: flex;
+    justify-content: center;
+}
+
+.settings_container__margin {
+    margin-bottom: 1rem;
+}
+
+.settings_input__decor input {
+    width: 20rem;
+    border: none;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+}
+.settings_input__decor input, textarea:focus {
+    outline: none;
+}
+
+.settings_input__padding input {
+    padding: .4rem .3rem;
+}
+.settings_input__decor textarea {
+    width: 20rem;
+    border: none;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    resize: none;
+}
+
+.settings_input__padding textarea {
+    padding: .5rem .25rem;
+}
+
+.settings_input__margins {
+    margin: 0 .5rem;
+}
+
+.settings_param__decor {
+    width: 7.5rem;
+    text-align: right;
+}
+
+
+.settings_param__decor span {
+    font-size: 1rem;
+}
+
+.settings__button {
+    border: none;
+    background: #5a368b;
+    color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    cursor: pointer;
+}
+.settings__buttonDisabled {
+    opacity: .5;
+    cursor: default;
+}
+
+.settings__buttonWidth {
+    width: 5rem
+}
+
+.settings__button:active, .settings__button:focus {
+    outline: none;
+}
+
+.settings__button:hover {
+    transition: 0.25s;
+    background: #8445c2;
+}
+
+.settings__buttonDisabled:hover{
+    opacity: .5;
+    background: #5a368b;
+    cursor: default;
+}
+
+.settings_button__padding {
+    padding: .5rem;
+}
+
+.settings_checkbox input[type="checkbox"]:hover {
+    cursor: pointer;
+}
+
+.settings_checkbox {
+    width: 21.5rem;
+}
+
+.settings_checkbox input[type="checkbox"] {
+    width: 3rem;
+    height: 1.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #c6c6c6;
+    outline: none;
+    border-radius: 50px;
+    box-shadow: inset 0 0 5px rgba(0,0,0, .2);
+    transition: 0.5s;
+    position: relative;
+    margin-top: .6rem;
+    margin-left: .5rem;
+}
+.settings_checkbox input:checked[type="checkbox"] {
+    background: #5a368b;
+}
+.settings_checkbox input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    background: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0,0,0, .2);
+    transition: 0.5s;
+}
+.settings_checkbox input:checked[type="checkbox"]::before {
+    left: 1.5rem;
+}

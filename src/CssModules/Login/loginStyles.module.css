@@ -1,0 +1,34 @@
+.captcha_img__decor {
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+}
+
+.captcha_container__block input {
+    display: block;
+    margin: 0 auto;
+}
+.captcha_container__block img {
+    display: block;
+    margin: 0 auto;
+}
+
+.captcha_block__margin {
+    margin-bottom: 1rem;
+}
+
+.captcha_error__decor {
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    padding: .5rem;
+}
+.captcha_error__decor img {
+    max-width: 3rem;
+}
+
+.captcha_errorText__margin {
+    margin: auto;
+}
+
+.captcha_error__block {
+    width: 30rem;
+}

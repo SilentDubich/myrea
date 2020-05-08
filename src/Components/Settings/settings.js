@@ -1,25 +1,29 @@
-import React from "react";
-import {ChangeNameClassContainer} from "./СhangeName/changeNameClassContainer";
+import React, {useState} from "react";
 import ChangeAboutMe from "./ChangeAboutMe/changeAboutMe";
 import ChangeContacts from "./ChangeContacts/changeContacts";
 import ChangeLookJob from "./ChangeLookJob/changeLookJob";
-import {CreateFieldForm} from "../Common/createFieldForm";
-import {renderField} from "../Validations/LoginValidate/loginAsyncForm";
-
+import ChangeName from "./СhangeName/changeNameClass";
+import settingsS from "../../CssModules/Settings/settingsStyles.module.css"
+import Content from "../../CssModules/content.module.css";
 
 function Settings(props) {
-    let onSubmit = data => {
-        props.putProfileInfoThunk(data, props.id)
+    let onSubmit = async data => {
+        setDisabled(true)
+        await props.putProfileInfoThunk(data, props.id)
+        setDisabled(false)
     }
+    const [disabled, setDisabled] = useState(false)
+    const buttonClasses = `${settingsS.settings__button} ${settingsS.settings__buttonWidth} ${settingsS.settings_button__padding}`
+    const containerClasses = `${settingsS.settings_container__flex} ${settingsS.settings_container__margin}`
     return(
-        <div>
+        <div className={`${Content.content__menu_decorationBlocks}`}>
             <form onSubmit={props.handleSubmit(onSubmit)}>
-                <ChangeNameClassContainer/>
-                <ChangeAboutMe/>
+                <ChangeName/>
                 <ChangeContacts contacts={props.contacts}/>
+                <ChangeAboutMe/>
                 <ChangeLookJob/>
-                <div>
-                    <button>Save</button>
+                <div className={containerClasses}>
+                    <button disabled={disabled} className={`${buttonClasses} ${disabled && settingsS.settings__buttonDisabled}`}>Save</button>
                 </div>
             </form>
         </div>
