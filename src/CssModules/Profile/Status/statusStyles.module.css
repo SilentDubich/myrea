@@ -1,0 +1,58 @@
+.status_buttons__flex {
+    display: flex;
+}
+
+.status_button__decor {
+    border: none;
+    background: #5a368b;
+    color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+    cursor: pointer;
+}
+.status__buttonDisabled {
+    opacity: .5;
+    cursor: default;
+}
+
+.status__buttonWidth {
+    width: 4rem
+}
+
+.status_button__decor:active, .status_button__decor:focus {
+    outline: none;
+}
+
+.status_button__decor:hover {
+    transition: 0.25s;
+    background: #8445c2;
+}
+
+.status__buttonDisabled:hover{
+    opacity: .5;
+    background: #5a368b;
+    cursor: default;
+}
+
+.status_button__padding {
+    padding: .3rem;
+}
+
+.status_button__margins {
+    margin: .5rem;
+}
+
+.status_input__decor input {
+    width: 20rem;
+    border: none;
+    border-radius: .25rem;
+    box-shadow: 0 0 .2rem #606060;
+}
+
+.status_input__decor input:focus {
+    outline: none;
+}
+
+.status_input__padding input {
+    padding: .35rem;
+}

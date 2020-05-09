@@ -1,0 +1,21 @@
+.noResult_img__width {
+    width: 15rem;
+}
+
+.noResult_img__decor {
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 .2rem #606060;
+
+}
+
+.noResult_img__margin {
+    display: flex;
+    justify-content: center;
+}
+
+.noResult_text__decor {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}

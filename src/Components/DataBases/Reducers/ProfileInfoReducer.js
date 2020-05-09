@@ -4,6 +4,7 @@ import {loadProfileData} from "./LoginReducer";
 import {switchIsFetching} from "./UserReducer";
 import emptyPhoto from "./../../../img/Avatars/nullPhoto.jpg"
 import {getAllDialogs} from "./MessagesReducer";
+import {loadFriends} from "./FriendsReducer";
 
 const GET_PROFILE = 'getProfile';
 export const getProfile = (user, who) => ({type: GET_PROFILE, user, who});
@@ -35,6 +36,8 @@ export const getProfileThunk = (id, who) => {
 export const getMyProfileThunk = (id, who) => {
     return async dispatch => {
         await dispatch(getProfileInfo(id, who))
+        let friends = await API.getUsers(100,1,'',true)
+        dispatch(loadFriends(friends.items))
         let response = await API.getDialogs()
         return dispatch(getAllDialogs(response))
     }
@@ -109,7 +112,25 @@ let defaultStateProfile = {
             small: null
         },
     },
-    currentProfile: {},
+    currentProfile: {
+        userId: null,
+        fullName: null,
+        status: null,
+        aboutMe: null,
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: null,
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: null,
+            mainLink: null
+        },
+        photos: {
+            large: null,
+            small: null
+        },},
     followed: null,
     myProfile: true,
 };

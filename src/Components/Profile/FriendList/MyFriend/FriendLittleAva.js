@@ -11,7 +11,9 @@ function MyFriend(props) {
     return (
         <div>
             <NavLink onClick={setProfile} to={`/profile/${props.id}`}>
-                <img className={Friends.Friend__Ava} src={props.img}/>
+                <div>
+                    <img className={`${Friends.margin} ${Friends.Friend__Ava}`} src={props.img}/>
+                </div>
             </NavLink>
             <p className={Friends.Friend__Font}>{props.name}</p>
         </div>

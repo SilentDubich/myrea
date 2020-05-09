@@ -4,8 +4,9 @@ import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
 
 function ThatFriend(props) {
-    let throwProfileInfo = () => {
-        props.getProfileThunk(props.id)
+    let throwProfileInfo = e => {
+        if (props.isFetching) return e.preventDefault()
+        props.setAnotherProfile(props.id, 'notMe')
     }
     return (
         <div>

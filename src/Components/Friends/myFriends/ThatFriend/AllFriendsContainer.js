@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import AllFriends from "./AllFriends";
-import {getProfileThunk} from "../../../DataBases/Reducers/ProfileInfoReducer";
+import {getProfileThunk, setAnotherProfile} from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 let mapStateToProps = state => {
     return {
@@ -9,4 +9,4 @@ let mapStateToProps = state => {
     }
 };
 
-export const AllFriendsContainer = connect(mapStateToProps, {getProfileThunk})(AllFriends);
+export const AllFriendsContainer = connect(mapStateToProps, {getProfileThunk, setAnotherProfile})(AllFriends);

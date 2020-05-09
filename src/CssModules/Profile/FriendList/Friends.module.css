@@ -6,9 +6,8 @@
 
 .display__grid{
     display: grid;
-    grid-template-columns: repeat(3, minmax(25px, 50px));
-    grid-template-rows: repeat(2, minmax(60px, 75px));
-    margin: 0 auto;
+    grid-template-columns: repeat(3, minmax(25px, 90px));
+    grid-template-rows: repeat(2, minmax(60px, 90px));
     justify-content: center;
     gap: 1.5rem;
 }
@@ -22,6 +21,11 @@
 
 .Friend__Font{
     font-size: calc(4px + .5vw);
-    margin: 0;
+    margin: .5rem auto 0;
     text-align: center;
+}
+
+.margin {
+    display: block;
+    margin: auto;
 }

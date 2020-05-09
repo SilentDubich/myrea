@@ -6,8 +6,10 @@ import emptyPhoto from "../../../img/Avatars/nullPhoto.jpg";
 
 const ADD_FRIEND = 'addFriend';
 const DELETE_FRIEND = 'deleteFriend';
+const LOAD_FRIENDS = 'loadFriends'
 export const addFriend = (data) => ({type: ADD_FRIEND, data});
 export const deleteFriend = id => ({type: DELETE_FRIEND, id});
+export const loadFriends = data => ({type: LOAD_FRIENDS, data});
 
 
 let defaultStateFriends = {
@@ -40,6 +42,14 @@ export function FriendsInstructions(state = defaultStateFriends, action) {
                 }
             }
             return stateCopy;
+        case LOAD_FRIENDS:
+            for (let i = 0; i < action.data.length; i++) {
+                action.data[i].avatar = action.data[i].photos.large || emptyPhoto
+                delete action.data[i].photos
+                delete action.data[i].status
+                delete action.data[i].uniqueUrlName
+            }
+            return {...state, friends: [...action.data]}
         default:
             return state
     }

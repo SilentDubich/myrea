@@ -13,9 +13,6 @@ function NavigateMenu(props) {
                     <NavLink onClick={goToMyProfile} to='/profile' className={`${MenuLeft.container__menu_decoration}`}>Profile</NavLink>
                 </li>
                 <li>
-                    <NavLink to='/feed' className={`${MenuLeft.container__menu_decoration}`}>News</NavLink>
-                </li>
-                <li>
                     <NavLink to='/dialogs' className={`${MenuLeft.container__menu_decoration}`}>Messages
                         {props.freshDialogs > 0 && props.freshDialogs}
                     </NavLink>

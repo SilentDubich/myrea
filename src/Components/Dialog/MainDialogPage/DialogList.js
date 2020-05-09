@@ -8,7 +8,7 @@ function DialogLists(props) {
     let pattern = new RegExp(props.tempSearch, ['giy'] );
     dialogsData = props.dialogs
         .map( dialog => {
-            if (props.tempSearch.length === 0 || dialog.Name.match(pattern)) {
+            if (props.tempSearch.length === 0 || dialog.userName.match(pattern)) {
                 return <MiniDialogs
                     key={dialog.id}
                     id={dialog.id}

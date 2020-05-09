@@ -39,8 +39,8 @@ function ProfileCenterInfoClass(props) {
                         updatePhotoSize={props.updatePhotoSize}
                         tempPhoto={props.tempPhoto}
                     />
-                    <FriendListContainer/>
-                    <Subscribes subscribe={props.subscribe}/>
+                    {props.myProfile && <FriendListContainer/>}
+                    {props.myProfile && <Subscribes subscribe={props.subscribe}/>}
                 </div>
                 <div className={Displays.inside_ProfileRight__FlexProportion}>
                     <MainInfo
@@ -48,8 +48,8 @@ function ProfileCenterInfoClass(props) {
                         status={props.currentProfile.status}
                         aboutMe={props.currentProfile.aboutMe}
                     />
-                    <PostRedactorContainer/>
-                    <PostsClassContainer/>
+                    {props.myProfile && <PostRedactorContainer/>}
+                    {props.myProfile && <PostsClassContainer/>}
                 </div>
             </div>
 
