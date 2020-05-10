@@ -14,20 +14,15 @@ function Pages(props) {
     let [portionNumber, setPortionNumber] = useState(1);
     let leftPageNumber = (portionNumber - 1) * props.portionSize
     let rightPageNumber = portionNumber * props.portionSize;
-
+    const numberButtonsClasses = `${PagesButtons.button__decor} ${PagesButtons.button__padding} ${PagesButtons.pages_pageButtons__width} ${PagesButtons.pages_pageButtons__margin}`
+    const portionButtonsPrevClasses = `${PagesButtons.button__decor} ${PagesButtons.button__padding} ${PagesButtons.pages_portionButtons__width} ${PagesButtons.pages_portionButtonsPrev__margin}`
+    const portionButtonsNextClasses = `${PagesButtons.button__decor} ${PagesButtons.button__padding} ${PagesButtons.pages_portionButtons__width} ${PagesButtons.pages_portionButtonsNext__margin}`
     let totalButtons = pages
         .filter(number => number > leftPageNumber && number <= rightPageNumber)
         .map(number => <button
             disabled={props.pageButton}
             onClick={() => currentPage(number)}
-            className={`
-            ${PagesButtons.button__decor} 
-            ${PagesButtons.button__padding} 
-            ${PagesButtons.button__margins}
-            ${props.currentPage === number && PagesButtons.button_selected__decor}
-            `}>{number}</button>);
-
-
+            className={` ${numberButtonsClasses} ${props.currentPage === number && PagesButtons.button_selected__decor}`}>{number}</button>);
     let currentPage = page => {
         props.switchIsFetching(true);
         props.switchIsButton(true);
@@ -42,10 +37,10 @@ function Pages(props) {
 
     return (
 
-        <div>
-            <button disabled={portionNumber === 1} onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button>
-            {totalButtons}
-            {portionNumber < portionCount && <button onClick={() => setPortionNumber(portionNumber + 1)}>Next</button>}
+        <div className={`${PagesButtons.pages_container__flex}`}>
+            <div><button className={`${portionButtonsPrevClasses} ${PagesButtons.pages_pageButtons__margin}`} disabled={portionNumber === 1} onClick={() => setPortionNumber(portionNumber - 1)}>Prev</button></div>
+            <div className={`${PagesButtons.pages_pageButtons__size}`}>{totalButtons}</div>
+            <div className={`${PagesButtons.pages_portionButtons__size}`}>{portionNumber < portionCount && <button className={`${portionButtonsNextClasses}`} onClick={() => setPortionNumber(portionNumber + 1)}>Next</button>}</div>
         </div>
     )
 }

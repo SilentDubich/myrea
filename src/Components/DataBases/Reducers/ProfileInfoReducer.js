@@ -53,8 +53,12 @@ export const setAnotherProfile = (id, who) => async dispatch => {
 }
 
 export const initializeApp = id => async dispatch => {
-    await dispatch(getMyProfileThunk(id, 'me'));
-    return dispatch(loadProfileData());
+    try {
+        await dispatch(getMyProfileThunk(id, 'me'));
+        return dispatch(loadProfileData());
+    } finally {
+        return dispatch(loadProfileData());
+    }
 }
 
 export const getStatusThunk = id => {

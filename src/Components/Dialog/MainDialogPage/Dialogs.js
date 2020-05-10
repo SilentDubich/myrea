@@ -8,7 +8,7 @@ function Dialogs(props) {
     let temp = React.createRef();
     let currentText = () => {
         let text = temp.current.value;
-        props.updateSearchText(text.toLowerCase())
+        props.updateSearchText(text)
     };
     return (
         <div className={`${Content.content__menu_decorationBlocks}`}>
@@ -16,6 +16,7 @@ function Dialogs(props) {
                 <input className={`${Dialog.input__width} ${Dialog.input__decor} ${Dialog.input__padding}`}
                        placeholder='Search'
                        ref={temp}
+                       value={props.tempSearch}
                        onChange={currentText}
                 />
             </div>

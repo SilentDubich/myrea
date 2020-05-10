@@ -7,9 +7,11 @@ import emptyPhoto from "../../../img/Avatars/nullPhoto.jpg";
 const ADD_FRIEND = 'addFriend';
 const DELETE_FRIEND = 'deleteFriend';
 const LOAD_FRIENDS = 'loadFriends'
+const UPDATE_SEARCH = 'updateSearch'
 export const addFriend = (data) => ({type: ADD_FRIEND, data});
 export const deleteFriend = id => ({type: DELETE_FRIEND, id});
 export const loadFriends = data => ({type: LOAD_FRIENDS, data});
+export const updateSearch = text => ({type: UPDATE_SEARCH, text});
 
 
 let defaultStateFriends = {
@@ -26,7 +28,8 @@ let defaultStateFriends = {
             avatar: Pendalf,
             followed: true
         }
-    ]
+    ],
+    tempSearch: ''
 }
 
 export function FriendsInstructions(state = defaultStateFriends, action) {
@@ -50,6 +53,8 @@ export function FriendsInstructions(state = defaultStateFriends, action) {
                 delete action.data[i].uniqueUrlName
             }
             return {...state, friends: [...action.data]}
+        case UPDATE_SEARCH:
+            return {...state, tempSearch: action.text}
         default:
             return state
     }

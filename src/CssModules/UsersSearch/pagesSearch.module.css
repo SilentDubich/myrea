@@ -34,3 +34,35 @@
 .button_selected__decor:hover{
     background: #fff;
 }
+
+.pages_container__flex {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.pages_portionButtons__size {
+    flex-basis: 10%;
+}
+
+.pages_pageButtons__size {
+    flex-basis: 80%;
+}
+
+.pages_pageButtons__width {
+    width: 2.35rem;
+}
+.pages_portionButtons__width {
+    width: 2.75rem;
+}
+.pages_pageButtons__margin {
+    margin-right: .97rem;
+}
+
+.pages_portionButtonsPrev__margin {
+    margin-right: 2rem;
+}
+.pages_portionButtonsNext__margin {
+    margin-left: 1rem;
+}
+
+

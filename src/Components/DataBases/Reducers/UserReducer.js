@@ -23,7 +23,7 @@ const DELETE_USER = 'deleteUser';
 const SWITCH_IS_FETCHING = 'switchIsFetching';
 const SWITCH_IS_BUTTON = 'switchIsButton';
 const SWITCH_IS_ADD_BUTTON = 'switchIsAddButton';
-const UPDATE_SEARCH_TEXT = 'updateSearchText';
+const UPDATE_SEARCH_TEXT = 'userReducer/updateSearchText';
 export const addUser = (id) => ({type: ADD_USER, id});
 export const deleteUser = (id) => ({type: DELETE_USER, id});
 export const setUsers = (users) => ({type: SET_USERS, users});

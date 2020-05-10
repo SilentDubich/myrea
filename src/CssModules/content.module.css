@@ -71,6 +71,7 @@
     box-shadow: 0 0 .2rem #606060;
     transition: .25s;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .content__asideRightDeleteButton_decor:active, .content__asideRightDeleteButton_decor:focus{
@@ -103,3 +104,4 @@
     from {opacity: 0;}
     to {opacity: 1;}
 }
+

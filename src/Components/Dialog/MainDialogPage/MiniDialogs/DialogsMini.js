@@ -9,7 +9,7 @@ function MiniDialogs(props) {
     }
 
     return (
-        <div onClick={get}>
+        <div className={`${props.newMess && Dialog.dialog_containerViewMessages}`} onClick={get}>
             <NavLink to={'/dialog/' + props.id}
                      className={`${Dialog.display__flex} ${Dialog.hover__decor} ${Dialog.NavLinks__fontsDecor}`}>
                 <div>
@@ -17,7 +17,7 @@ function MiniDialogs(props) {
                 </div>
                 <div className={Dialog.border__borderBottom}>
                     <p className={`${Dialog.text__NameFontsDecor}`}>{props.name}</p>
-                    <p>{props.newMess > 0 && props.newMess}</p>
+                    <p className={`${Dialog.text__NameFontsDecor}`}>{props.newMess > 0 && ' +' + props.newMess}</p>
                 </div>
             </NavLink>
         </div>

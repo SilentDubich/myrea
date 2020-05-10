@@ -4,6 +4,11 @@ import Dialogs from "./Dialogs";
 import {updateSearchText} from "../../DataBases/Reducers/MessagesReducer";
 
 
+let mapStateToProps = state => {
+    return {
+        tempSearch: state.messageReducer.tempSearch
+    }
+}
 
 
-export const DialogContainer = connect(null, {updateSearchText})(Dialogs)
+export const DialogContainer = connect(mapStateToProps, {updateSearchText})(Dialogs)

@@ -29,7 +29,7 @@
 
 .hover__decor:hover{
     transition: 0.25s;
-    background: #f5f7fa;
+    background: #f8fafd;
 }
 
 .NavLinks__fontsDecor{
@@ -58,4 +58,8 @@
     object-fit: cover;
     border-radius: 50%;
     margin: auto 1rem;
+}
+
+.dialog_containerViewMessages {
+    background: #e9ecef;
 }

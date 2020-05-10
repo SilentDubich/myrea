@@ -14,7 +14,7 @@ function NavigateMenu(props) {
                 </li>
                 <li>
                     <NavLink to='/dialogs' className={`${MenuLeft.container__menu_decoration}`}>Messages
-                        {props.freshDialogs > 0 && props.freshDialogs}
+                        {props.freshDialogs > 0 && ' +' + props.freshDialogs}
                     </NavLink>
 
                 </li>

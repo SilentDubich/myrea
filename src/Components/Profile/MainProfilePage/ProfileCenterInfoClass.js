@@ -40,7 +40,7 @@ function ProfileCenterInfoClass(props) {
                         tempPhoto={props.tempPhoto}
                     />
                     {props.myProfile && <FriendListContainer/>}
-                    {props.myProfile && <Subscribes subscribe={props.subscribe}/>}
+                    {/*{props.myProfile && <Subscribes subscribe={props.subscribe}/>}*/}
                 </div>
                 <div className={Displays.inside_ProfileRight__FlexProportion}>
                     <MainInfo

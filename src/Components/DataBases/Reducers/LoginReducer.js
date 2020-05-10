@@ -20,10 +20,9 @@ export const postLogThunk = (email, password, remember, captcha) => {
         let response = await API.postLog(email, password, remember, captcha)
         if (response.data.resultCode === 0) {
             let data = await API.getAuth()
-            dispatch(logData(data.data.id, data.data.login, data.data.email));
             dispatch(loginRequest(email, password, remember))
-            dispatch(initializeApp(data.data.id));
-            dispatch(reset('login'))
+            await dispatch(initializeApp(data.data.id));
+            dispatch(logData(data.data.id, data.data.login, data.data.email));
         } else if (response.data.resultCode === 10) {
             let data = await API.getCaptcha()
             dispatch(getCaptcha(data))
