@@ -6,15 +6,15 @@ import MyEditor from "./AvatarEditor";
 import buttonsS from "../../../CssModules/buttonsUnderAva.module.css"
 
 function AvatarPhoto(props) {
-    let [avatar, setAvatar] = useState(props.avatar)
+    const [avatar, setAvatar] = useState(props.avatar)
     useEffect(() => {
         setAvatar(props.avatar)
     }, [props.avatar])
-    let startDialog = () => {
+    const startDialog = () => {
         props.putNewDialogThunk({id: props.id, name: props.name, avatar: props.avatar})
     }
 
-    let startDialogButtonClasses = `
+    const startDialogButtonClasses = `
     ${Content.content__asideRightButton_decor} 
     ${Content.content__asideRightButtonPadding}
     ${buttonsS.main_buttons__width}

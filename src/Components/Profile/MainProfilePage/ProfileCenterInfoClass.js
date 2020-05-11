@@ -22,7 +22,7 @@ function ProfileCenterInfoClass(props) {
     }, [props.isFetching])
 
     if (fetch) return <Preloader/>
-
+debugger
     return (
         <div>
             <div className={Displays.inside_ContentProfile__displayFlex}>
@@ -47,12 +47,14 @@ function ProfileCenterInfoClass(props) {
                         name={props.currentProfile.fullName}
                         status={props.currentProfile.status}
                         aboutMe={props.currentProfile.aboutMe}
+                        skills={props.currentProfile.lookingForAJobDescription}
+                        search={props.currentProfile.lookingForAJob}
+                        contacts={props.currentProfile.contacts}
                     />
                     {props.myProfile && <PostRedactorContainer/>}
                     {props.myProfile && <PostsClassContainer/>}
                 </div>
             </div>
-
         </div>
     )
 }

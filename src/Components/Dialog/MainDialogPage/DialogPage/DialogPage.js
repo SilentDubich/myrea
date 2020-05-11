@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Content from '../../../../CssModules/content.module.css';
 import Person from '../../../../CssModules/Dialog/PersonDialog.module.css'
 import Message from "./DialogMessage";
@@ -8,6 +8,9 @@ import Preloader from "../../../Common/Preloader";
 
 function DialogPage(props) {
     let loc = Number(props.match.params.userID);
+    useEffect(() => {
+        props.getUserAllMessagesThunk(loc, props.state.profileInfoReducer.logged)
+    }, [props.state.messageReducer.Dialogs.length === 0])
     let currentMessages = [];
     let index = 0;
     for (let i = 0; i < props.state.messageReducer.Dialogs.length; i++){

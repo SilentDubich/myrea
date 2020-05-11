@@ -1,0 +1,45 @@
+.mainInfo_contacts__flexDisplay {
+    display: flex;
+}
+
+.mainInfo_value__margin {
+    margin-left: .5rem;
+}
+
+.mainInfo_value__width {
+    width: 20rem;
+}
+
+.mainInfo_key__width {
+    width: 7.5rem;
+}
+
+.mainInfo_value__decor span {
+    font-size: 1rem;
+}
+
+
+.mainInfo_key__decor {
+    text-align: left;
+}
+
+.mainInfo_key__decor span {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.mainInfo_showMore__decor {
+    text-align: center;
+    margin: 1rem auto;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+
+.mainInfo_showMore__decor span {
+    font-size: 1.5rem;
+}
+
+.mainInfo_showMore__decor:hover {
+    transition: .25s;
+    background: #f0f0f0;
+}

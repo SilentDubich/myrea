@@ -1,5 +1,6 @@
 import React from "react";
 import Person from "../../../../../CssModules/Dialog/PersonDialog.module.css";
+import {Field} from "redux-form";
 
 function Input(props) {
     let ref = React.createRef();

@@ -44,6 +44,7 @@ export const deleteMessageThunk = (mesId, id) => {
 export const getUserAllMessagesThunk = (id, me) => async dispatch => {
     dispatch(switchIsFetching(true))
     await dispatch(getDialogThunk(id, me));
+    debugger
     return dispatch(switchIsFetching(false))
 }
 

@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
-import {loadProfileData, logData} from "../DataBases/Reducers/LoginReducer";
-import {getMyProfileThunk, initializeApp} from "../DataBases/Reducers/ProfileInfoReducer";
+import {logData} from "../DataBases/Reducers/LoginReducer";
+import {initializeApp} from "../DataBases/Reducers/ProfileInfoReducer";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import MacketApp from "./Structure";
 import Preloader from "../Common/Preloader";
-import {getAllDialogs, getDialogThunk} from "../DataBases/Reducers/MessagesReducer";
+import {getAllDialogs} from "../DataBases/Reducers/MessagesReducer";
 import {API} from "../DataBases/API/API";
+import {withRouter} from "react-router-dom";
 
 
 function MacketAppClass(props) {
@@ -20,7 +21,7 @@ function MacketAppClass(props) {
     if (props.isLogged && !props.initializate) return <Preloader/>
     return (
         <div>
-            <MacketApp/>
+            {props.initializate && <MacketApp {...props}/>}
         </div>
     )
 }
@@ -39,7 +40,8 @@ export const MacketAppContainer = compose(
         logData,
         initializeApp,
         getAllDialogs,
-    })
+    }),
+    withRouter
 )(MacketAppClass)
 
 

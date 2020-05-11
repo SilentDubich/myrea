@@ -2,6 +2,8 @@ import React from "react";
 import {postMessageThunk, updateMessageCreation} from "../../../../DataBases/Reducers/MessagesReducer";
 import Input from "./DialogInput";
 import {connect} from "react-redux";
+import {compose} from "redux";
+import {reduxForm} from "redux-form";
 
 
 let mapStateToProps = (state, props)  => {
@@ -32,6 +34,9 @@ let mapDispatchToProps = dispatch => {
     }
 };
 
-const InputContainer = connect(mapStateToProps, mapDispatchToProps)(Input);
+const InputContainer = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+)(Input);
+
 
 export default InputContainer
