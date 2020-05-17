@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import Content from "../../../../CssModules/content.module.css";
-import {API} from "../../../DataBases/API/API";
+import Content from "../../../CssModules/content.module.css";
+import {API} from "../../DataBases/API/API";
 
 function AddButton(props) {
     // debugger

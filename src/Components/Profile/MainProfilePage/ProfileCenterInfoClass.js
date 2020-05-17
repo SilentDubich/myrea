@@ -22,7 +22,6 @@ function ProfileCenterInfoClass(props) {
     }, [props.isFetching])
 
     if (fetch) return <Preloader/>
-debugger
     return (
         <div>
             <div className={Displays.inside_ContentProfile__displayFlex}>

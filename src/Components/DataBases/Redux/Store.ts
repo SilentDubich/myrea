@@ -22,8 +22,11 @@ let allReduces = combineReducers(
     }
 );
 
-
+type AllReducersType = typeof allReduces
+export type AppStateType = ReturnType<AllReducersType>
 
 export const store = createStore(allReduces, applyMiddleware(thunkMiddleware));
 
+
+// @ts-ignore
 window.store = store;

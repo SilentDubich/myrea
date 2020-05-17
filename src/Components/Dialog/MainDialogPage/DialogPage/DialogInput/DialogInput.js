@@ -11,7 +11,6 @@ function Input(props) {
             ref.current.value = ''
         }
     }
-
     let currentText = () => {
         let text = ref.current.value;
         props.currentText(text, props.index)

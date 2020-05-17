@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
 import emptyPhoto from "../../../../img/Avatars/nullPhoto.jpg";
-import AddButtonContainer from "../AddButton/addButtonContainer";
+import AddButtonContainer from "../../../Common/AddButton/addButtonContainer";
 import Preloaders from "../../../../CssModules/Preloader/Preloaders.module.css";
 
 

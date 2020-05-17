@@ -1,21 +1,22 @@
 import React from "react";
 import {API} from "../API/API";
-import {getMyProfileThunk, initializeApp} from "./ProfileInfoReducer";
-import {reset, stopSubmit} from "redux-form";
+import {initializeApp} from "./ProfileInfoReducer";
+import {stopSubmit} from "redux-form";
+import {LoginType} from "../../Common/types";
 
 const LOGIN_REQUEST = 'loginRequest';
-export const loginRequest = (email, password, remember) => ({type: LOGIN_REQUEST, data: {email, password, remember}});
+export const loginRequest = (email: string, password: number, remember: boolean) => ({type: LOGIN_REQUEST, data: {email, password, remember}});
 const LOG_DATA = 'logData';
-export const logData = (id, login, email) => ({type: LOG_DATA, data: {id, login, email}});
+export const logData = (id: number | null, login: string | null, email: string | null) => ({type: LOG_DATA, data: {id, login, email}});
 const BUTTON_ACTION = 'buttonAction';
-export const buttonAction = bool => ({type: BUTTON_ACTION, bool});
+export const buttonAction = (bool: boolean) => ({type: BUTTON_ACTION, bool});
 const LOAD_PROFILE_DATA = 'loadProfileData';
 export const loadProfileData = () => ({type: LOAD_PROFILE_DATA});
 const GET_CAPTCHA = 'getCaptcha';
-export const getCaptcha = cap => ({type: GET_CAPTCHA, cap});
+export const getCaptcha = (cap: string) => ({type: GET_CAPTCHA, cap});
 
-export const postLogThunk = (email, password, remember, captcha) => {
-    return async dispatch => {
+export const postLogThunk = (email: string, password: number, remember: boolean, captcha: string) => {
+    return async (dispatch: any) => {
         dispatch(buttonAction(true))
         let response = await API.postLog(email, password, remember, captcha)
         if (response.data.resultCode === 0) {
@@ -36,7 +37,7 @@ export const postLogThunk = (email, password, remember, captcha) => {
 
 
 export const postLogOutThunk = () => {
-    return async dispatch => {
+    return async (dispatch: any) => {
         await API.postLogOut()
         dispatch(logData(null, null, null));
         API.getAuth()
@@ -45,18 +46,16 @@ export const postLogOutThunk = () => {
 
 
 let defaultStateLogin = {
-    logData: {
-        id: null,
-        login: null,
-        email: null,
-    },
+    logData: {} as LoginType,
     isLogged: false,
     buttonRequest: false,
     loadProfileData: false,
     captcha: null
 };
 
-export function LoginInstructions(state = defaultStateLogin, action) {
+type DefaultStateLoginType = typeof defaultStateLogin
+
+export function LoginInstructions(state = defaultStateLogin, action: any): DefaultStateLoginType {
     switch (action.type) {
         case GET_CAPTCHA:
             return {...state, captcha: action.cap}

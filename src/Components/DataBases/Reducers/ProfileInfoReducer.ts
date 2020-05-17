@@ -1,23 +1,22 @@
-import React from "react";
 import {API} from "../API/API";
 import {loadProfileData} from "./LoginReducer";
 import {switchIsFetching} from "./UserReducer";
-import emptyPhoto from "./../../../img/Avatars/nullPhoto.jpg"
 import {getAllDialogs} from "./MessagesReducer";
 import {loadFriends} from "./FriendsReducer";
+import {ProfileType} from "../../Common/types";
 
 const GET_PROFILE = 'getProfile';
-export const getProfile = (user, who) => ({type: GET_PROFILE, user, who});
+export const getProfile = (user: ProfileType, who: string) => ({type: GET_PROFILE, user, who});
 const SET_PROFILE = 'setProfile';
-export const setProfile = bool => ({type: SET_PROFILE, bool});
+export const setProfile = (bool: boolean) => ({type: SET_PROFILE, bool});
 const GET_FOLLOW = 'follow';
-export const getFollow = boolean => ({type: GET_FOLLOW, boolean});
+export const getFollow = (boolean: boolean) => ({type: GET_FOLLOW, boolean});
 const GET_STATUS = 'getStatus';
-export const getStatus = status => ({type: GET_STATUS, status});
+export const getStatus = (status: string) => ({type: GET_STATUS, status});
 
 
-const getProfileInfo = (id, who) => {
-    return async dispatch => {
+const getProfileInfo = (id: number, who: string) => {
+    return async (dispatch: any) => {
         let data = await API.getProfile(id)
         await dispatch(getProfile(data, who));
         await dispatch(getStatusThunk(id))
@@ -25,17 +24,18 @@ const getProfileInfo = (id, who) => {
 }
 
 
-export const getProfileThunk = (id, who) => {
-    return async dispatch => {
+export const getProfileThunk = (id: number, who: string) => {
+    return async (dispatch: any) => {
         await dispatch(getProfileInfo(id, who))
         let responseFollow = await API.getFollow(id)
         return dispatch(getFollow(responseFollow))
     }
 };
 
-export const getMyProfileThunk = (id, who) => {
-    return async dispatch => {
+export const getMyProfileThunk = (id: number, who: string) => {
+    return async (dispatch: any) => {
         await dispatch(getProfileInfo(id, who))
+        // @ts-ignore
         let friends = await API.getUsers(100,1,'',true)
         dispatch(loadFriends(friends.items))
         let response = await API.getDialogs()
@@ -44,7 +44,7 @@ export const getMyProfileThunk = (id, who) => {
 };
 
 
-export const setAnotherProfile = (id, who) => async dispatch => {
+export const setAnotherProfile = (id: number, who: string) => async (dispatch: any) => {
     let checkWho = who === 'me'
     dispatch(switchIsFetching(true))
     dispatch(setProfile(checkWho))
@@ -52,7 +52,7 @@ export const setAnotherProfile = (id, who) => async dispatch => {
     dispatch(switchIsFetching(false))
 }
 
-export const initializeApp = id => async dispatch => {
+export const initializeApp = (id: number) => async (dispatch: any) => {
     try {
         await dispatch(getMyProfileThunk(id, 'me'));
         return dispatch(loadProfileData());
@@ -61,24 +61,25 @@ export const initializeApp = id => async dispatch => {
     }
 }
 
-export const getStatusThunk = id => {
-    return async dispatch => {
+export const getStatusThunk = (id: number) => {
+    return async (dispatch: any) => {
         let data = await API.getStatus(id)
         return dispatch(getStatus(data));
     }
 };
 
-export const putStatusThunk = status => {
-    return async dispatch => {
+export const putStatusThunk = (status: string) => {
+    return async (dispatch: any) => {
         await API.putStatus(status)
         return dispatch(getStatus(status));
     }
 };
 
 
-export const putProfileInfoThunk = (data, id) => {
-    return async dispatch => {
+export const putProfileInfoThunk = (data: any, id: number) => {
+    return async (dispatch: any) => {
         await API.putProfileInfo(data)
+        debugger
         let response = await API.getProfile(id)
         dispatch(getProfile(response, 'me'));
         dispatch(setProfile(true))
@@ -86,8 +87,8 @@ export const putProfileInfoThunk = (data, id) => {
 };
 
 
-export const postProfilePhotoThunk = (formData, id) => {
-    return async dispatch => {
+export const postProfilePhotoThunk = (formData: any, id: number) => {
+    return async (dispatch: any) => {
         await API.postAvatarPhoto(formData)
         let data = await API.getProfile(id)
         dispatch(getProfile(data, 'me'));
@@ -96,50 +97,15 @@ export const postProfilePhotoThunk = (formData, id) => {
 };
 
 let defaultStateProfile = {
-    logged: {
-        userId: null,
-        fullName: null,
-        status: null,
-        aboutMe: null,
-        contacts: {
-            facebook: null,
-            website: null,
-            vk: null,
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: null,
-            mainLink: null
-        },
-        photos: {
-            large: null,
-            small: null
-        },
-    },
-    currentProfile: {
-        userId: null,
-        fullName: null,
-        status: null,
-        aboutMe: null,
-        contacts: {
-            facebook: null,
-            website: null,
-            vk: null,
-            twitter: null,
-            instagram: null,
-            youtube: null,
-            github: null,
-            mainLink: null
-        },
-        photos: {
-            large: null,
-            small: null
-        },},
+    logged: {} as ProfileType,
+    currentProfile: {} as ProfileType,
     followed: null,
     myProfile: true,
 };
 
-export function ProfileInstructions(state = defaultStateProfile, action) {
+type DefaultStateProfileType = typeof defaultStateProfile
+
+export function ProfileInstructions(state = defaultStateProfile, action: any): DefaultStateProfileType {
     let stateCopy = {
         ...state,
     }

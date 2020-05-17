@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Content from "../../../CssModules/content.module.css";
 import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
-import AddButtonContainer from "../../Friends/FindFriends/AddButton/addButtonContainer";
+import AddButtonContainer from "../../Common/AddButton/addButtonContainer";
 import MyEditor from "./AvatarEditor";
 import buttonsS from "../../../CssModules/buttonsUnderAva.module.css"
 

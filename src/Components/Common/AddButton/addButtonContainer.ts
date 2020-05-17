@@ -1,4 +1,4 @@
-import {addFriend, deleteFriend} from "../../../DataBases/Reducers/FriendsReducer";
+import {addFriend, deleteFriend} from "../../DataBases/Reducers/FriendsReducer";
 import {connect} from "react-redux";
 import AddButton from "./addButton";
 import {
@@ -7,15 +7,17 @@ import {
     deleteUser,
     deleteUserThunk,
     switchIsAddButton
-} from "../../../DataBases/Reducers/UserReducer";
+} from "../../DataBases/Reducers/UserReducer";
+import {AppStateType} from "../../DataBases/Redux/Store";
 
-let mapStateToProps = state => {
+
+
+let mapStateToProps = (state: AppStateType) => {
     // debugger
     return {
         state: state.usersReducer,
         addButton: state.usersReducer.addButton,
         isFetching: state.usersReducer.isFetching,
-
     }
 };
 
