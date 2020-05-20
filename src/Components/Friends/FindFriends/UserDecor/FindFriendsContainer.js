@@ -2,10 +2,9 @@ import React from "react";
 import {connect} from "react-redux";
 import Users from "./findFriends";
 import {
-    getProfile,
     getProfileThunk,
     setAnotherProfile,
-    setProfile
+    actionsProfile
 } from "../../../DataBases/Reducers/ProfileInfoReducer";
 
 
@@ -13,12 +12,12 @@ import {
 let mapStateToProps = (state) => {
     // debugger
     return{
-        users: state.usersReducer,
         isFetching: state.usersReducer.isFetching
     }
 };
 
-
+const getProfile = actionsProfile.getProfile
+const setProfile = actionsProfile.setProfile
 
 
 const UsersContainer = connect(mapStateToProps, {getProfile, setProfile, getProfileThunk, setAnotherProfile})(Users);

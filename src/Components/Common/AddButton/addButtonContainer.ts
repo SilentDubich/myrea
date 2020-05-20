@@ -1,15 +1,14 @@
-import {addFriend, deleteFriend} from "../../DataBases/Reducers/FriendsReducer";
 import {connect} from "react-redux";
 import AddButton from "./addButton";
 import {
-    addUser,
     addUserThunk,
-    deleteUser,
     deleteUserThunk,
-    switchIsAddButton
+    actionsUser
 } from "../../DataBases/Reducers/UserReducer";
 import {AppStateType} from "../../DataBases/Redux/Store";
 
+
+const switchIsAddButton = actionsUser.switchIsAddButton
 
 
 let mapStateToProps = (state: AppStateType) => {
@@ -24,8 +23,7 @@ let mapStateToProps = (state: AppStateType) => {
 
 const AddButtonContainer = connect(mapStateToProps,
     {
-        addFriend, deleteFriend, addUser,
-        deleteUser, switchIsAddButton, addUserThunk,
+        switchIsAddButton, addUserThunk,
         deleteUserThunk
     }
 )

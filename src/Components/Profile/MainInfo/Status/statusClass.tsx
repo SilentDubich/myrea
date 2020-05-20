@@ -1,8 +1,22 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, FormEvent, useEffect, useState} from "react";
 import {Field} from "redux-form";
 import StatusS from "../../../../CssModules/Profile/Status/statusStyles.module.css"
+import {ProfileType} from "../../../Common/types";
 
-function StatusClass(props) {
+type MapStatePropsType = {
+    currentProfile: ProfileType
+    myProfile: boolean
+}
+
+type MapDispatchPropsType = {
+    putStatusThunk: (status: string) => void
+    handleSubmit: (submit: (formInfo: any) => Promise<void>) => ((event: FormEvent<HTMLFormElement>) => void) | undefined
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+
+export const StatusClass:FC<PropsType> = (props) => {
     const [mode, switchMode] = useState(false)
     const [status, switchStatus] = useState(props.currentProfile.status)
     const [disabled, setDisabled] = useState(false)
@@ -14,12 +28,13 @@ function StatusClass(props) {
         switchStatus(props.currentProfile.status)
     }, [props.currentProfile.status])
 
-    let onSubmit = async status => {
+    let onSubmit = async (status: any) => {
         setDisabled(true)
         await props.putStatusThunk(status.status)
         setDisabled(false)
         switchMode(false)
     }
+
     return (
         <div>
             {
@@ -50,5 +65,3 @@ function StatusClass(props) {
     )
 }
 
-
-export default StatusClass

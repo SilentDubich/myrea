@@ -11,7 +11,7 @@ function AvatarPhoto(props) {
         setAvatar(props.avatar)
     }, [props.avatar])
     const startDialog = () => {
-        props.putNewDialogThunk({id: props.id, name: props.name, avatar: props.avatar})
+        props.putNewDialogThunk(props.id)
     }
 
     const startDialogButtonClasses = `

@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import {logData} from "../DataBases/Reducers/LoginReducer";
+import {actionsLogin} from "../DataBases/Reducers/LoginReducer";
 import {initializeApp} from "../DataBases/Reducers/ProfileInfoReducer";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import MacketApp from "./Structure";
 import Preloader from "../Common/Preloader";
-import {getAllDialogs} from "../DataBases/Reducers/MessagesReducer";
+import {actionsMessages} from "../DataBases/Reducers/MessagesReducer";
 import {API} from "../DataBases/API/API";
 import {withRouter} from "react-router-dom";
 
@@ -34,6 +34,9 @@ let mapStateToProps = state => {
         isFetching: state.usersReducer.isFetching
     }
 }
+
+const logData = actionsLogin.logData
+const getAllDialogs = actionsMessages.getAllDialogs
 
 export const MacketAppContainer = compose(
     connect(mapStateToProps, {

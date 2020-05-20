@@ -2,12 +2,16 @@ import React from "react";
 import {connect} from "react-redux";
 import Pages from "./pages";
 import {
-    setPage,
-    setTotalUsers,
-    setUsers,
-    switchIsButton,
-    switchIsFetching
+    actionsUser
 } from "../../../../DataBases/Reducers/UserReducer";
+
+const setPage = actionsUser.setPage
+const setTotalUsers = actionsUser.setTotalUsers
+const setUsers = actionsUser.setUsers
+const switchIsButton = actionsUser.switchIsButton
+const switchIsFetching = actionsUser.switchIsFetching
+
+
 
 
 

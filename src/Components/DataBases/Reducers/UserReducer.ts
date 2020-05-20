@@ -1,9 +1,10 @@
-import React from "react";
 import {API} from "../API/API";
-import {addFriend, deleteFriend} from "./FriendsReducer";
-import {getFollow} from "./ProfileInfoReducer";
-import { UserType } from "../../Common/types";
-
+// import {addFriend, deleteFriend} from "./FriendsReducer";
+import {actionsFriends} from "./FriendsReducer";
+import {actionsProfile} from "./ProfileInfoReducer";
+import {UserType} from "../../Common/types";
+import {AppStateType, InferActionsTypes} from "../Redux/Store";
+import {ThunkAction} from "redux-thunk";
 
 
 let defaultStateUsers = {
@@ -19,66 +20,58 @@ let defaultStateUsers = {
 
 type DefaultStateType = typeof defaultStateUsers
 
-//create class for dispatches
-const SET_USERS = 'UserReducer/setUsers';
-const SET_PAGE = 'UserReducer/setPage';
-const SET_TOTAL_USERS = 'UserReducer/setTotalUsers';
-const ADD_USER = 'UserReducer/addUser';
-const DELETE_USER = 'UserReducer/deleteUser';
-const SWITCH_IS_FETCHING = 'UserReducer/switchIsFetching';
-const SWITCH_IS_BUTTON = 'UserReducer/switchIsButton';
-const SWITCH_IS_ADD_BUTTON = 'UserReducer/switchIsAddButton';
-const UPDATE_SEARCH_TEXT = 'userReducer/updateSearchText';
-type SetUsersType = {
-    type: typeof SET_USERS
-    users: Array<UserType>
+type ActionUserType = InferActionsTypes<typeof actionsUser>
+type ThunkUserType = ThunkAction<Promise<void>, AppStateType, unknown, ActionUserType>
+
+
+export const actionsUser = {
+    addUser: (id: number) => ({type: 'UserReducer/addUser', id} as const),
+    deleteUser: (id: number) => ({type: 'UserReducer/deleteUser', id} as const),
+    setUsers: (users: Array<UserType>) => ({type: 'UserReducer/setUsers', users} as const),
+    setTotalUsers: (count: number) => ({type: 'UserReducer/setTotalUsers', count} as const),
+    setPage: (page: number) => ({type: 'UserReducer/setPage', page} as const),
+    switchIsFetching: (bool: boolean) => ({type: 'UserReducer/switchIsFetching', bool} as const),
+    switchIsButton: (bool: boolean) => ({type: 'UserReducer/switchIsButton', bool} as const),
+    switchIsAddButton: (bool: boolean) => ({type: 'UserReducer/switchIsAddButton', bool} as const),
+    updateSearchText: (text: string) => ({type: 'userReducer/updateSearchText', text} as const)
 }
-export const addUser = (id: number) => ({type: ADD_USER, id});
-export const deleteUser = (id: number) => ({type: DELETE_USER, id});
-export const setUsers = (users: Array<UserType>): SetUsersType => ({type: SET_USERS, users});
-export const setTotalUsers = (count: number) => ({type: SET_TOTAL_USERS, count});
-export const setPage = (page: number) => ({type: SET_PAGE, page});
-export const switchIsFetching = (bool: boolean) => ({type: SWITCH_IS_FETCHING, bool});
-export const switchIsButton = (bool: boolean) => ({type: SWITCH_IS_BUTTON, bool});
-export const switchIsAddButton = (bool: boolean) => ({type: SWITCH_IS_ADD_BUTTON, bool});
-export const updateSearchText = (text: string) => ({type: UPDATE_SEARCH_TEXT, text});
 
-export const getUsersThunk = (pageSize: number, currentPage: number, user: any) => {
-    return async (dispatch:any) => {
-        dispatch(switchIsFetching(true));
+
+export const getUsersThunk = (pageSize: number, currentPage: number, user: any): ThunkUserType => {
+    return async (dispatch: any) => {
+        dispatch(actionsUser.switchIsFetching(true));
         let data = await API.getUsers(pageSize, currentPage, user)
-        dispatch(setUsers(data.items));
-        dispatch(setTotalUsers(data.totalCount));
-        dispatch(switchIsFetching(false));
+        dispatch(actionsUser.setUsers(data.items));
+        dispatch(actionsUser.setTotalUsers(data.totalCount));
+        dispatch(actionsUser.switchIsFetching(false));
     }
 };
 
-export const addUserThunk = (id:number, name:string, avatar:string) => {
-    return async (dispatch:any) => {
-        dispatch(switchIsAddButton(true));
+export const addUserThunk = (id:number, name:string, avatar:string): ThunkUserType => {
+    return async (dispatch: any) => {
+        dispatch(actionsUser.switchIsAddButton(true));
         await API.postFriendFollow(id)
-        dispatch(addFriend({id, name, avatar, followed: true}));
-        dispatch(addUser(id))
-        dispatch(getFollow(true))
-        dispatch(switchIsAddButton(false));
-
+        dispatch(actionsFriends.addFriend({id, name, avatar, followed: true}));
+        dispatch(actionsUser.addUser(id))
+        dispatch(actionsProfile.getFollow(true))
+        dispatch(actionsUser.switchIsAddButton(false));
     }
 };
-export const deleteUserThunk = (id:number) => {
-    return async (dispatch:any) => {
-        dispatch(switchIsAddButton(true));
+export const deleteUserThunk = (id: number): ThunkUserType => {
+    return async (dispatch: any) => {
+        dispatch(actionsUser.switchIsAddButton(true));
         await API.postFriendUnFollow(id)
-        dispatch(deleteFriend(id));
-        dispatch(deleteUser(id))
-        dispatch(getFollow(false))
-        dispatch(switchIsAddButton(false));
+        dispatch(actionsFriends.deleteFriend(id));
+        dispatch(actionsUser.deleteUser(id))
+        dispatch(actionsProfile.getFollow(false))
+        dispatch(actionsUser.switchIsAddButton(false));
     }
 };
 
 
-export function UsersInstructions(state = defaultStateUsers, action:any):DefaultStateType {
+export function UsersInstructions(state = defaultStateUsers, action: ActionUserType):DefaultStateType {
     switch (action.type) {
-        case ADD_USER:
+        case "UserReducer/addUser":
             return {
                 ...state,
                 users: state.users.map(us => {
@@ -88,7 +81,7 @@ export function UsersInstructions(state = defaultStateUsers, action:any):Default
                     return us
                 }),
             };
-        case DELETE_USER:
+        case "UserReducer/deleteUser":
             return {
                 ...state,
                 users: state.users.map(us => {
@@ -98,19 +91,19 @@ export function UsersInstructions(state = defaultStateUsers, action:any):Default
                     return us
                 })
             };
-        case UPDATE_SEARCH_TEXT:
+        case "userReducer/updateSearchText":
             return {...state, tempSearch: action.text}
-        case SET_USERS:
+        case "UserReducer/setUsers":
             return {...state, users: [...action.users]};
-        case SET_PAGE:
+        case "UserReducer/setPage":
             return {...state, currentPage: action.page};
-        case SET_TOTAL_USERS:
+        case "UserReducer/setTotalUsers":
             return {...state, totalUsers: action.count};
-        case SWITCH_IS_FETCHING:
+        case "UserReducer/switchIsFetching":
             return {...state, isFetching: action.bool};
-        case SWITCH_IS_BUTTON:
+        case "UserReducer/switchIsButton":
             return {...state, pageButton: action.bool};
-        case SWITCH_IS_ADD_BUTTON:
+        case "UserReducer/switchIsAddButton":
             return {...state, addButton: action.bool};
         default:
             return state

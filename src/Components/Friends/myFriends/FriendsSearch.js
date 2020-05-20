@@ -6,6 +6,7 @@ import Content from "../../../CssModules/content.module.css";
 
 
 function FriendsSearch(props) {
+    debugger
     let temp = React.createRef();
     let currentText = () => {
         let text = temp.current.value;

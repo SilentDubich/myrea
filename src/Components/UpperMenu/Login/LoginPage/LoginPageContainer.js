@@ -1,9 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-    loginRequest,
     postLogThunk,
-    logData
 } from "../../../DataBases/Reducers/LoginReducer";
 import LoginPage from "./LoginPage";
 
@@ -19,7 +17,7 @@ let mapStateToProps = state => {
 
 export const LoginReduxForm = connect(mapStateToProps,
     {
-        loginRequest, logData, postLogThunk
+        postLogThunk
     },
 )(LoginPage)
 

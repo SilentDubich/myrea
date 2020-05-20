@@ -1,5 +1,5 @@
 import React from "react";
-import {postMessageThunk, updateMessageCreation} from "../../../../DataBases/Reducers/MessagesReducer";
+import {actionsMessages, postMessageThunk} from "../../../../DataBases/Reducers/MessagesReducer";
 import Input from "./DialogInput";
 import {connect} from "react-redux";
 import {compose} from "redux";
@@ -22,6 +22,8 @@ let mapStateToProps = (state, props)  => {
 
     }
 };
+
+const updateMessageCreation = actionsMessages.updateMessageCreation
 
 let mapDispatchToProps = dispatch => {
     return {

@@ -13,7 +13,7 @@ function Users(props) {
         props.setAnotherProfile(props.id, 'notMe')
     }
     return (
-        <div className={`${props.users.isFetching ? Preloaders.Preloader__backgroundOpacity : null}`}>
+        <div className={`${props.isFetching ? Preloaders.Preloader__backgroundOpacity : null}`}>
             <NavLink onClick={throwProfileInfo} to={'/profile/' + props.id}
                      className={`${Dialog.display__flex} ${Dialog.hover__decor} ${Dialog.NavLinks__fontsDecor}`}>
                 <div>

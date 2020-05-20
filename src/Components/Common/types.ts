@@ -1,8 +1,3 @@
-export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
 export type ContactsType = {
     github: string
     vk: string
@@ -14,8 +9,8 @@ export type ContactsType = {
     mainLink: string
 }
 export type PhotosType = {
-    small: string | null
-    large: string | null
+    small: string
+    large: string
 }
 export type ProfileType = {
     userId: number
@@ -45,7 +40,7 @@ export type FriendType = {
 
 export type DialogType = {
     Messages: Array<MessageType>
-    hasNewMessage: boolean
+    hasNewMessages: boolean
     id: number
     lastDialogActivityDate: string
     lastUserActivityDate: string

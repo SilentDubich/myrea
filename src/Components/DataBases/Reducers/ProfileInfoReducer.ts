@@ -1,125 +1,132 @@
 import {API} from "../API/API";
-import {loadProfileData} from "./LoginReducer";
-import {switchIsFetching} from "./UserReducer";
-import {getAllDialogs} from "./MessagesReducer";
-import {loadFriends} from "./FriendsReducer";
-import {ProfileType} from "../../Common/types";
-
-const GET_PROFILE = 'getProfile';
-export const getProfile = (user: ProfileType, who: string) => ({type: GET_PROFILE, user, who});
-const SET_PROFILE = 'setProfile';
-export const setProfile = (bool: boolean) => ({type: SET_PROFILE, bool});
-const GET_FOLLOW = 'follow';
-export const getFollow = (boolean: boolean) => ({type: GET_FOLLOW, boolean});
-const GET_STATUS = 'getStatus';
-export const getStatus = (status: string) => ({type: GET_STATUS, status});
+import {actionsLogin, ThunkLoginType} from "./LoginReducer";
+import {actionsUser} from "./UserReducer";
+import {actionsMessages} from "./MessagesReducer";
+import {actionsFriends, ThunkFriendsType} from "./FriendsReducer";
+import {PhotosType, ProfileType} from "../../Common/types";
+import {AppStateType, InferActionsTypes} from "../Redux/Store";
+import {ThunkAction} from "redux-thunk";
+import {Action} from "redux";
 
 
-const getProfileInfo = (id: number, who: string) => {
-    return async (dispatch: any) => {
+type ActionProfileType = InferActionsTypes<typeof actionsProfile>
+type ThunkProfileType = ThunkAction<Promise<void>, AppStateType, unknown, ActionProfileType>
+export const actionsProfile = {
+    getProfile: (user: ProfileType, who: string) => ({type: 'ProfileReducer/getProfile', user, who} as const),
+    setProfile: (bool: boolean) => ({type: 'ProfileReducer/setProfile', bool} as const),
+    getFollow: (boolean: boolean) => ({type: 'ProfileReducer/getFollow', boolean} as const),
+    getStatus: (status: string) => ({type: 'ProfileReducer/getStatus', status} as const)
+}
+
+
+
+const getProfileInfo = (id: number, who: string): ThunkProfileType => {
+    return async (dispatch) => {
         let data = await API.getProfile(id)
-        await dispatch(getProfile(data, who));
+        await dispatch(actionsProfile.getProfile(data, who));
         await dispatch(getStatusThunk(id))
+
     }
 }
 
 
-export const getProfileThunk = (id: number, who: string) => {
-    return async (dispatch: any) => {
+export const getProfileThunk = (id: number, who: string): ThunkProfileType => {
+    return async (dispatch) => {
         await dispatch(getProfileInfo(id, who))
         let responseFollow = await API.getFollow(id)
-        return dispatch(getFollow(responseFollow))
+        dispatch(actionsProfile.getFollow(responseFollow))
     }
 };
 
-export const getMyProfileThunk = (id: number, who: string) => {
+export const getMyProfileThunk = (id: number, who: string): ThunkProfileType => {
     return async (dispatch: any) => {
         await dispatch(getProfileInfo(id, who))
         // @ts-ignore
         let friends = await API.getUsers(100,1,'',true)
-        dispatch(loadFriends(friends.items))
+        dispatch(actionsFriends.loadFriends(friends.items))
         let response = await API.getDialogs()
-        return dispatch(getAllDialogs(response))
+        dispatch(actionsMessages.getAllDialogs(response))
     }
 };
 
 
-export const setAnotherProfile = (id: number, who: string) => async (dispatch: any) => {
+export const setAnotherProfile = (id: number, who: string): ThunkProfileType => async (dispatch: any) => {
     let checkWho = who === 'me'
-    dispatch(switchIsFetching(true))
-    dispatch(setProfile(checkWho))
+    dispatch(actionsUser.switchIsFetching(true))
+    dispatch(actionsProfile.setProfile(checkWho))
     checkWho ? await dispatch(getMyProfileThunk(id, who)) : await dispatch(getProfileThunk(id, who));
-    dispatch(switchIsFetching(false))
+    dispatch(actionsUser.switchIsFetching(false))
 }
 
-export const initializeApp = (id: number) => async (dispatch: any) => {
+export const initializeApp = (id: number): ThunkLoginType => async (dispatch) => {
     try {
         await dispatch(getMyProfileThunk(id, 'me'));
-        return dispatch(loadProfileData());
+        dispatch(actionsLogin.loadProfileData());
     } finally {
-        return dispatch(loadProfileData());
+        dispatch(actionsLogin.loadProfileData());
     }
 }
 
-export const getStatusThunk = (id: number) => {
-    return async (dispatch: any) => {
+export const getStatusThunk = (id: number): ThunkProfileType => {
+    return async (dispatch) => {
         let data = await API.getStatus(id)
-        return dispatch(getStatus(data));
+        dispatch(actionsProfile.getStatus(data));
     }
 };
 
-export const putStatusThunk = (status: string) => {
-    return async (dispatch: any) => {
+export const putStatusThunk = (status: string): ThunkProfileType => {
+    return async (dispatch) => {
         await API.putStatus(status)
-        return dispatch(getStatus(status));
+        dispatch(actionsProfile.getStatus(status));
     }
 };
 
 
-export const putProfileInfoThunk = (data: any, id: number) => {
-    return async (dispatch: any) => {
+export const putProfileInfoThunk = (data: any, id: number): ThunkProfileType => {
+    return async (dispatch) => {
         await API.putProfileInfo(data)
-        debugger
         let response = await API.getProfile(id)
-        dispatch(getProfile(response, 'me'));
-        dispatch(setProfile(true))
+        dispatch(actionsProfile.getProfile(response, 'me'));
+        dispatch(actionsProfile.setProfile(true))
     }
 };
 
 
-export const postProfilePhotoThunk = (formData: any, id: number) => {
-    return async (dispatch: any) => {
+export const postProfilePhotoThunk = (formData: any, id: number): ThunkProfileType => {
+    return async (dispatch) => {
         await API.postAvatarPhoto(formData)
         let data = await API.getProfile(id)
-        dispatch(getProfile(data, 'me'));
-        dispatch(setProfile(true))
+        dispatch(actionsProfile.getProfile(data, 'me'));
+        dispatch(actionsProfile.setProfile(true))
     }
 };
 
 let defaultStateProfile = {
-    logged: {} as ProfileType,
+    logged: {
+        photos: {} as PhotosType
+    } as ProfileType,
     currentProfile: {} as ProfileType,
-    followed: null,
+    followed: null as boolean | null,
     myProfile: true,
 };
 
 type DefaultStateProfileType = typeof defaultStateProfile
 
-export function ProfileInstructions(state = defaultStateProfile, action: any): DefaultStateProfileType {
+export function ProfileInstructions(state = defaultStateProfile, action: ActionProfileType): DefaultStateProfileType {
     let stateCopy = {
         ...state,
     }
     switch (action.type) {
-        case GET_PROFILE:
+        case "ProfileReducer/getProfile":
             action.who === 'me' ? stateCopy.logged = action.user : stateCopy.currentProfile = action.user
             stateCopy.logged.status = state.logged.status
             return stateCopy;
-        case SET_PROFILE:
+        case "ProfileReducer/setProfile":
             return {...state, myProfile: action.bool};
-        case GET_STATUS:
+        case "ProfileReducer/getStatus":
             stateCopy.myProfile ? stateCopy.logged.status = action.status : stateCopy.currentProfile.status = action.status
             return stateCopy
-        case GET_FOLLOW:
+        case "ProfileReducer/getFollow":
             stateCopy.followed = action.boolean
             return stateCopy
         default:

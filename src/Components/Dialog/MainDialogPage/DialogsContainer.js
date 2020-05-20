@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
-import {updateSearchText} from "../../DataBases/Reducers/MessagesReducer";
+import {actionsMessages} from "../../DataBases/Reducers/MessagesReducer";
 
 
 let mapStateToProps = state => {
@@ -10,5 +10,6 @@ let mapStateToProps = state => {
     }
 }
 
+const updateSearchText = actionsMessages.updateSearchText
 
 export const DialogContainer = connect(mapStateToProps, {updateSearchText})(Dialogs)

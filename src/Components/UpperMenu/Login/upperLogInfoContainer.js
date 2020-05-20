@@ -6,12 +6,11 @@ import emptyPhoto from "../../../img/Avatars/nullPhoto.jpg"
 
 
 
-
 let mapStateToProps = state =>{
     // debugger
     return {
         didLog: state.loginReducer.isLogged,
-        Avatar: state.profileInfoReducer.logged.photos.large || emptyPhoto
+        Avatar: state.profileInfoReducer.logged.photos.large || emptyPhoto,
     }
 };
 
