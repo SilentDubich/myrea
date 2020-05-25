@@ -1,5 +1,7 @@
 import React from "react";
-import * as axios from "axios";
+import axios from "axios";
+import {ApiType, GetDialogsType, GetUsersType, ResultCodeCaptcha, ResultCodes} from "../../Common/typesAPI";
+import {DialogType, LoginType, PhotosType, ProfileType} from "../../Common/types";
 
 const instance = axios.create({
     withCredentials: true,
@@ -21,104 +23,102 @@ const instancePhoto = axios.create({
 });
 
 export const API = {
-    getUsers(pageSize = 10, currentPage = 1, user = '', bool = '') {
-        return instance.get(`users?count=${pageSize}&page=${currentPage}&term=${user}&friend=${bool}`)
+    getUsers(pageSize: number = 10, currentPage: number = 1, user: string = '', bool: string | boolean = '') {
+        return instance.get<GetUsersType>(`users?count=${pageSize}&page=${currentPage}&term=${user}&friend=${bool}`)
             .then(response => {
                 return response.data
             })
     },
-    getProfile(id) {
-        return instance.get(`profile/${id}`)
-            .then(response => {
-                return response.data
-            })
-    },
-
-    getStatus(id) {
-        return instance.get(`profile/status/${id}`)
+    getProfile(id: number | null) {
+        return instance.get<ProfileType>(`profile/${id}`)
             .then(response => {
                 return response.data
             })
     },
 
-    putStatus(status) {
-        return instance.put(`profile/status`, {status})
+    getStatus(id: number | null) {
+        return instance.get<string>(`profile/status/${id}`)
+            .then(response => {
+                return response.data
+            })
     },
-    putProfileInfo(data) {
-        return instance.put(`profile`, data)
+
+    putStatus(status: string) {
+        return instance.put<string>(`profile/status`, {status})
+    },
+    putProfileInfo(data: ProfileType) {
+        return instance.put<ProfileType>(`profile`, data)
     },
 
     getAuth() {
-        return instance.get(`auth/me`)
+        return instance.get<ApiType<LoginType, ResultCodes>>(`auth/me`)
             .then(response => {
                 return response.data
             })
     },
-    postLog(email, password, remember, captcha) {
-        return instance.post(`auth/login?email=${email}&password=${password}&rememberMe=${remember}&captcha=${captcha}`)
+    postLog(email: string, password: string | number, remember: boolean, captcha: string) {
+        return instance.post<ApiType<{userId: number}, ResultCodes | ResultCodeCaptcha>>(`auth/login?email=${email}&password=${password}&rememberMe=${remember}&captcha=${captcha}`)
             .then(response => {
                 return response
             })
     },
     postLogOut() {
-        return instance.post(`auth/logout`)
+        return instance.post<ApiType<{}, ResultCodes | ResultCodeCaptcha>>(`auth/logout`)
             .then(response => {
                 return response
             })
     },
-    getFollow(id) {
-        return instance.get(`follow/${id}`)
+    getFollow(id: number) {
+        return instance.get<boolean>(`follow/${id}`)
             .then(response => {
                 return response.data
             })
     },
-    postFriendFollow(id) {
-        return instance.post(`follow/${id}`)
+    postFriendFollow(id: number) {
+        return instance.post<ApiType<{}, ResultCodes | ResultCodeCaptcha>>(`follow/${id}`)
             .then(response => {
                 return response
             })
     },
-    postFriendUnFollow(id) {
-        return instance.delete(`follow/${id}`)
+    postFriendUnFollow(id: number) {
+        return instance.delete<ApiType<{}, ResultCodes | ResultCodeCaptcha>>(`follow/${id}`)
             .then(response => {
                 return response
             })
     },
-    postAvatarPhoto(formData) {
-        return instancePhoto.post(`profile/photo`, formData)
+    postAvatarPhoto(formData: File) {
+        return instancePhoto.post<ApiType<PhotosType, ResultCodes>>(`profile/photo`, formData)
             .then(response => {
                 return response.data.data
             })
     },
-    putNewDialog(id) {
-        // debugger
-        return instance.put(`dialogs/${id}`)
+    putNewDialog(id: number) {
+        return instance.put<ApiType<{}, ResultCodes | ResultCodeCaptcha>>(`dialogs/${id}`)
             .then(response => {
                 return response
             })
     },
     getDialogs() {
-        // debugger
-        return instance.get(`dialogs`)
+        return instance.get<Array<GetDialogsType>>(`dialogs`)
             .then(response => {
                 return response.data
             })
     },
-    postMessage(id, body) {
+    postMessage(id: number, body: any) {
         // debugger
         return instance.post(`dialogs/${id}/messages`, {body})
             .then(response => {
                 return response
             })
     },
-    deleteMessage(messageId) {
+    deleteMessage(messageId: number) {
         // debugger
         return instance.delete(`dialogs/messages/${messageId}`)
             .then(response => {
                 return response
             })
     },
-    getDialog(id) {
+    getDialog(id: number) {
         return instance.get(`dialogs/${id}/messages`)
             .then(response => {
                 return response.data

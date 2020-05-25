@@ -4,6 +4,7 @@ import {stopSubmit} from "redux-form";
 import {LoginType} from "../../Common/types";
 import {AppStateType, InferActionsTypes} from "../Redux/Store";
 import {ThunkAction} from "redux-thunk";
+import {ResultCodeCaptcha, ResultCodes} from "../../Common/typesAPI";
 
 type ActionLoginTypes = InferActionsTypes<typeof actionsLogin>
 export type ThunkLoginType = ThunkAction<Promise<void>, AppStateType, unknown, ActionLoginTypes>
@@ -19,15 +20,15 @@ export const postLogThunk = (email: string, password: number, remember: boolean,
     return async (dispatch) => {
         dispatch(actionsLogin.buttonAction(true))
         let response = await API.postLog(email, password, remember, captcha)
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === ResultCodes.Success) {
             let data = await API.getAuth()
-            await dispatch(initializeApp(data.data.id));
+            await dispatch(initializeApp(response.data.data.userId));
             dispatch(actionsLogin.logData(data.data.id, data.data.login, data.data.email));
-        } else if (response.data.resultCode === 10) {
+        } else if (response.data.resultCode === ResultCodeCaptcha.Captcha) {
             let data = await API.getCaptcha()
             dispatch(actionsLogin.getCaptcha(data))
             dispatch(stopSubmit('asyncValidation', {_error: response.data.messages[0]}))
-        } else {
+        } else if (response.data.resultCode === ResultCodes.Error) {
             dispatch(stopSubmit('asyncValidation', {_error: response.data.messages[0]}))
         }
         dispatch(actionsLogin.buttonAction(false))
@@ -38,7 +39,6 @@ export const postLogOutThunk = (): ThunkLoginType => {
     return async (dispatch) => {
         await API.postLogOut()
         dispatch(actionsLogin.logData(null, null, null));
-        API.getAuth()
     }
 };
 

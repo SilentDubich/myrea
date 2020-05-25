@@ -74,7 +74,7 @@ export default function MyEditor(props) {
         setDisabled(true)
         let formData = new FormData();
         formData.append('image', previewLoad);
-        await props.updatePhoto(formData, props.id)
+        props.updatePhoto(formData, props.id)
         clearImgData()
     }
     const clearImgData = () => {

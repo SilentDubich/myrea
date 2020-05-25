@@ -6,6 +6,7 @@ import {ProfileType, UserType, DialogType} from "../../Common/types";
 import {AppStateType, InferActionsTypes} from "../Redux/Store";
 import {ThunkAction} from "redux-thunk";
 import {actionsProfile} from "./ProfileInfoReducer";
+import {GetDialogsType} from "../../Common/typesAPI";
 
 
 type ActionMessageType = InferActionsTypes<typeof actionsMessages>
@@ -14,7 +15,7 @@ type ThunkMessageType = ThunkAction<Promise<void>, AppStateType, unknown, Action
 export const actionsMessages = {
     updateMessageCreation: (text: string, id: number) => ({type: 'MessageReducer/updateTextMessage', text, id} as const),
     deleteMessageCreation: (mesId: number, id: number) => ({type: 'MessageReducer/deleteMessage', mesId, id} as const),
-    getAllDialogs: (data: Array<DialogType>) => ({type: 'MessageReducer/getAllDialogs', data} as const),
+    getAllDialogs: (data: Array<GetDialogsType>) => ({type: 'MessageReducer/getAllDialogs', data} as const),
     updateSearchText: (text: string) => ({type: 'MessageReducer/updateSearchText', text} as const),
     getMessagesWithUser: (data: any, user: ProfileType, me: ProfileType) => ({type: 'MessageReducer/getMessagesWithUser', data, user, me} as const)
 }
@@ -31,7 +32,7 @@ export const putNewDialogThunk = (id: number): ThunkMessageType => {
 export const postMessageThunk = (id: number, message: string, me: ProfileType): ThunkMessageType => {
     return async (dispatch) => {
         await API.postMessage(id, message)
-        dispatch(getDialogThunk(id, me))
+        await dispatch(getDialogThunk(id, me))
     }
 };
 
@@ -92,8 +93,11 @@ export function MessagesInstructions(state = defaultStateMessage, action: Action
             for (let i = 0; i < action.data.length; i++) {
                 if (action.data[i].hasNewMessages) countUpdatingDialogs++;
                 if (!action.data[i].photos.large) action.data[i].photos.large= action.data[i].photos.small = emptyPhoto
+                // @ts-ignore
                 action.data[i].Messages = []
+                stateCopy.Dialogs[i].Messages = []
             }
+            // @ts-ignore
             return {...state, Dialogs: [...action.data], freshDialogs: countUpdatingDialogs}
         case "MessageReducer/getMessagesWithUser":
             let user: number = getIndex(action.user.userId)

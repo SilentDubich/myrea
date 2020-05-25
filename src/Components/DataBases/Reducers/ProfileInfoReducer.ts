@@ -3,7 +3,7 @@ import {actionsLogin, ThunkLoginType} from "./LoginReducer";
 import {actionsUser} from "./UserReducer";
 import {actionsMessages} from "./MessagesReducer";
 import {actionsFriends, ThunkFriendsType} from "./FriendsReducer";
-import {PhotosType, ProfileType} from "../../Common/types";
+import {ContactsType, PhotosType, ProfileType} from "../../Common/types";
 import {AppStateType, InferActionsTypes} from "../Redux/Store";
 import {ThunkAction} from "redux-thunk";
 import {Action} from "redux";
@@ -20,12 +20,11 @@ export const actionsProfile = {
 
 
 
-const getProfileInfo = (id: number, who: string): ThunkProfileType => {
+const getProfileInfo = (id: number | null, who: string): ThunkProfileType => {
     return async (dispatch) => {
         let data = await API.getProfile(id)
-        await dispatch(actionsProfile.getProfile(data, who));
+        dispatch(actionsProfile.getProfile(data, who));
         await dispatch(getStatusThunk(id))
-
     }
 }
 
@@ -38,10 +37,9 @@ export const getProfileThunk = (id: number, who: string): ThunkProfileType => {
     }
 };
 
-export const getMyProfileThunk = (id: number, who: string): ThunkProfileType => {
+export const getMyProfileThunk = (id: number | null, who: string): ThunkProfileType => {
     return async (dispatch: any) => {
         await dispatch(getProfileInfo(id, who))
-        // @ts-ignore
         let friends = await API.getUsers(100,1,'',true)
         dispatch(actionsFriends.loadFriends(friends.items))
         let response = await API.getDialogs()
@@ -55,10 +53,10 @@ export const setAnotherProfile = (id: number, who: string): ThunkProfileType => 
     dispatch(actionsUser.switchIsFetching(true))
     dispatch(actionsProfile.setProfile(checkWho))
     checkWho ? await dispatch(getMyProfileThunk(id, who)) : await dispatch(getProfileThunk(id, who));
-    dispatch(actionsUser.switchIsFetching(false))
+    return dispatch(actionsUser.switchIsFetching(false))
 }
 
-export const initializeApp = (id: number): ThunkLoginType => async (dispatch) => {
+export const initializeApp = (id: number | null): ThunkLoginType => async (dispatch) => {
     try {
         await dispatch(getMyProfileThunk(id, 'me'));
         dispatch(actionsLogin.loadProfileData());
@@ -67,7 +65,7 @@ export const initializeApp = (id: number): ThunkLoginType => async (dispatch) =>
     }
 }
 
-export const getStatusThunk = (id: number): ThunkProfileType => {
+export const getStatusThunk = (id: number | null): ThunkProfileType => {
     return async (dispatch) => {
         let data = await API.getStatus(id)
         dispatch(actionsProfile.getStatus(data));
@@ -92,20 +90,20 @@ export const putProfileInfoThunk = (data: any, id: number): ThunkProfileType => 
 };
 
 
-export const postProfilePhotoThunk = (formData: any, id: number): ThunkProfileType => {
+export const postProfilePhotoThunk = (formData: File, id: number): ThunkProfileType => {
     return async (dispatch) => {
         await API.postAvatarPhoto(formData)
         let data = await API.getProfile(id)
         dispatch(actionsProfile.getProfile(data, 'me'));
-        dispatch(actionsProfile.setProfile(true))
     }
 };
 
 let defaultStateProfile = {
-    logged: {
+    logged: {photos: {} as PhotosType} as ProfileType,
+    currentProfile: {
+        contacts: {} as ContactsType,
         photos: {} as PhotosType
     } as ProfileType,
-    currentProfile: {} as ProfileType,
     followed: null as boolean | null,
     myProfile: true,
 };

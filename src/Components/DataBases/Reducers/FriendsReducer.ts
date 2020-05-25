@@ -9,7 +9,7 @@ type loadFriendsType = FriendType & UserType
 export const actionsFriends = {
     addFriend: (data: FriendType) => ({type: 'FriendsReducer/addFriend', data} as const),
     deleteFriend: (id: number) => ({type: 'FriendsReducer/deleteFriend', id} as const),
-    loadFriends: (data: Array<loadFriendsType>) => ({type: 'FriendsReducer/loadFriends', data} as const),
+    loadFriends: (data: Array<any>) => ({type: 'FriendsReducer/loadFriends', data} as const),
     updateSearch: (text: string) => ({type: 'FriendsReducer/updateSearch', text} as const)
 }
 
