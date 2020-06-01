@@ -12,9 +12,7 @@ type MapDispatchPropsType = {
     putStatusThunk: (status: string) => void
     handleSubmit: (submit: (formInfo: any) => Promise<void>) => ((event: FormEvent<HTMLFormElement>) => void) | undefined
 }
-
 type PropsType = MapStatePropsType & MapDispatchPropsType
-
 
 export const StatusClass:FC<PropsType> = (props) => {
     const [mode, switchMode] = useState(false)

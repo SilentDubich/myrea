@@ -1,9 +1,17 @@
-import React from "react";
-import Pendalf from '../../../../img/Avatars/pendalf.jpg'
+import React, {FC} from "react";
 import Friends from '../../../../CssModules/Profile/FriendList/Friends.module.css';
 import {NavLink} from "react-router-dom";
 
-function MyFriend(props) {
+
+type MapStatePropsType = {
+    myId: number
+    id: number
+    name: string
+    img: string
+    setAnotherProfile: (id: number, who: string) => void
+}
+
+export const MyFriend:FC<MapStatePropsType> = (props) => {
     let setProfile = () => {
         let meOrNot = props.id === props.myId ? 'me' : 'notMe'
         props.setAnotherProfile(props.id, meOrNot)
@@ -19,5 +27,3 @@ function MyFriend(props) {
         </div>
     )
 }
-
-export default MyFriend

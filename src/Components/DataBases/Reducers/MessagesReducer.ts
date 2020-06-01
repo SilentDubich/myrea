@@ -95,7 +95,6 @@ export function MessagesInstructions(state = defaultStateMessage, action: Action
                 if (!action.data[i].photos.large) action.data[i].photos.large= action.data[i].photos.small = emptyPhoto
                 // @ts-ignore
                 action.data[i].Messages = []
-                stateCopy.Dialogs[i].Messages = []
             }
             // @ts-ignore
             return {...state, Dialogs: [...action.data], freshDialogs: countUpdatingDialogs}

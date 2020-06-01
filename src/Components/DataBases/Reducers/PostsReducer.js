@@ -24,9 +24,7 @@ let defaultStatePosts = {
         {id: 2, name: 'Pendalf', text: 'Hi', ava: Pendalf, likes: 99},
         {id: 3, name: 'Pendalf', text: 'Hiiiii', ava: Pendalf, likes: 999}
     ],
-    currentProfilePosts: [
-
-    ],
+    currentProfilePosts: [],
     Temp: [
         {
             PostRedactor: ''

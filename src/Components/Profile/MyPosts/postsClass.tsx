@@ -1,8 +1,14 @@
-import React from "react";
-import NewPost from "./post";
+import React, {FC} from "react";
+import {NewPost} from "./post";
+import {PostType, ProfileType} from "../../Common/types";
 
+type MapStatePropsType = {
+    posts: Array<PostType>
+    current: boolean
+    deletePostCreation: (id: any, currentProfile: any) => void
+}
 
-function PostsClass(props) {
+export const PostsClass:FC<MapStatePropsType> = (props) => {
     let sortedPosts = props.posts
         .map(elem => <NewPost
             key={elem.id}
@@ -21,5 +27,3 @@ function PostsClass(props) {
         </div>
     )
 }
-
-export default PostsClass

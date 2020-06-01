@@ -1,16 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
-import {
-    actionsProfile,
-    postProfilePhotoThunk,
-} from "../../DataBases/Reducers/ProfileInfoReducer";
-import ProfileCenterInfoClass from "./ProfileCenterInfoClass";
+import {actionsProfile, postProfilePhotoThunk,} from "../../DataBases/Reducers/ProfileInfoReducer";
+import {ProfileCenterInfoClass} from "./ProfileCenterInfoClass";
 import {authRedirect} from "../../Common/redirectToLogin";
 import {compose} from "redux";
 import {putNewDialogThunk} from "../../DataBases/Reducers/MessagesReducer";
+import {AppStateType} from "../../DataBases/Redux/Store";
 
 
-let mapStateToProps = state => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         currentProfile: state.profileInfoReducer.myProfile ?
             state.profileInfoReducer.logged : state.profileInfoReducer.currentProfile,

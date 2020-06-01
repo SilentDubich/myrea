@@ -1,9 +1,19 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import Content from "../../../CssModules/content.module.css";
 import {ReduxStatusForm, StatusClassContainer} from "./Status/statusClassContainer";
 import InfoS from "../../../CssModules/Profile/MainInfo/mainInfo.module.css"
+import {ContactsType} from "../../Common/types";
 
-function MainInfo(props) {
+type MapStatePropsType = {
+    name: string,
+    status: string,
+    aboutMe: string,
+    skills: string,
+    search: boolean,
+    contacts: ContactsType,
+}
+
+export const MainInfo:FC<MapStatePropsType> = (props) => {
     const [more, setMore] = useState(false)
     const keys = Object.keys(props.contacts)
     const values = Object.values(props.contacts)
@@ -48,5 +58,3 @@ function MainInfo(props) {
         </div>
     )
 }
-
-export default MainInfo

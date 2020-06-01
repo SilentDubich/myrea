@@ -53,7 +53,7 @@ export const setAnotherProfile = (id: number, who: string): ThunkProfileType => 
     dispatch(actionsUser.switchIsFetching(true))
     dispatch(actionsProfile.setProfile(checkWho))
     checkWho ? await dispatch(getMyProfileThunk(id, who)) : await dispatch(getProfileThunk(id, who));
-    return dispatch(actionsUser.switchIsFetching(false))
+    dispatch(actionsUser.switchIsFetching(false))
 }
 
 export const initializeApp = (id: number | null): ThunkLoginType => async (dispatch) => {

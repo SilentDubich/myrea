@@ -1,10 +1,23 @@
-import React from "react";
+import React, {FC} from "react";
 import Content from "../../../CssModules/content.module.css";
 import Friends from '../../../CssModules/Profile/FriendList/Friends.module.css';
-import MyFriend from "./MyFriend/FriendLittleAva";
+import {MyFriend} from "./MyFriend/FriendLittleAva";
+import {FriendType} from "../../Common/types";
+import {setAnotherProfile} from "../../DataBases/Reducers/ProfileInfoReducer";
+
+type MapStatePropsType = {
+    friends: Array<FriendType>
+    myId: number
+}
+
+type MapDispatchPropsType = {
+    setAnotherProfile: (id: number, who: string) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
 
 
-function FriendList(props) {
+export const FriendList:FC<PropsType> = (props) => {
     let allFriends = () => {
         let all = [];
         let array = props.friends;
@@ -23,5 +36,3 @@ function FriendList(props) {
         </div>
     )
 }
-
-export default FriendList

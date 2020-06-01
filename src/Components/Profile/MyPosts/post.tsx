@@ -1,11 +1,19 @@
-import React from "react";
+import React, {FC} from "react";
 import Posts from "../../../CssModules/Profile/MyPosts/posts.module.css";
 import Content from "../../../CssModules/content.module.css";
-import {deletePostCreation} from "../../DataBases/Reducers/PostsReducer";
-// import {deletePost} from "../../DataBases/State/State";
+import {ProfileType} from "../../Common/types";
 
+type MapStatePropsType = {
+    id: number
+    current: boolean
+    name: string
+    pict: string
+    text: string
+    likes: number
+    deletePost: (id: number, current: boolean) => void
+}
 
-const NewPost = props => {
+export const NewPost:FC<MapStatePropsType> = (props) => {
     let setDeletePost = () => {
         props.deletePost(props.id, props.current)
     };
@@ -25,5 +33,3 @@ const NewPost = props => {
         </div>
     )
 }
-
-export default NewPost

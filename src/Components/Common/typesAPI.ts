@@ -1,4 +1,4 @@
-import {FriendType, LoginType, PhotosType, ProfileType, UserType} from "./types";
+import {FriendType, LoginType, MessageType, PhotosType, ProfileType, UserType} from "./types";
 
 
 export type GetUsersType = {
@@ -21,6 +21,47 @@ export type GetDialogsType = {
     newMessagecount: number
     photos: PhotosType
     userName: string
+}
+
+export type PostMessageResponseType = {
+    data: {
+        message: {
+            addedAt: string
+            body: string
+            deletedByRecipient: boolean
+            deletedBySender: boolean
+            distributionId: number | null
+            id: string
+            isSpam: boolean
+            recipientId: number
+            recipientName: string
+            senderId: number
+            senderName: string
+            translatedBody: string | null
+            viewed: boolean
+        }
+    }
+    messages: Array<string>
+    resultCode: ResultCodes
+}
+
+export type GetMessagesType = {
+    items: Array<{
+        addedAt: string
+        body: string
+        id: number
+        recipientId: number
+        senderId: number
+        senderName: string
+        translatedBody: string | null
+        viewed: boolean
+    }>
+    error: string | null
+    totalCount: number
+}
+
+export type GetCaptcha = {
+    url: string
 }
 
 export enum ResultCodes {

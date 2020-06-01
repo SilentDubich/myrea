@@ -1,7 +1,14 @@
 import React from "react";
 import axios from "axios";
-import {ApiType, GetDialogsType, GetUsersType, ResultCodeCaptcha, ResultCodes} from "../../Common/typesAPI";
-import {DialogType, LoginType, PhotosType, ProfileType} from "../../Common/types";
+import {
+    ApiType, GetCaptcha,
+    GetDialogsType, GetMessagesType,
+    GetUsersType,
+    PostMessageResponseType,
+    ResultCodeCaptcha,
+    ResultCodes
+} from "../../Common/typesAPI";
+import {DialogType, LoginType, MessageType, PhotosType, ProfileType} from "../../Common/types";
 
 const instance = axios.create({
     withCredentials: true,
@@ -104,28 +111,26 @@ export const API = {
                 return response.data
             })
     },
-    postMessage(id: number, body: any) {
-        // debugger
-        return instance.post(`dialogs/${id}/messages`, {body})
+    postMessage(id: number, body: string) {
+        return instance.post<PostMessageResponseType>(`dialogs/${id}/messages`, {body})
             .then(response => {
                 return response
             })
     },
     deleteMessage(messageId: number) {
-        // debugger
-        return instance.delete(`dialogs/messages/${messageId}`)
+        return instance.delete<ApiType<{}, ResultCodes>>(`dialogs/messages/${messageId}`)
             .then(response => {
                 return response
             })
     },
     getDialog(id: number) {
-        return instance.get(`dialogs/${id}/messages`)
+        return instance.get<GetMessagesType>(`dialogs/${id}/messages`)
             .then(response => {
                 return response.data
             })
     },
     getCaptcha() {
-        return instance.get(`security/get-captcha-url`)
+        return instance.get<GetCaptcha>(`security/get-captcha-url`)
             .then(response => {
                 return response.data.url
             })

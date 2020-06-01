@@ -1,15 +1,33 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import Displays from "../../../CssModules/DisplayView.module.css";
 import AvatarPhoto from "../Avatar/Avatar";
-import Subscribes from "../Subscribes/SubscribeList";
-import MainInfo from "../MainInfo/nameAndAbout";
+import {MainInfo} from "../MainInfo/nameAndAbout";
 import PostRedactorContainer from "../PostRedactor/PostRedactorContainer";
 import {PostsClassContainer} from "../MyPosts/postsClassContainer";
 import Preloader from "../../Common/Preloader";
 import {FriendListContainer} from "../FriendList/friendContainer";
+import {PostType, ProfileType} from "../../Common/types";
 
 
-function ProfileCenterInfoClass(props) {
+
+type MapStatePropsType = {
+    currentProfile: ProfileType
+    myProfilePosts: PostType
+    isFetching: boolean
+    myProfile: boolean
+    followed: boolean
+    subscribe: any
+}
+
+type MapDispatchPropsType = {
+    getProfile: (user: ProfileType, who: string) => void
+    postProfilePhotoThunk: (formData: File, id: number) => void
+    putNewDialogThunk: (id: number) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+export const ProfileCenterInfoClass:FC<PropsType> = (props) => {
     let [follow, setFollow] = useState(props.followed)
     let [fetch, setFetch] = useState(props.isFetching)
 
@@ -34,9 +52,6 @@ function ProfileCenterInfoClass(props) {
                         myProfile={props.myProfile}
                         putNewDialogThunk={props.putNewDialogThunk}
                         followed={follow}
-                        uploadPhoto={props.uploadPhoto}
-                        updatePhotoSize={props.updatePhotoSize}
-                        tempPhoto={props.tempPhoto}
                     />
                     {props.myProfile && <FriendListContainer/>}
                     {/*{props.myProfile && <Subscribes subscribe={props.subscribe}/>}*/}
@@ -57,5 +72,3 @@ function ProfileCenterInfoClass(props) {
         </div>
     )
 }
-
-export default ProfileCenterInfoClass

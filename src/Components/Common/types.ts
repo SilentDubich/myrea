@@ -18,6 +18,7 @@ export type ProfileType = {
     lookingForAJobDescription: string
     fullName: string
     status: string
+    aboutMe: string
     contacts: ContactsType
     photos: PhotosType
 }
@@ -66,4 +67,12 @@ export type LoginType = {
     id: number | null
     login: string | null
     email: string | null
+}
+
+export type PostType = {
+    id: number
+    name: string
+    text: string
+    ava: string
+    likes: number
 }
