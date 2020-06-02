@@ -1,9 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
-import Pages from "./pages";
+import {Pages} from "./pages";
 import {
-    actionsUser
+    actionsUser, getUsersThunk
 } from "../../../../DataBases/Reducers/UserReducer";
+import {AppStateType} from "../../../../DataBases/Redux/Store";
 
 const setPage = actionsUser.setPage
 const setTotalUsers = actionsUser.setTotalUsers
@@ -15,10 +16,9 @@ const switchIsFetching = actionsUser.switchIsFetching
 
 
 
-let mapStateToProps = state => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         currentPage: state.usersReducer.currentPage,
-        pageCounts: state.usersReducer.pageCounts,
         totalUsers: state.usersReducer.totalUsers,
         pageSize: state.usersReducer.pageSize,
         isFetching: state.usersReducer.isFetching,
@@ -28,4 +28,4 @@ let mapStateToProps = state => {
 };
 
 
-export const PagesContainer = connect(mapStateToProps, {setPage, setUsers, switchIsButton, switchIsFetching})(Pages);
+export const PagesContainer = connect(mapStateToProps, {setPage, getUsersThunk})(Pages);

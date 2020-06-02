@@ -1,15 +1,33 @@
-import React from "react";
+import React, {FC} from "react";
+import DialogsListContainer from "./DialogListContainer";
 import Content from "../../../CssModules/content.module.css";
 import Dialog from '../../../CssModules/Dialog/DialogFriend.module.css';
-import {DialogsListContainer} from "./DialogListContainer";
+
+type mapStateToPropsType = {
+    tempSearch: string
+    DialogsListContainer: React.Component<any, any>
+}
+
+type mapDispatchProps = {
+    updateSearchText: (text: string) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchProps
+
+function DialogsListContainerRender(Elem: new() => React.Component<any, any>) {
+    return <Elem/>;
+}
 
 
-function Dialogs(props) {
-    let temp = React.createRef();
+export const Dialogs:FC<PropsType> = (props) => {
+    let temp = React.createRef<HTMLInputElement>();
     let currentText = () => {
-        let text = temp.current.value;
-        props.updateSearchText(text)
+        if (temp.current) {
+            let text = temp.current.value;
+            props.updateSearchText(text)
+        }
     };
+
     return (
         <div className={`${Content.content__menu_decorationBlocks}`}>
             <div>
@@ -19,6 +37,7 @@ function Dialogs(props) {
                        value={props.tempSearch}
                        onChange={currentText}
                 />
+
             </div>
             <div>
                 <DialogsListContainer/>
@@ -26,5 +45,3 @@ function Dialogs(props) {
         </div>
     )
 }
-
-export default Dialogs

@@ -1,14 +1,24 @@
-import React from "react";
+import React, {FC} from "react";
 import Friends from '../../../../CssModules/Friends/Friends.module.css'
 import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 
+type mapStateToPropsType = {
+    tempSearch: string
+}
 
-function UserSearch(props) {
-    let text = React.createRef()
-    let search = event => {
-        let searchRequest = text.current.value;
-        if (text){
+type mapDispatchType = {
+    getUsersThunk: (pageSize: number, currentPage: number, user?: string) => void
+    updateSearchText: (text: string) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchType
+
+export const UserSearch:FC<PropsType> = (props) => {
+    let text = React.createRef<HTMLInputElement>()
+    let search = (event: any) => {
+        if (text.current){
             if (event.which === 13){
+                let searchRequest = text.current.value;
                 props.getUsersThunk(1, 1, searchRequest);
                 event.preventDefault()
             }
@@ -16,9 +26,10 @@ function UserSearch(props) {
     }
 
     let updateSearchField = () => {
-        let tempText = text.current.value
-        props.updateSearchText(tempText)
-
+        if (text.current) {
+            let tempText = text.current.value
+            props.updateSearchText(tempText)
+        }
     }
     return(
         <div className={Friends.container__displayFlex}>
@@ -32,5 +43,3 @@ function UserSearch(props) {
         </div>
     )
 }
-
-export default UserSearch

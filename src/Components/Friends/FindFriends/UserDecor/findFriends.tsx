@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FC} from "react";
 import {NavLink} from "react-router-dom";
 import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
@@ -6,9 +6,23 @@ import emptyPhoto from "../../../../img/Avatars/nullPhoto.jpg";
 import AddButtonContainer from "../../../Common/AddButton/addButtonContainer";
 import Preloaders from "../../../../CssModules/Preloader/Preloaders.module.css";
 
+type mapStateToPropsType = {
+    isFetching: boolean
+    id: number
+    avatar: string
+    name: string
+    follow: boolean
+}
 
-function Users(props) {
-    let throwProfileInfo = e => {
+type mapDispatchType = {
+    setAnotherProfile: (id: number, who: string) => void
+    getProfileThunk: (id: number, who: string) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchType
+
+export const Users:FC<PropsType> = (props) => {
+    let throwProfileInfo = (e: any) => {
         if (props.isFetching) return e.preventDefault()
         props.setAnotherProfile(props.id, 'notMe')
     }
@@ -28,5 +42,3 @@ function Users(props) {
         </div>
     )
 }
-
-export default Users

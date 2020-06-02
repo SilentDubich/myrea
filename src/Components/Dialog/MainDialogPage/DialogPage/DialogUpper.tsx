@@ -1,8 +1,13 @@
-import React from "react";
+import React, {FC} from "react";
 import Person from "../../../../CssModules/Dialog/PersonDialog.module.css";
+import {DialogType} from "../../../Common/types";
 
-function Upper(props) {
-    // debugger
+type mapStateToPropsType = {
+    dialogs: Array<DialogType>
+    id: number
+}
+
+export const Upper:FC<mapStateToPropsType> = (props) => {
     return(
         <div className={`${Person.upper__border}  ${Person.upper__marginBottom}`}>
             <p className={`
@@ -11,10 +16,8 @@ function Upper(props) {
             ${Person.upper_text__padding}
             `}
             >
-                {`${props.state.messageReducer.Dialogs[props.id].userName}`}
+                {`${props.dialogs[props.id].userName}`}
             </p>
         </div>
     )
 }
-
-export default Upper

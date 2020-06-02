@@ -1,9 +1,24 @@
-import React from "react";
+import React, {FC} from "react";
 import {NavLink} from "react-router-dom";
 import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
+import {ProfileType} from "../../../Common/types";
 
-function MiniDialogs(props) {
+type mapStateToPropsType = {
+    id: number
+    name: string
+    img: string
+    newMess: number
+    me: ProfileType
+}
+
+type mapDispatchType = {
+    getDialogs: (id: number, me: ProfileType) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchType
+
+export const MiniDialogs:FC<PropsType> = (props) => {
     let get = () => {
         props.getDialogs(props.id, props.me)
     }

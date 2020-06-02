@@ -8,25 +8,26 @@ import {
     putNewDialogThunk
 } from "../../../DataBases/Reducers/MessagesReducer";
 import {authRedirect} from "../../../Common/redirectToLogin";
-import DialogPage from "./DialogPage";
+import {DialogPage} from "./DialogPage";
 import {withRouter} from "react-router-dom";
+import {AppStateType} from "../../../DataBases/Redux/Store";
 
 
-let mapStateToProps = state => {
+let mapStateToProps = (state: AppStateType) => {
     return {
-        state,
         isFetching: state.usersReducer.isFetching,
-        myId: state.profileInfoReducer.logged.userId
+        myId: state.profileInfoReducer.logged.userId,
+        myProfile: state.profileInfoReducer.logged,
+        dialogs: state.messageReducer.Dialogs
     }
 }
 
-const getProfile = actionsProfile.getProfile
 
 export const DialogPageContainer =
     compose
     (
         connect(mapStateToProps,
-            {getProfile, postProfilePhotoThunk, putNewDialogThunk, deleteMessageThunk, setAnotherProfile,getUserAllMessagesThunk}),
+            {deleteMessageThunk, setAnotherProfile,getUserAllMessagesThunk}),
         withRouter,
         authRedirect
     )(DialogPage)

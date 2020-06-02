@@ -1,14 +1,19 @@
 import React from "react";
 import {actionsMessages, postMessageThunk} from "../../../../DataBases/Reducers/MessagesReducer";
-import Input from "./DialogInput";
+import {Input} from "./DialogInput";
 import {connect} from "react-redux";
 import {compose} from "redux";
 import {reduxForm} from "redux-form";
+import {AppStateType} from "../../../../DataBases/Redux/Store";
+
+type mapPropsType = {
+    loc: number
+}
 
 
-let mapStateToProps = (state, props)  => {
-    let dialogId = props.loc;
-    let index;
+let mapStateToProps = (state: AppStateType, props: mapPropsType)  => {
+    let dialogId: number = props.loc;
+    let index = 0;
     for (let i = 0; i < state.messageReducer.Dialogs.length; i++){
         if (dialogId === state.messageReducer.Dialogs[i].id){
             index = i
@@ -25,19 +30,9 @@ let mapStateToProps = (state, props)  => {
 
 const updateMessageCreation = actionsMessages.updateMessageCreation
 
-let mapDispatchToProps = dispatch => {
-    return {
-        currentText: (text, id) => {
-            dispatch(updateMessageCreation(text, id));
-        },
-        postMessageThunk: (id, message, me) => {
-            dispatch(postMessageThunk(id, message, me))
-        }
-    }
-};
 
 const InputContainer = compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, {updateMessageCreation, postMessageThunk}),
 )(Input);
 
 

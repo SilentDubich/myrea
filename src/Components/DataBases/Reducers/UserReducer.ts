@@ -18,7 +18,7 @@ let defaultStateUsers = {
     addButton: false,
 };
 
-type DefaultStateType = typeof defaultStateUsers
+export type DefaultStateType = typeof defaultStateUsers
 
 type ActionUserType = InferActionsTypes<typeof actionsUser>
 type ThunkUserType = ThunkAction<Promise<void>, AppStateType, unknown, ActionUserType>
@@ -37,7 +37,7 @@ export const actionsUser = {
 }
 
 
-export const getUsersThunk = (pageSize: number, currentPage: number, user: any): ThunkUserType => {
+export const getUsersThunk = (pageSize: number, currentPage: number, user?: string): ThunkUserType => {
     return async (dispatch: any) => {
         dispatch(actionsUser.switchIsFetching(true));
         let data = await API.getUsers(pageSize, currentPage, user)
@@ -47,7 +47,7 @@ export const getUsersThunk = (pageSize: number, currentPage: number, user: any):
     }
 };
 
-export const addUserThunk = (id:number, name:string, avatar:string): ThunkUserType => {
+export const addUserThunk = (id: number, name: string, avatar: string): ThunkUserType => {
     return async (dispatch: any) => {
         dispatch(actionsUser.switchIsAddButton(true));
         await API.postFriendFollow(id)

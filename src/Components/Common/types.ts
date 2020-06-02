@@ -45,7 +45,7 @@ export type DialogType = {
     id: number
     lastDialogActivityDate: string
     lastUserActivityDate: string
-    newMessagecount: number
+    newMessagesCount: number
     photos: PhotosType
     userName: string
     Temp: string

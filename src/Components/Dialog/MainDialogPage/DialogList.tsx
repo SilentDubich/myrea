@@ -1,11 +1,24 @@
-import React from "react";
+import React, {FC} from "react";
 import MiniDialogs from "./MiniDialogs/DialogsMini";
 import NoResultSearch from "../../Common/NoResultSearch";
+import {DialogType, ProfileType} from "../../Common/types";
+import {getUserAllMessagesThunk} from "../../DataBases/Reducers/MessagesReducer";
 
+type mapStateToPropsType = {
+    dialogs: Array<DialogType>
+    me: ProfileType,
+    tempSearch: string
+}
 
-function DialogLists(props) {
+type mapDispatchType = {
+    getUserAllMessagesThunk: (id: number, me: ProfileType) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchType
+
+export const DialogLists:FC<PropsType> = (props) => {
     let dialogsData
-    let pattern = new RegExp(props.tempSearch, ['giy']);
+    let pattern = new RegExp(props.tempSearch, 'giy');
     dialogsData = props.dialogs
         .map(dialog => {
                 if (props.tempSearch.length === 0 || dialog.userName.match(pattern)) {

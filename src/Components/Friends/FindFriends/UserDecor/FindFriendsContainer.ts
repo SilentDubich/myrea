@@ -1,16 +1,16 @@
 import React from "react";
 import {connect} from "react-redux";
-import Users from "./findFriends";
+import {Users} from "./findFriends";
 import {
     getProfileThunk,
     setAnotherProfile,
     actionsProfile
 } from "../../../DataBases/Reducers/ProfileInfoReducer";
+import {AppStateType} from "../../../DataBases/Redux/Store";
 
 
 
-let mapStateToProps = (state) => {
-    // debugger
+let mapStateToProps = (state: AppStateType) => {
     return{
         isFetching: state.usersReducer.isFetching
     }
