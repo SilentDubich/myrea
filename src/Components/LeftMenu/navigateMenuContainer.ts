@@ -1,16 +1,12 @@
-import React from "react";
 import {connect} from "react-redux";
 import {actionsProfile} from "../DataBases/Reducers/ProfileInfoReducer";
-import NavigateMenu from "./NavigateMenu";
+import {NavigateMenu} from "./NavigateMenu";
+import {AppStateType} from "../DataBases/Redux/Store";
 
 
-
-
-
-let mapStateToProps = state => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         freshDialogs: state.messageReducer.freshDialogs,
-
     }
 }
 

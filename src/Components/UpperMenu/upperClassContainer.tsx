@@ -4,7 +4,6 @@ import {UpperLogInfoContainer} from "./Login/upperLogInfoContainer";
 
 
 function UpperClassContainer() {
-
     return (
         <div className={`${UpMenu.container__menu}`}>
             <UpperLogInfoContainer/>

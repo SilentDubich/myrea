@@ -1,15 +1,26 @@
-import React from "react";
+import React, {FC} from "react";
 import Friends from '../../../CssModules/Friends/Friends.module.css'
 import Dialog from "../../../CssModules/Dialog/DialogFriend.module.css";
 import {NavLink} from "react-router-dom";
 import Content from "../../../CssModules/content.module.css";
 
+type mapStateToProps = {
+    tempSearch: string
+}
 
-function FriendsSearch(props) {
-    let temp = React.createRef();
+type mapDispatchType = {
+    updateSearch: (text: string) => void
+}
+
+type PropsType = mapStateToProps & mapDispatchType
+
+export const FriendsSearch:FC<PropsType> = (props) => {
+    let temp = React.createRef<HTMLInputElement>();
     let currentText = () => {
-        let text = temp.current.value;
-        props.updateSearch(text)
+        if (temp.current) {
+            let text = temp.current.value;
+            props.updateSearch(text)
+        }
     };
     return(
         <div className={Friends.container__displayFlex}>
@@ -26,5 +37,3 @@ function FriendsSearch(props) {
         </div>
     )
 }
-
-export default FriendsSearch

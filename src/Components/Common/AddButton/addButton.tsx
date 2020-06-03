@@ -1,9 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import Content from "../../../CssModules/content.module.css";
 import {API} from "../../DataBases/API/API";
+import {addUserThunk, DefaultStateType} from "../../DataBases/Reducers/UserReducer";
 
-function AddButton(props) {
-    // debugger
+type mapStateToPropsType = {
+    state: DefaultStateType
+    addButton: boolean
+    isFetching: boolean
+
+}
+
+type propsFromAnotherComponentType = {
+    id: number
+    followed: boolean
+    name: string
+    avatar: string
+}
+
+type mapDispatchType = {
+    addUserThunk: (id: number, name: string, avatar: string) => void
+    deleteUserThunk: (id: number) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchType & propsFromAnotherComponentType
+
+export const AddButton:FC<PropsType> = (props) => {
     let [follow, setFollow] = useState(props.followed)
 
     useEffect(() => {
@@ -52,5 +73,3 @@ function AddButton(props) {
         </div>
     )
 }
-
-export default AddButton

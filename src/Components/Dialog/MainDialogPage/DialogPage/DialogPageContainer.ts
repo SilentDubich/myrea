@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {actionsProfile, postProfilePhotoThunk, setAnotherProfile} from "../../../DataBases/Reducers/ProfileInfoReducer";
@@ -24,7 +24,7 @@ let mapStateToProps = (state: AppStateType) => {
 
 
 export const DialogPageContainer =
-    compose
+    compose<ComponentType>
     (
         connect(mapStateToProps,
             {deleteMessageThunk, setAnotherProfile,getUserAllMessagesThunk}),

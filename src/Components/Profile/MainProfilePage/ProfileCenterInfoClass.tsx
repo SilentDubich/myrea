@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import Displays from "../../../CssModules/DisplayView.module.css";
-import AvatarPhoto from "../Avatar/Avatar";
+import {AvatarPhoto} from "../Avatar/Avatar";
 import {MainInfo} from "../MainInfo/nameAndAbout";
 import PostRedactorContainer from "../PostRedactor/PostRedactorContainer";
 import {PostsClassContainer} from "../MyPosts/postsClassContainer";

@@ -1,16 +1,23 @@
-import React from "react";
+import React, {FC} from "react";
 import MenuLeft from '../../CssModules/LeftMenu/menu.module.css'
 import {NavLink} from "react-router-dom";
-import {setProfile} from "../DataBases/Reducers/ProfileInfoReducer";
-function NavigateMenu(props) {
+
+
+type mapStateToPropsType = {
+    freshDialogs: number
+    setProfile: (val: boolean) => void
+}
+
+export const NavigateMenu: FC<mapStateToPropsType> = (props) => {
     let goToMyProfile = () => {
         props.setProfile(true)
     }
-    return(
+    return (
         <nav>
             <ul className={`${MenuLeft.container__menu_grid}`}>
                 <li>
-                    <NavLink onClick={goToMyProfile} to='/profile' className={`${MenuLeft.container__menu_decoration}`}>Profile</NavLink>
+                    <NavLink onClick={goToMyProfile} to='/profile'
+                             className={`${MenuLeft.container__menu_decoration}`}>Profile</NavLink>
                 </li>
                 <li>
                     <NavLink to='/dialogs' className={`${MenuLeft.container__menu_decoration}`}>Messages
@@ -28,5 +35,3 @@ function NavigateMenu(props) {
         </nav>
     )
 }
-
-export default NavigateMenu

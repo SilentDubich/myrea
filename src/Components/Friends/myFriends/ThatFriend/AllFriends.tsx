@@ -1,10 +1,23 @@
-import React from "react";
-import ThatFriend from "./ThatFriend";
+import React, {FC} from "react";
+import {ThatFriend} from "./ThatFriend";
 import NoResultSearch from "../../../Common/NoResultSearch";
+import {FriendType} from "../../../Common/types";
 
-function AllFriends(props) {
-    // debugger
-    let pattern = new RegExp(props.tempSearch, ['giy'] );
+type mapStateToPropsType = {
+    friends: Array<FriendType>,
+    tempSearch: string
+    isFetching: boolean
+}
+
+type mapDispatchType = {
+    getProfileThunk: (id: number, who: string) => void
+    setAnotherProfile: (id: number, who: string) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchType
+
+export const AllFriends:FC<PropsType> = (props) => {
+    let pattern = new RegExp(props.tempSearch, 'giy' );
     let allFriends = props.friends
         .map(char => {
             if (props.tempSearch.length === 0 || char.name.match(pattern)) {
@@ -13,6 +26,7 @@ function AllFriends(props) {
                     id={char.id}
                     name={char.name}
                     img={char.avatar}
+                    isFetching={props.isFetching}
                     getProfileThunk={props.getProfileThunk}
                     setAnotherProfile={props.setAnotherProfile}
                 />
@@ -33,5 +47,3 @@ function AllFriends(props) {
         </div>
     )
 }
-
-export default AllFriends;

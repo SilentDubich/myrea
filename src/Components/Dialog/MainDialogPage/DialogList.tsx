@@ -2,7 +2,6 @@ import React, {FC} from "react";
 import MiniDialogs from "./MiniDialogs/DialogsMini";
 import NoResultSearch from "../../Common/NoResultSearch";
 import {DialogType, ProfileType} from "../../Common/types";
-import {getUserAllMessagesThunk} from "../../DataBases/Reducers/MessagesReducer";
 
 type mapStateToPropsType = {
     dialogs: Array<DialogType>

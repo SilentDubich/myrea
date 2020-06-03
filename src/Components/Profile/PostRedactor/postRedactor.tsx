@@ -1,28 +1,41 @@
-import React from "react";
+import React, {FC} from "react";
 import Content from "../../../CssModules/content.module.css";
+import {ProfileType} from "../../Common/types";
 
-function PostRedactor(props) {
-    let ref = React.createRef();
+type mapStateType = {
+    Temp: string
+    currentProfile: boolean
+}
+
+type mapDispatchType = {
+    updatePostTextCreation: (text: string) => void
+    postCreation: (currentProfile: boolean) => void
+}
+
+type PropsType = mapStateType & mapDispatchType
+
+export const PostRedactor:FC<PropsType> = (props) => {
+    let ref = React.createRef<HTMLTextAreaElement>();
     let setPostClick = () => {
-        let text = ref.current.value;
-        if (text){
-            props.setPost(props.currentProfile)
+        if (ref.current) {
+            props.postCreation(props.currentProfile)
         }
     };
 
-    let setPostKeyPress = event => {
-        let text = ref.current.value;
-        if (text){
+    let setPostKeyPress = (event: React.KeyboardEvent) => {
+        if (ref.current){
             if (event.which === 13){
-                props.setPost(props.currentProfile);
+                props.postCreation(props.currentProfile);
                 event.preventDefault()
             }
         }
     };
 
     let currentText = () => {
-        let text = ref.current.value;
-        props.currentText(text)
+        if (ref.current) {
+            let text = ref.current.value;
+            props.updatePostTextCreation(text)
+        }
     };
 
     return(
@@ -47,4 +60,3 @@ function PostRedactor(props) {
         </div>
     )
 }
-export default PostRedactor

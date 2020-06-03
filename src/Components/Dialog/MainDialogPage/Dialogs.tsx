@@ -5,7 +5,6 @@ import Dialog from '../../../CssModules/Dialog/DialogFriend.module.css';
 
 type mapStateToPropsType = {
     tempSearch: string
-    DialogsListContainer: React.Component<any, any>
 }
 
 type mapDispatchProps = {
@@ -14,9 +13,6 @@ type mapDispatchProps = {
 
 type PropsType = mapStateToPropsType & mapDispatchProps
 
-function DialogsListContainerRender(Elem: new() => React.Component<any, any>) {
-    return <Elem/>;
-}
 
 
 export const Dialogs:FC<PropsType> = (props) => {

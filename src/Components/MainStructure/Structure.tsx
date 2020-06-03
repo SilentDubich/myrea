@@ -1,12 +1,12 @@
 import Text from "../mainText";
 import React from "react";
-import {UpperClassContainerTwo} from "../UpperMenu/upperClassContainerX2";
+import UpperClassContainer from "../UpperMenu/upperClassContainer";
 
-function MacketApp(props) {
+function MacketApp(props: any) {
     return (
         <div>
             <div>
-                <UpperClassContainerTwo/>
+                <UpperClassContainer/>
             </div>
             <div className='container'>
                 <Text/>

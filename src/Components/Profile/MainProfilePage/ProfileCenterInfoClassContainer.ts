@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {actionsProfile, postProfilePhotoThunk,} from "../../DataBases/Reducers/ProfileInfoReducer";
 import {ProfileCenterInfoClass} from "./ProfileCenterInfoClass";
@@ -22,7 +22,7 @@ let mapStateToProps = (state: AppStateType) => {
 
 const getProfile = actionsProfile.getProfile
 
-export const ProfileCenterInfoClassContainer = compose(
+export const ProfileCenterInfoClassContainer = compose<ComponentType>(
     connect(mapStateToProps, {getProfile, postProfilePhotoThunk, putNewDialogThunk}),
     authRedirect
 )(ProfileCenterInfoClass)

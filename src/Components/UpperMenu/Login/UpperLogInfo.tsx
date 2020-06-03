@@ -1,10 +1,20 @@
-import React from "react";
+import React, {FC} from "react";
 import Person from '../../../CssModules/UpperMenu/UpperMenu.module.css'
-import Content from '../../../CssModules/content.module.css'
 import {NavLink} from "react-router-dom";
 
+type mapStateType = {
+    didLog: boolean
+    Avatar: string
+}
 
-function UpperLogInfo(props) {
+type mapDispatchType = {
+    postLogOutThunk: () => void
+}
+
+type PropsType = mapStateType & mapDispatchType
+
+
+export const UpperLogInfo:FC<PropsType> = (props) => {
     let loginButtonClasses = `
     ${Person.log__margin} 
     ${Person.log__padding}
@@ -45,6 +55,3 @@ function UpperLogInfo(props) {
     )
 
 }
-
-
-export default UpperLogInfo

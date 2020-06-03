@@ -1,11 +1,26 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import Content from "../../../CssModules/content.module.css";
 import emptyPhoto from '../../../img/Avatars/nullPhoto.jpg'
 import AddButtonContainer from "../../Common/AddButton/addButtonContainer";
 import MyEditor from "./AvatarEditor";
 import buttonsS from "../../../CssModules/buttonsUnderAva.module.css"
 
-function AvatarPhoto(props) {
+type mapStateType = {
+    avatar: string
+    id: number
+    name: string
+    myProfile: boolean
+    followed: boolean
+}
+
+type mapDispatchType = {
+    updatePhoto: (formData: File, id: number) => void
+    putNewDialogThunk: (id: number) => void
+}
+
+type PropsType = mapStateType & mapDispatchType
+
+export const AvatarPhoto:FC<PropsType> = (props) => {
     const [avatar, setAvatar] = useState(props.avatar)
     useEffect(() => {
         setAvatar(props.avatar)
@@ -28,13 +43,7 @@ function AvatarPhoto(props) {
                 props.myProfile
                     ?
                     <div>
-                        <MyEditor
-                            updatePhoto={props.updatePhoto}
-                            id={props.id}
-                            uploadPhoto={props.uploadPhoto}
-                            updatePhotoSize={props.updatePhotoSize}
-                            tempPhoto={props.tempPhoto}
-                        />
+                        <MyEditor updatePhoto={props.updatePhoto} id={props.id}/>
                     </div>
                     :
                     <div>
@@ -55,5 +64,3 @@ function AvatarPhoto(props) {
         </div>
     )
 }
-
-export default AvatarPhoto

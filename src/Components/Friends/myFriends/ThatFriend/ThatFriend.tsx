@@ -1,10 +1,24 @@
-import React from "react";
+import React, {FC} from "react";
 import {NavLink} from "react-router-dom";
 import Dialog from "../../../../CssModules/Dialog/DialogFriend.module.css";
 import Friend from "../../../../CssModules/Profile/FriendList/Friends.module.css";
 
-function ThatFriend(props) {
-    let throwProfileInfo = e => {
+type mapStateToPropsType = {
+    id: number
+    name: string
+    img: string
+    isFetching: boolean
+}
+
+type mapDispatchType = {
+    getProfileThunk: (id: number, who: string) => void
+    setAnotherProfile: (id: number, who: string) => void
+}
+
+type PropsType = mapStateToPropsType & mapDispatchType
+
+export const ThatFriend: FC<PropsType> = (props) => {
+    let throwProfileInfo = (e: React.MouseEvent) => {
         if (props.isFetching) return e.preventDefault()
         props.setAnotherProfile(props.id, 'notMe')
     }
@@ -22,5 +36,3 @@ function ThatFriend(props) {
         </div>
     )
 }
-
-export default ThatFriend

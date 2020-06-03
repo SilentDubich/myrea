@@ -6,7 +6,6 @@ import {PagesContainer} from "./PagesButtons/pagesContainer";
 import Preloader from "../../../Common/Preloader";
 import Preloaders from '../../../../CssModules/Preloader/Preloaders.module.css'
 import {DefaultStateType} from "../../../DataBases/Reducers/UserReducer";
-import {UserType} from "../../../Common/types";
 
 type mapStateToPropsType = {
     stateUsers: DefaultStateType

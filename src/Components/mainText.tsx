@@ -1,5 +1,4 @@
 import React, {Suspense} from "react";
-import NavigateMenu from "./LeftMenu/NavigateMenu";
 import Objects from '../CssModules/DisplayView.module.css';
 import {Redirect, Route, Switch} from "react-router-dom"
 import {AllUsersClassContainer} from "./Friends/FindFriends/AllUsers/allUsersClassContainer";
@@ -11,8 +10,7 @@ import {DialogContainer} from "./Dialog/MainDialogPage/DialogsContainer";
 import MyFriends from "./Friends/myFriends/myFriends";
 import {NavigateMenuContainer} from "./LeftMenu/navigateMenuContainer";
 
-
-function Text(props) {
+function Text(props: any) {
     let Profile = () => <ProfileCenterInfoClassContainer/>;
     let dialogs = () => <DialogContainer/>;
     let personDialog = () => <DialogPageContainer/>;

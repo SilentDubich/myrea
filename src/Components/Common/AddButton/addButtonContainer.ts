@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import AddButton from "./addButton";
+import {AddButton} from "./addButton";
 import {
     addUserThunk,
     deleteUserThunk,
@@ -23,7 +23,7 @@ let mapStateToProps = (state: AppStateType) => {
 
 const AddButtonContainer = connect(mapStateToProps,
     {
-        switchIsAddButton, addUserThunk,
+        addUserThunk,
         deleteUserThunk
     }
 )

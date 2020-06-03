@@ -1,7 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 import Subscribe from '../../../../CssModules/Profile/Subscribe/Subscribe.module.css'
 
-function Groups(props) {
+type mapStateType = {
+    Picture: string
+    GroupName: string
+}
+
+export const Groups:FC<mapStateType> = (props) => {
     return(
         <div>
             <img className={Subscribe.Group__Ava} src={props.Picture}/>
@@ -9,5 +14,3 @@ function Groups(props) {
         </div>
     )
 }
-
-export default Groups
