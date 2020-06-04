@@ -80,7 +80,7 @@ export const putStatusThunk = (status: string): ThunkProfileType => {
 };
 
 
-export const putProfileInfoThunk = (data: any, id: number): ThunkProfileType => {
+export const putProfileInfoThunk = (data: ProfileType, id: number): ThunkProfileType => {
     return async (dispatch) => {
         await API.putProfileInfo(data)
         let response = await API.getProfile(id)

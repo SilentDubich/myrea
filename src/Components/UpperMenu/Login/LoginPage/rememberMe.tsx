@@ -4,25 +4,20 @@ import {renderField} from "../../../Validations/LoginValidate/loginAsyncForm";
 import settingsS from "../../../../CssModules/Settings/settingsStyles.module.css";
 
 
-function PasswordField(props) {
+function RememberMe(props: any) {
     const containerClasses = `${settingsS.settings_container__flex} ${settingsS.settings_container__margin}`
     const paramClasses = `${settingsS.settings_param__decor}`
-    const inputClasses = `${settingsS.settings_input__decor} ${settingsS.settings_input__padding} ${settingsS.settings_input__margins}`
+    const inputClasses = `${settingsS.settings_checkbox}`
     return (
         <div className={containerClasses}>
             <div className={paramClasses}>
-                <span>Password:</span>
+                <span>Remember me:</span>
             </div>
             <div className={inputClasses}>
-                {CreateFieldForm({
-                    name: 'password',
-                    type: 'password',
-                    component: renderField('input'),
-                    label: 'Password'
-                })}
+                {CreateFieldForm<'remember'>('remember', 'checkbox', renderField('input'), 'Remember me')}
             </div>
         </div>
     )
 }
 
-export default PasswordField
+export default RememberMe

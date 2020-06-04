@@ -16,7 +16,7 @@ export const actionsLogin = {
     getCaptcha: (cap: string | null) => ({type: 'LoginReducer/getCaptcha', cap} as const)
 }
 
-export const postLogThunk = (email: string, password: number, remember: boolean, captcha: string): ThunkLoginType => {
+export const postLogThunk = (email: string, password: string, remember: boolean, captcha: string): ThunkLoginType => {
     return async (dispatch) => {
         dispatch(actionsLogin.buttonAction(true))
         let response = await API.postLog(email, password, remember, captcha)

@@ -1,11 +1,12 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {
     postLogThunk,
 } from "../../../DataBases/Reducers/LoginReducer";
-import LoginPage from "./LoginPage";
+import {LoginPage} from "./LoginPage";
+import {AppStateType} from "../../../DataBases/Redux/Store";
 
-let mapStateToProps = state => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         buttonRequest: state.loginReducer.buttonRequest,
         captcha: state.loginReducer.captcha,
@@ -15,9 +16,9 @@ let mapStateToProps = state => {
 };
 
 
+// @ts-ignore
 export const LoginReduxForm = connect(mapStateToProps,
-    {
-        postLogThunk
-    },
+    {postLogThunk}
+    // @ts-ignore
 )(LoginPage)
 

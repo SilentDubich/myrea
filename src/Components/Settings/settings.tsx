@@ -1,13 +1,35 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import ChangeAboutMe from "./ChangeAboutMe/changeAboutMe";
 import ChangeContacts from "./ChangeContacts/changeContacts";
 import ChangeLookJob from "./ChangeLookJob/changeLookJob";
 import ChangeName from "./СhangeName/changeNameClass";
 import settingsS from "../../CssModules/Settings/settingsStyles.module.css"
 import Content from "../../CssModules/content.module.css";
+import {ContactsType, ProfileType} from "../Common/types";
+import {InjectedFormProps} from "redux-form";
 
-function Settings(props) {
-    let onSubmit = async data => {
+type mapStateType = {
+    id: number
+    initialValues: ProfileType,
+    contacts: ContactsType
+}
+
+type mapDispatchType = {
+    putProfileInfoThunk: (data: any, id: number) => void
+}
+
+type submitType = {
+    fullName: string
+    contacts: ContactsType
+    aboutMe: string
+    lookingForAJobDescription: string
+    lookingForAJob: boolean
+}
+
+type PropsType = mapStateType & mapDispatchType & submitType
+
+export const Settings:FC<InjectedFormProps<PropsType> & PropsType> = (props) => {
+    let onSubmit = async (data: submitType) => {
         setDisabled(true)
         await props.putProfileInfoThunk(data, props.id)
         setDisabled(false)
@@ -29,6 +51,3 @@ function Settings(props) {
         </div>
     )
 }
-
-
-export default Settings

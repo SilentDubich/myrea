@@ -1,10 +1,13 @@
 import React from "react";
-import {CreateFieldForm} from "../../Common/createFieldForm";
+import {CreateFieldForm, GetStringKeys} from "../../Common/createFieldForm";
 import {renderField} from "../../Validations/LoginValidate/loginAsyncForm";
 import settingsS from "../../../CssModules/Settings/settingsStyles.module.css"
+import {ContactsType} from "../../Common/types";
+
+type PropsType = { contacts: ContactsType }
 
 
-function ChangeContacts(props) {
+function ChangeContacts(props: PropsType) {
     const containerClasses = `${settingsS.settings_container__flex} ${settingsS.settings_container__margin}`
     const paramClasses = `${settingsS.settings_param__decor}`
     const inputClasses = `${settingsS.settings_input__decor} ${settingsS.settings_input__padding} ${settingsS.settings_input__margins}`
@@ -19,12 +22,7 @@ function ChangeContacts(props) {
                             </span>
                         </div>
                         <div className={inputClasses}>
-                            {CreateFieldForm({
-                                name: `contacts.${key}`,
-                                type: 'text',
-                                component: renderField('input'),
-                                label: `Your ${key} link`
-                            })}
+                            {CreateFieldForm<any>(`contacts.${key}`, 'text', renderField('input'), `Your ${key} link`)}
                         </div>
                     </div>
                 )
@@ -32,5 +30,4 @@ function ChangeContacts(props) {
         </div>
     )
 }
-
 export default ChangeContacts
