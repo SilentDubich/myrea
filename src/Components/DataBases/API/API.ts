@@ -13,7 +13,8 @@ import {DialogType, LoginType, MessageType, PhotosType, ProfileType} from "../..
 const instance = axios.create({
     withCredentials: true,
     headers: {
-        'API-KEY': '8d2e390a-6ddc-4d40-87d5-55b4df812b3f',
+        // 'API-KEY': '8d2e390a-6ddc-4d40-87d5-55b4df812b3f',
+        'API-KEY': '92f663dc-a854-487f-b2f1-2d8848f605fc',
         // 'API-KEY': '750fc5a8-75a5-4ef1-94f4-80017fafe472',
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
@@ -130,7 +131,7 @@ export const API = {
             })
     },
     getCaptcha() {
-        return instance.get<GetCaptcha>(`security/get-captcha-url`)
+        return  instance.get<GetCaptcha>(`security/get-captcha-url`)
             .then(response => {
                 return response.data.url
             })

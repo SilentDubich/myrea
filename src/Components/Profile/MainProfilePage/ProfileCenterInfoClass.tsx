@@ -58,7 +58,7 @@ export const ProfileCenterInfoClass:FC<PropsType> = (props) => {
                 </div>
                 <div className={Displays.inside_ProfileRight__FlexProportion}>
                     <MainInfo
-                        name={props.currentProfile.fullName}
+                        name={props.currentProfile.fullName || 'No name'}
                         status={props.currentProfile.status}
                         aboutMe={props.currentProfile.aboutMe}
                         skills={props.currentProfile.lookingForAJobDescription}

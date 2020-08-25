@@ -27,12 +27,7 @@ export function FriendsInstructions(state = defaultStateFriends, action: ActionT
             action.data.avatar = action.data.avatar || emptyPhoto
             return {...state, friends: [...state.friends, action.data]}
         case "FriendsReducer/deleteFriend":
-            for (let i = 0; i < stateCopy.length; i++) {
-                if (stateCopy[i].id === action.id) {
-                    stateCopy.splice(i, 1)
-                }
-            }
-            return stateCopy;
+            return {...state, friends: state.friends.filter( el => el.id !== action.id)}
         case "FriendsReducer/loadFriends":
             for (let i = 0; i < action.data.length; i++) {
                 action.data[i].avatar = action.data[i].photos.large || emptyPhoto

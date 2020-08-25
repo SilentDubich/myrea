@@ -26,7 +26,7 @@ export const Input:FC<PropsType> = (props) => {
         if (event.which === 13 && ref.current) {
             let text = ref.current.value
             props.postMessageThunk(props.id, text, props.me)
-            ref.current.value = ''
+            // ref.current.value = ''
         }
     }
     let currentText = () => {

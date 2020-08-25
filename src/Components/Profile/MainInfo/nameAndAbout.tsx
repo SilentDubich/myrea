@@ -15,8 +15,8 @@ type MapStatePropsType = {
 
 export const MainInfo:FC<MapStatePropsType> = (props) => {
     const [more, setMore] = useState(false)
-    const keys = Object.keys(props.contacts)
-    const values = Object.values(props.contacts)
+    const keys = props.contacts && Object.keys(props.contacts)
+    const values = props.contacts && Object.values(props.contacts)
     let index = 0
     const containerClasses = `${InfoS.mainInfo_contacts__flexDisplay}`
     const valueClasses = `${InfoS.mainInfo_value__margin} ${InfoS.mainInfo_value__width} ${InfoS.mainInfo_value__decor}`
@@ -41,10 +41,7 @@ export const MainInfo:FC<MapStatePropsType> = (props) => {
                     <div className={keyClasses}><span>In searching:</span></div>
                     <div className={valueClasses}><span>{props.search ? 'Yes' : 'No'}</span></div>
                 </div>
-                {!more &&
-                <div onClick={() => setMore(true)} className={showMoreClasses}><span>Show more information</span></div>}
-                {more &&
-                <div onClick={() => setMore(false)} className={showMoreClasses}><span>Hide more information</span>
+                {keys && <div onClick={() => setMore(!more)} className={showMoreClasses}><span>{more ? 'Hide' : 'Show'} more information</span>
                 </div>}
                 {more && keys.map(key => {
                     return (

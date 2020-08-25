@@ -11,9 +11,10 @@ function ChangeContacts(props: PropsType) {
     const containerClasses = `${settingsS.settings_container__flex} ${settingsS.settings_container__margin}`
     const paramClasses = `${settingsS.settings_param__decor}`
     const inputClasses = `${settingsS.settings_input__decor} ${settingsS.settings_input__padding} ${settingsS.settings_input__margins}`
+    const keys = props.contacts && Object.keys(props.contacts) || ['facebook', 'website', 'vk', 'twitter', 'instagram', 'youtube', 'github', 'mainLink']
     return (
         <div>
-            {Object.keys(props.contacts).map(key => {
+            { keys.map(key => {
                 return (
                     <div key={key} className={containerClasses}>
                         <div className={paramClasses}>
