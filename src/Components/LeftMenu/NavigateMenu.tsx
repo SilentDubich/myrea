@@ -23,7 +23,6 @@ export const NavigateMenu: FC<mapStateToPropsType> = (props) => {
                     <NavLink to='/dialogs' className={`${MenuLeft.container__menu_decoration}`}>Messages
                         {props.freshDialogs > 0 && ' +' + props.freshDialogs}
                     </NavLink>
-
                 </li>
                 <li>
                     <NavLink to='/friends' className={`${MenuLeft.container__menu_decoration}`}>Friends</NavLink>

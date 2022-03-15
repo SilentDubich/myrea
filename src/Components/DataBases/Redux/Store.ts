@@ -9,7 +9,7 @@ import {LoginInstructions} from "../Reducers/LoginReducer";
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from "redux-form";
 
-let allReduces = combineReducers(
+const allReduces = combineReducers(
     {
         postsReducer: PostsInstructions,
         messageReducer: MessagesInstructions,

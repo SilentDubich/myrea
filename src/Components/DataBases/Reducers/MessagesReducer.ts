@@ -32,7 +32,7 @@ export const putNewDialogThunk = (id: number): ThunkMessageType => {
 export const postMessageThunk = (id: number, message: string, me: ProfileType): ThunkMessageType => {
     return async (dispatch) => {
         await API.postMessage(id, message)
-        await dispatch(getDialogThunk(id, me))
+        await dispatch(getDialogThunk(id, me));
     }
 };
 

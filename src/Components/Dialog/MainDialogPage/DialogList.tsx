@@ -15,7 +15,7 @@ type mapDispatchType = {
 
 type PropsType = mapStateToPropsType & mapDispatchType
 
-export const DialogLists:FC<PropsType> = (props) => {
+export const DialogLists:FC<PropsType> = props => {
     let dialogsData
     let pattern = new RegExp(props.tempSearch, 'giy');
     dialogsData = props.dialogs

@@ -5,6 +5,7 @@ import {LoginType} from "../../Common/types";
 import {AppStateType, InferActionsTypes} from "../Redux/Store";
 import {ThunkAction} from "redux-thunk";
 import {ResultCodeCaptcha, ResultCodes} from "../../Common/typesAPI";
+
 type ActionLoginTypes = InferActionsTypes<typeof actionsLogin>
 export type ThunkLoginType = ThunkAction<Promise<void>, AppStateType, unknown, ActionLoginTypes>
 
@@ -17,7 +18,6 @@ export const actionsLogin = {
 
 export const postLogThunk = (email: string, password: string, remember: boolean, captcha: string): ThunkLoginType => {
     return async (dispatch) => {
-        debugger
         dispatch(actionsLogin.buttonAction(true))
         let response = await API.postLog(email, password, remember, captcha)
         if (response.data.resultCode === ResultCodes.Success) {
@@ -66,3 +66,4 @@ export function LoginInstructions(state = defaultStateLogin, action: ActionLogin
             return state
     }
 }
+

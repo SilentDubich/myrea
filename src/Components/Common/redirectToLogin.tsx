@@ -18,7 +18,6 @@ type mapStateToPropsType = {
 export const authRedirect = (Component: React.ComponentType<any>) => {
 
     class RedirectComponent extends React.Component<mapStateToPropsType> {
-
         render() {
             if (!this.props.isLogged && this.props.initialized) return <Redirect to='/login'/>;
             return <Component {...this.props}/>

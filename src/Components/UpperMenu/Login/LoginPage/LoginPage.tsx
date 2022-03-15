@@ -24,6 +24,7 @@ export const LoginPage:FC<PropsType> = (props) => {
     ${Person.log__button} 
     `;
     if (props.isLogged && props.initialized) return <Redirect to='/profile'/>;
+
     return (
         <div>
             <AsyncValidationForm
@@ -31,6 +32,7 @@ export const LoginPage:FC<PropsType> = (props) => {
                 logThunk={props.postLogThunk}
                 class={buttonLoginClasses}
                 captcha={props.captcha}
+                // @ts-ignore
                 initialValues={{'remember': false}}
             />
         </div>

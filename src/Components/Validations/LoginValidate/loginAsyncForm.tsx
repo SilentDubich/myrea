@@ -81,12 +81,14 @@ const AsyncValidationForm:FC<InjectedFormProps<PropsType> & PropsType> = (props)
     )
 }
 
+
 export default reduxForm<ComponentType>({
     form: 'asyncValidation', // a unique identifier for this form
     //@ts-ignore
     validate,
     asyncValidate,
     asyncBlurFields: ['email'],
+    // @ts-ignore
 })(AsyncValidationForm)
 
 
