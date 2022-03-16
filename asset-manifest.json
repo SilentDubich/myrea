@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/myrea/static/css/main.1aab5f95.chunk.css",
-    "main.js": "/myrea/static/js/main.98025a9e.chunk.js",
-    "main.js.map": "/myrea/static/js/main.98025a9e.chunk.js.map",
+    "main.js": "/myrea/static/js/main.7c252485.chunk.js",
+    "main.js.map": "/myrea/static/js/main.7c252485.chunk.js.map",
     "runtime-main.js": "/myrea/static/js/runtime-main.90bfc7c1.js",
     "runtime-main.js.map": "/myrea/static/js/runtime-main.90bfc7c1.js.map",
-    "static/css/2.f7e5fa38.chunk.css": "/myrea/static/css/2.f7e5fa38.chunk.css",
-    "static/js/2.bb391ca7.chunk.js": "/myrea/static/js/2.bb391ca7.chunk.js",
-    "static/js/2.bb391ca7.chunk.js.map": "/myrea/static/js/2.bb391ca7.chunk.js.map",
+    "static/css/2.1bce3852.chunk.css": "/myrea/static/css/2.1bce3852.chunk.css",
+    "static/js/2.50dba73e.chunk.js": "/myrea/static/js/2.50dba73e.chunk.js",
+    "static/js/2.50dba73e.chunk.js.map": "/myrea/static/js/2.50dba73e.chunk.js.map",
     "index.html": "/myrea/index.html",
-    "precache-manifest.b37a89a94b2c9d670574f3e508e56ac3.js": "/myrea/precache-manifest.b37a89a94b2c9d670574f3e508e56ac3.js",
+    "precache-manifest.ddcb18970976466392a7f1b650a26c86.js": "/myrea/precache-manifest.ddcb18970976466392a7f1b650a26c86.js",
     "service-worker.js": "/myrea/service-worker.js",
-    "static/css/2.f7e5fa38.chunk.css.map": "/myrea/static/css/2.f7e5fa38.chunk.css.map",
+    "static/css/2.1bce3852.chunk.css.map": "/myrea/static/css/2.1bce3852.chunk.css.map",
     "static/css/main.1aab5f95.chunk.css.map": "/myrea/static/css/main.1aab5f95.chunk.css.map",
-    "static/js/2.bb391ca7.chunk.js.LICENSE.txt": "/myrea/static/js/2.bb391ca7.chunk.js.LICENSE.txt",
+    "static/js/2.50dba73e.chunk.js.LICENSE.txt": "/myrea/static/js/2.50dba73e.chunk.js.LICENSE.txt",
     "static/media/Spinner-1.4s-3a356a.svg": "/myrea/static/media/Spinner-1.4s-3a356a.4b7d2a00.svg",
     "static/media/ali.png": "/myrea/static/media/ali.56b5ac7d.png",
     "static/media/cat.jpeg": "/myrea/static/media/cat.587efa6e.jpeg",
@@ -27,9 +27,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.90bfc7c1.js",
-    "static/css/2.f7e5fa38.chunk.css",
-    "static/js/2.bb391ca7.chunk.js",
+    "static/css/2.1bce3852.chunk.css",
+    "static/js/2.50dba73e.chunk.js",
     "static/css/main.1aab5f95.chunk.css",
-    "static/js/main.98025a9e.chunk.js"
+    "static/js/main.7c252485.chunk.js"
   ]
 }

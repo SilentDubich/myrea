@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a07a2ab54d34c149b59c7b832c70a261",
+    "revision": "13fa119ad1d9046878d886f336cb51b1",
     "url": "/myrea/index.html"
   },
   {
-    "revision": "0111cfce0008efeb523a",
-    "url": "/myrea/static/css/2.f7e5fa38.chunk.css"
+    "revision": "2ac58ab439641cd8e7e4",
+    "url": "/myrea/static/css/2.1bce3852.chunk.css"
   },
   {
-    "revision": "8c2c4e268f79f8df62a3",
+    "revision": "178a78cfec58e0e37d2e",
     "url": "/myrea/static/css/main.1aab5f95.chunk.css"
   },
   {
-    "revision": "0111cfce0008efeb523a",
-    "url": "/myrea/static/js/2.bb391ca7.chunk.js"
+    "revision": "2ac58ab439641cd8e7e4",
+    "url": "/myrea/static/js/2.50dba73e.chunk.js"
   },
   {
-    "revision": "928d7b5eb39d16fe9a880722c974b51e",
-    "url": "/myrea/static/js/2.bb391ca7.chunk.js.LICENSE.txt"
+    "revision": "4ba1a1c11c57ed15aa68008707a3d6b4",
+    "url": "/myrea/static/js/2.50dba73e.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "8c2c4e268f79f8df62a3",
-    "url": "/myrea/static/js/main.98025a9e.chunk.js"
+    "revision": "178a78cfec58e0e37d2e",
+    "url": "/myrea/static/js/main.7c252485.chunk.js"
   },
   {
     "revision": "3db3f499c85afe10b114",

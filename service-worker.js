@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/myrea/precache-manifest.b37a89a94b2c9d670574f3e508e56ac3.js"
+  "/myrea/precache-manifest.ddcb18970976466392a7f1b650a26c86.js"
 );
 
 self.addEventListener('message', (event) => {
